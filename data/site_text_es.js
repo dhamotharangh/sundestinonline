@@ -12,6 +12,7 @@ window.SDO_SITE_ES = {
     title2: "desde tu balcón privado",
     sub: "Tu balcón está justo sobre la piscina y la arena, así que vigilas a los niños desde tu silla. Condominio frente al mar en el 2.º piso de Sun Destin Beach Resort, Destin FL. Capacidad para 6.",
     sub_strong: "De la puerta a la arena en menos de un minuto.",
+    sub2: "Despierta frente al Golfo de México color esmeralda en este cuidado condominio del 2.º piso. Desde el balcón estás tan cerca que oyes las olas y tan bajo que puedes contar las sombrillas sobre la arena blanca como el azúcar.",
     cta: "Ver fechas",
     line: ["Sin comisión de plataforma", "Reserva directa con el propietario", "El precio que ves es el que pagas"]
   },
