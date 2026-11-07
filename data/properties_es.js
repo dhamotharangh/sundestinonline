@@ -18,7 +18,7 @@ window.SDO_PROPERTIES_ES = {
       ["Interior",        "kitchen", ["Cocina totalmente equipada", "Barra de desayuno", "Lavavajillas y microondas", "Cafetera", "Televisores de pantalla plana en sala y dormitorio"]],
       ["Confort",         "wifi", ["Wi-Fi gratis", "Estacionamiento gratis", "Aire acondicionado central", "Sábanas y toallas incluidas", "Secador de pelo", "2.º piso, un tramo de escaleras"]]
     ],
-    nearby_dist: ["menos de un minuto: sales por la puerta, bajas un tramo de escaleras y cruzas la terraza de la piscina", "a 1 milla", "a 2 millas", "a 3 millas", "a 4 millas", "a 25 minutos"],
+    nearby_dist: ["menos de un minuto", "a 1 milla", "a 2 millas", "a 3 millas", "a 4 millas", "a 25 minutos"],
     faq: [
       ["¿Cómo reservo?", "Envía una consulta con tus fechas. El propietario responde en un día con un presupuesto y le pagas directamente. En este sitio no hay comisión de plataforma."],
       ["¿Cómo son las camas?", "Una cama queen en el dormitorio, un sofá cama queen en la sala y dos literas individuales empotradas junto a la entrada. Capacidad para 6."],

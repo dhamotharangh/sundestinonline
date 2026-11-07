@@ -59,7 +59,7 @@ window.SDO_PROPERTIES = [
     rates_note: "Sample rates for layout only. The owner confirms live nightly rates, minimum stays and fees before launch.",
     /* nearby: [name, distance text, lat, lng]. Coordinates are approximate; adjust if a pin sits wrong. */
     nearby: [
-      ["Beach", "under a minute: out the door, one flight down, across the pool deck"],
+      ["Beach", "under a minute"],
       ["Big Kahuna's Water & Adventure Park", "about 1 mi", 30.3936, -86.4546],
       ["Henderson Beach State Park", "about 2 mi", 30.3838, -86.4387],
       ["HarborWalk Village & Destin Harbor", "about 3 mi", 30.3935, -86.5085],
