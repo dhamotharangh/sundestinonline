@@ -91,9 +91,10 @@ section{padding:64px 0}
 .hero_title_soft{color:var(--accent)}
 .hero_sub{font-size:18px;color:var(--ink_2);max-width:48ch;margin:20px 0 22px}
 .hero_sub strong{color:var(--ink);font-weight:600}
-.hero_chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.hero_chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:0}
 .hero_chip{display:inline-flex;align-items:center;padding:7px 14px;border-radius:var(--pill);font-size:14px;font-weight:500;background:var(--sand);color:var(--ink)}
-.hero_photo{border-radius:var(--radius);overflow:hidden;min-height:340px;background:var(--tile_b);box-shadow:var(--shadow)}
+.hero_photo{border-radius:var(--radius);overflow:hidden;min-height:0;background:var(--tile_b);box-shadow:var(--shadow)}
+.hero_text{display:flex;flex-direction:column;justify-content:center}
 .hero_photo img{width:100%;height:100%;object-fit:cover}
 .hero_line{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:24px auto 0}
 .hero_pill{display:inline-flex;align-items:center;padding:8px 16px;border-radius:var(--pill);font-size:14px;font-weight:600;background:var(--sand);color:var(--ink)}
@@ -112,7 +113,7 @@ section{padding:64px 0}
 .gallery_tile.more{display:flex;align-items:center;justify-content:center;background:var(--tile_a);color:var(--tile_a_ink);font-weight:600;font-size:18px}
 
 /* ───────────── 6. Condo + amenities ───────────── */
-.condo_split{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+.condo_split{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
 .condo_desc{margin-top:22px;max-width:62ch;color:var(--ink_2)}
 .condo_facts{background:var(--page);border-radius:var(--radius);padding:28px}
 .condo_facts dl{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin:0}
@@ -139,7 +140,7 @@ section{padding:64px 0}
 .season_legend span{display:inline-flex;align-items:center;gap:8px}
 .season_legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
 .package_list{display:flex;flex-direction:column;gap:6px}
-.package_card{flex:none}
+.package_card{flex:1 0 auto}
 .package_card{display:grid;grid-template-columns:6px 1fr auto;gap:0 12px;align-items:center;background:var(--page);border-radius:var(--radius_sm);padding:8px 14px 8px 0;border:0;text-align:left;font:inherit;cursor:pointer;transition:transform .15s,box-shadow .15s;overflow:hidden}
 .package_card:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
 .package_card.on{outline:2px solid var(--accent)}
