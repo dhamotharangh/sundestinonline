@@ -7,7 +7,7 @@ Written 2026-11-06 after the owner's approval of the wireframe and the Emerald C
 
 ## 1. Purpose
 
-Build an **independent, owner-run promotional website** for one Gulf-front condo (SunDestin #203, Destin FL), ready to hold up to four or five sister units. The site exists for **digital promotion**: rank on Google for the property and the complex, look right when the link is shared on social or by text, and turn a visitor into a **direct inquiry to the owner**.
+Build an **independent, owner-run promotional website** for one beachfront condo (SunDestin #203, Destin FL), ready to hold up to four or five sister units. The site exists for **digital promotion**: rank on Google for the property and the complex, look right when the link is shared on social or by text, and turn a visitor into a **direct inquiry to the owner**.
 
 It is the single-property expression of the Owner Vacation Rentals thesis ("Own your booking. Keep more of it."). Here that becomes one guest-facing promise, and it is the headline of the page:
 
@@ -48,7 +48,7 @@ Three alternates ship in the theme dropdown and must stay within the same gramma
 ## 5. Page structure (home)
 
 1. **Top bar**: logo, Photos · The condo · Rates · Map · FAQ · All properties, theme dropdown, "Check dates".
-2. **Hero**: badge "Book direct with the owner", H1 "No platform fee. / Just you and the Gulf.", one-sentence sub, fact chips (1 bedroom · 1 bath · Sleeps 6 · 2nd floor · Gulf-front), two buttons, clean photo tile.
+2. **Hero**: badge "Book direct with the owner", H1 "No platform fee. / Just you and the Gulf.", one-sentence sub, fact chips (1 bedroom · 1 bath · Sleeps 6 · 2nd floor · beachfront), two buttons, clean photo tile.
 3. **Why book direct**: three tinted tiles. No platform fee · Talk to the owner · One clear policy.
 4. **Photos**: tag filters, bento grid of six tiles plus "+12 more", full-screen lightbox with keyboard and swipe.
 5. **The condo**: the owner's professional description beside a facts card (beds, floor, view, address).
@@ -101,4 +101,4 @@ Three alternates ship in the theme dropdown and must stay within the same gramma
 
 ## 11. The prompt in one paragraph
 
-> Design a modern, minimal, phone-first promotional website for one owner-run Gulf-front condo in Destin FL, extendable to five. Big rounded photo tiles, almost no words, one emerald-water accent on a white and sand page with Gulf-blue headlines. Headline "No platform fee. Just you and the Gulf." Sections in decision order: hero, why book direct, photos, the condo, amenities, rates with a season band and estimate, map, reviews, inquiry form, FAQ, footer. All copy in data files, not HTML. SEO and social tags, structured data, no frameworks, no build step. Never invent reviews or prices; mark placeholders.
+> Design a modern, minimal, phone-first promotional website for one owner-run beachfront condo in Destin FL, extendable to five. Big rounded photo tiles, almost no words, one emerald-water accent on a white and sand page with Gulf-blue headlines. Headline "No platform fee. Just you and the Gulf." Sections in decision order: hero, why book direct, photos, the condo, amenities, rates with a season band and estimate, map, reviews, inquiry form, FAQ, footer. All copy in data files, not HTML. SEO and social tags, structured data, no frameworks, no build step. Never invent reviews or prices; mark placeholders.

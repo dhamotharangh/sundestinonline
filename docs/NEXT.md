@@ -1,6 +1,6 @@
 # Where to pick up (saved 2026-11-06)
 
-Owner's direction for the next session: **simpler and more impactful**, like
+Done 2026-11-07: naming scheme, slim menu with phone bottom bar, trimmed hero, two-month drag calendar with packages, grouped amenities, Beachfront wording. Earlier direction kept for reference: **simpler and more impactful**, like
 `docs/reference/simple-layout-reference.webp` (the ChatGPT property-page wireframe):
 
 1. One big clean photo at the top: `images/kitchen_wide.jpg` (kitchen through to the Gulf, owner picked it 2026-11-06 as "wide and impressive"), full width, fact chips under it.

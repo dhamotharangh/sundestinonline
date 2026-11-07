@@ -1,22 +1,22 @@
 property_id,start,end,season,label,nightly,min_nights
-sd203,2026-01-01,2026-02-28,off,Off-season,149,2
-sd203,2026-03-01,2026-03-06,shoulder,Shoulder,219,3
-sd203,2026-03-07,2026-03-31,holiday,Spring break,339,5
-sd203,2026-04-01,2026-05-31,shoulder,Shoulder,219,3
-sd203,2026-06-01,2026-06-30,peak,Peak summer,299,5
-sd203,2026-07-01,2026-07-07,holiday,July 4th,339,5
-sd203,2026-07-08,2026-08-31,peak,Peak summer,299,5
-sd203,2026-09-01,2026-10-31,shoulder,Shoulder,219,3
-sd203,2026-11-01,2026-11-19,off,Off-season,149,2
-sd203,2026-11-20,2026-11-30,holiday,Thanksgiving,339,5
-sd203,2026-12-01,2026-12-19,off,Off-season,149,2
-sd203,2026-12-20,2027-01-03,holiday,Christmas and New Year,339,5
-sd203,2027-01-04,2027-02-28,off,Off-season,149,2
-sd203,2027-03-01,2027-03-05,shoulder,Shoulder,219,3
-sd203,2027-03-06,2027-03-31,holiday,Spring break,339,5
-sd203,2027-04-01,2027-05-31,shoulder,Shoulder,219,3
-sd203,2027-06-01,2027-06-30,peak,Peak summer,299,5
-sd203,2027-07-01,2027-07-07,holiday,July 4th,339,5
-sd203,2027-07-08,2027-08-31,peak,Peak summer,299,5
-sd203,2027-09-01,2027-10-31,shoulder,Shoulder,219,3
-sd203,2027-11-01,2027-12-31,off,Off-season,149,2
+sundestin_203,2026-01-01,2026-02-28,off,Off-season,149,2
+sundestin_203,2026-03-01,2026-03-06,shoulder,Shoulder,219,3
+sundestin_203,2026-03-07,2026-03-31,holiday,Spring break,339,5
+sundestin_203,2026-04-01,2026-05-31,shoulder,Shoulder,219,3
+sundestin_203,2026-06-01,2026-06-30,peak,Peak summer,299,5
+sundestin_203,2026-07-01,2026-07-07,holiday,July 4th,339,5
+sundestin_203,2026-07-08,2026-08-31,peak,Peak summer,299,5
+sundestin_203,2026-09-01,2026-10-31,shoulder,Shoulder,219,3
+sundestin_203,2026-11-01,2026-11-19,off,Off-season,149,2
+sundestin_203,2026-11-20,2026-11-30,holiday,Thanksgiving,339,5
+sundestin_203,2026-12-01,2026-12-19,off,Off-season,149,2
+sundestin_203,2026-12-20,2027-01-03,holiday,Christmas and New Year,339,5
+sundestin_203,2027-01-04,2027-02-28,off,Off-season,149,2
+sundestin_203,2027-03-01,2027-03-05,shoulder,Shoulder,219,3
+sundestin_203,2027-03-06,2027-03-31,holiday,Spring break,339,5
+sundestin_203,2027-04-01,2027-05-31,shoulder,Shoulder,219,3
+sundestin_203,2027-06-01,2027-06-30,peak,Peak summer,299,5
+sundestin_203,2027-07-01,2027-07-07,holiday,July 4th,339,5
+sundestin_203,2027-07-08,2027-08-31,peak,Peak summer,299,5
+sundestin_203,2027-09-01,2027-10-31,shoulder,Shoulder,219,3
+sundestin_203,2027-11-01,2027-12-31,off,Off-season,149,2

@@ -1,0 +1,264 @@
+/* SunDestin Online — one stylesheet for every page.
+   Names: snake_case, object first then part (gallery_tile, quote_calendar).
+   Sections: 1 tokens · 2 base · 3 header + nav · 4 hero · 5 gallery · 6 condo + amenities
+             7 rates (packages + calendar + quote) · 8 location · 9 reviews, inquiry, faq
+             10 footer · 11 gallery viewer · 12 property cards · 13 motion + phone */
+
+/* ───────────── 1. Tokens (themes switch this set) ───────────── */
+:root{
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+  --ink: #0E3A5B;  --ink_2: #4A6479;  --ink_3: #8A9BAA;
+  --accent: #0FA3A3; --accent_dark: #0B8282; --link: #1D7FA8;
+  --tile_a: #CFEFEA; --tile_a_ink: #085041;
+  --tile_b: #E3F2FA; --tile_b_ink: #0C447C;
+  --page: #FFFFFF; --sand: #F7F3EA; --line: #E4E9EE; --on_accent: #FFFFFF;
+  --footer_bg: #0E3A5B; --footer_ink: #CFE9F3; --footer_muted: #8FB3C9;
+  --season_off: #9AB7C9; --season_shoulder: #0FA3A3; --season_peak: #1D7FA8; --season_holiday: #0E3A5B;
+  --radius: 20px; --radius_sm: 12px; --pill: 999px;
+  --shadow: 0 10px 30px rgba(14,58,91,.10);
+  --max: 1180px;
+}
+:root[data-theme="deep_gulf"]{
+  --ink:#0B2A44; --ink_2:#3F5A72; --accent:#1D7FA8; --accent_dark:#15627F; --link:#0FA3A3;
+  --tile_a:#DCEBF5; --tile_b:#E8F6F4; --tile_a_ink:#0B2A44; --tile_b_ink:#085041; --sand:#F2F6F9;
+  --footer_bg:#0B2A44; --season_shoulder:#1D7FA8; --season_peak:#0FA3A3;
+}
+:root[data-theme="sunset_sand"]{
+  --ink:#2B3A48; --ink_2:#5E6E7C; --accent:#E8893D; --accent_dark:#C76F2A; --link:#1D7FA8;
+  --tile_a:#FBE9D7; --tile_b:#E3F2FA; --tile_a_ink:#6B3B12; --tile_b_ink:#0C447C; --sand:#FBF6EE;
+  --footer_bg:#2B3A48; --footer_ink:#F4E6D6; --footer_muted:#C9B29A;
+  --season_off:#D9C7B4; --season_shoulder:#E8893D; --season_peak:#C76F2A; --season_holiday:#2B3A48;
+}
+:root[data-theme="night_swim"]{
+  --ink:#E8F1F6; --ink_2:#B6C6D2; --ink_3:#7F93A3; --accent:#2FC4C4; --accent_dark:#1FA8A8; --link:#6CC1E6;
+  --tile_a:#113B45; --tile_b:#13304A; --tile_a_ink:#CFEFEA; --tile_b_ink:#DCEBF5;
+  --page:#0B1A26; --sand:#10222F; --line:#1F3442; --on_accent:#06202A;
+  --footer_bg:#071219; --footer_ink:#CFE9F3; --footer_muted:#7F93A3;
+  --shadow: 0 10px 30px rgba(0,0,0,.45);
+}
+
+/* ───────────── 2. Base ───────────── */
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--font);font-size:16px;line-height:1.6;color:var(--ink);background:var(--page);transition:background .25s,color .25s}
+img{display:block;max-width:100%}
+a{color:var(--link);text-decoration:none}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.02em;line-height:1.1}
+h1{font-size:clamp(34px,6vw,64px)}
+h2{font-size:clamp(26px,3.6vw,40px)}
+h3{font-size:18px;letter-spacing:0}
+p{margin:0 0 1em}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 20px}
+section{padding:64px 0}
+.kicker{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.lead{font-size:18px;color:var(--ink_2);max-width:60ch}
+.muted{color:var(--ink_2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:var(--pill);font-weight:600;font-size:15px;border:1.5px solid transparent;cursor:pointer;transition:transform .15s,background .15s,box-shadow .15s;font-family:inherit}
+.btn_primary{background:var(--accent);color:var(--on_accent)}
+.btn_primary:hover{background:var(--accent_dark);transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn_ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn_ghost:hover{background:var(--sand)}
+
+/* ───────────── 3. Header + slim nav ───────────── */
+.site_header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--page) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.site_header .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.site_logo{font-weight:700;font-size:18px;color:var(--ink);letter-spacing:-.01em;white-space:nowrap}
+.site_logo span{color:var(--accent)}
+.site_nav{display:flex;gap:4px;margin-left:auto;align-items:center}
+.site_nav a{white-space:nowrap;padding:8px 12px;border-radius:var(--pill);color:var(--ink_2);font-weight:500;font-size:14px}
+.site_nav a:hover,.site_nav a.active{color:var(--ink);background:var(--sand)}
+.site_header .btn{padding:9px 16px;font-size:14px}
+.site_theme{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--footer_muted)}
+.site_theme select{font:inherit;font-size:13px;color:var(--footer_ink);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:var(--pill);padding:6px 28px 6px 12px;appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238FB3C9' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}
+
+/* ───────────── 4. Hero: text left, clean photo right ───────────── */
+.hero{padding:40px 0 28px}
+.hero_grid{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(38px,5.2vw,68px)}
+.hero_title_soft{color:var(--accent)}
+.hero_sub{font-size:18px;color:var(--ink_2);max-width:48ch;margin:20px 0 22px}
+.hero_chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.hero_chip{display:inline-flex;align-items:center;padding:7px 14px;border-radius:var(--pill);font-size:14px;font-weight:500;background:var(--sand);color:var(--ink)}
+.hero_photo{border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;background:var(--tile_b);box-shadow:var(--shadow)}
+.hero_photo img{width:100%;height:100%;object-fit:cover}
+.hero_line{display:flex;flex-wrap:wrap;gap:8px 28px;justify-content:center;margin:28px auto 0;font-size:15px;font-weight:500;color:var(--ink_2)}
+.hero_line span::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--accent);margin-right:10px;vertical-align:1px}
+
+/* ───────────── 5. Gallery ───────────── */
+.gallery_filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
+.gallery_filters button{font:inherit;font-size:14px;font-weight:500;padding:8px 16px;border-radius:var(--pill);border:1px solid var(--line);background:transparent;color:var(--ink_2);cursor:pointer}
+.gallery_filters button.on{background:var(--tile_a);color:var(--tile_a_ink);border-color:transparent}
+.gallery_grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:220px;gap:12px}
+.gallery_tile{position:relative;border-radius:var(--radius);overflow:hidden;background:var(--tile_b);cursor:pointer;border:0;padding:0;text-align:left;font:inherit}
+.gallery_tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.gallery_tile:hover img{transform:scale(1.04)}
+.gallery_tile .cap{position:absolute;left:14px;bottom:12px;background:rgba(14,58,91,.72);color:#fff;font-size:13px;font-weight:500;padding:5px 12px;border-radius:var(--pill);backdrop-filter:blur(6px)}
+.gallery_tile.w2{grid-column:span 2}.gallery_tile.h2{grid-row:span 2}
+.gallery_tile.more{display:flex;align-items:center;justify-content:center;background:var(--tile_a);color:var(--tile_a_ink);font-weight:600;font-size:18px}
+
+/* ───────────── 6. Condo + amenities ───────────── */
+.condo_split{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
+.condo_desc{margin-top:22px;max-width:62ch;color:var(--ink_2)}
+.condo_facts{background:var(--page);border-radius:var(--radius);padding:28px}
+.condo_facts dl{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px;margin:0}
+.condo_facts dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink_3)}
+.condo_facts dd{margin:4px 0 0;font-weight:500}
+.condo_facts .wide{grid-column:1/-1}
+.condo_facts ul{margin:4px 0 0;padding-left:18px}
+.amenity_groups{display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.amenity_group svg{width:40px;height:40px;color:var(--accent);margin-bottom:12px}
+.amenity_group h3{font-size:20px;margin-bottom:10px;letter-spacing:-.01em}
+.amenity_group ul{list-style:none;margin:0;padding:0}
+.amenity_group li{padding:7px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink_2)}
+.amenity_group li:last-child{border-bottom:0}
+
+/* ───────────── 7. Rates: packages + calendar + quote ───────────── */
+.rates_grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:start}
+.season_band{display:flex;gap:4px;height:12px;margin:16px 0 6px}
+.season_band span{border-radius:6px;flex:1}
+.season_months{display:grid;grid-template-columns:repeat(12,1fr);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ink_3);text-align:center;margin-bottom:16px}
+.season_legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;margin-bottom:22px}
+.season_legend span{display:inline-flex;align-items:center;gap:8px}
+.season_legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.package_list{display:grid;gap:10px}
+.package_card{display:grid;grid-template-columns:6px 1fr auto;gap:0 16px;align-items:center;background:var(--page);border-radius:var(--radius_sm);padding:14px 16px 14px 0;border:0;text-align:left;font:inherit;cursor:pointer;transition:transform .15s,box-shadow .15s;overflow:hidden}
+.package_card:hover{transform:translateY(-1px);box-shadow:var(--shadow)}
+.package_card.on{outline:2px solid var(--accent)}
+.package_card i{display:block;height:100%;border-radius:0 3px 3px 0}
+.package_card b{display:block;font-size:16px;color:var(--ink)}
+.package_card small{display:block;font-size:13px;color:var(--ink_3)}
+.package_card .price{text-align:right;font-weight:700;font-size:18px;color:var(--ink)}
+.package_card .price small{font-weight:500}
+.rate_note{font-size:13px;color:var(--ink_3);margin-top:14px}
+.quote_card{background:var(--page);border-radius:var(--radius);padding:24px}
+.quote_card h3{margin-bottom:4px}
+.quote_hint{font-size:13px;color:var(--ink_3);margin-bottom:14px}
+.quote_calendar{display:grid;grid-template-columns:1fr 1fr;gap:20px;user-select:none;-webkit-user-select:none}
+.cal_month{min-width:0}
+.cal_head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;font-size:14px}
+.cal_nav{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);background:var(--page);color:var(--ink);cursor:pointer;font-size:17px;line-height:1}
+.cal_nav:hover{background:var(--sand)}
+.cal_nav[disabled]{visibility:hidden}
+.cal_grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+.cal_grid .dow{font-size:10px;font-weight:700;color:var(--ink_3);text-align:center;padding:4px 0}
+.cal_day{font:inherit;border:0;border-radius:8px;background:var(--sand);color:var(--ink);padding:5px 0 3px;display:flex;flex-direction:column;align-items:center;gap:1px;cursor:pointer;min-height:42px}
+.cal_day span{font-size:13px;font-weight:600;line-height:1}
+.cal_day i{font-style:normal;font-size:9.5px;color:var(--ink_3)}
+.cal_day:hover{background:var(--tile_b);color:var(--tile_b_ink)}
+.cal_day.past{background:transparent;color:var(--ink_3);cursor:default}
+.cal_day.booked{color:var(--ink_3);text-decoration:line-through;cursor:not-allowed;background:repeating-linear-gradient(135deg,transparent 0 4px,var(--line) 4px 5px)}
+.cal_day.sel{background:var(--tile_a);color:var(--tile_a_ink)}
+.cal_day.sel i{color:var(--tile_a_ink);opacity:.75}
+.cal_day.in,.cal_day.out{background:var(--accent);color:var(--on_accent)}
+.cal_day.in i,.cal_day.out i{color:var(--on_accent);opacity:.85}
+.cal_legend{display:flex;gap:14px;font-size:12px;color:var(--ink_2);margin:10px 0 16px}
+.cal_legend span{display:inline-flex;align-items:center;gap:6px}
+.cal_legend i{width:12px;height:12px;border-radius:4px;display:inline-block}
+.cal_legend .l_free{background:var(--sand);border:1px solid var(--line)}
+.cal_legend .l_booked{background:repeating-linear-gradient(135deg,transparent 0 3px,var(--line) 3px 4px);border:1px solid var(--line)}
+.cal_legend .l_sel{background:var(--accent)}
+.quote_dates{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.quote_dates label,.inquiry_form label{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink_3);margin-bottom:6px}
+.quote_dates input,.inquiry_form input,.inquiry_form select,.inquiry_form textarea{width:100%;font:inherit;font-size:15px;padding:12px 14px;border-radius:var(--radius_sm);border:1px solid var(--line);background:var(--page);color:var(--ink)}
+.quote_dates input:focus,.inquiry_form :focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.quote_result{border-top:1px solid var(--line);padding-top:14px;font-size:15px}
+.quote_result div{display:flex;justify-content:space-between;padding:4px 0}
+.quote_result .tot{font-weight:700;font-size:20px;border-top:1px solid var(--line);margin-top:8px;padding-top:12px}
+.quote_result .hint{color:var(--ink_3);font-size:13px;display:block}
+.quote_result .warn{color:#B45309}
+
+/* ───────────── 8. Location ───────────── */
+.location_grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.location_map{border-radius:var(--radius);overflow:hidden;min-height:380px;background:var(--tile_b)}
+.location_map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
+.location_nearby{display:grid;gap:10px}
+.location_nearby div{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--sand);border-radius:var(--radius_sm);padding:14px 18px;font-weight:500}
+.location_nearby span{font-size:13px;color:var(--ink_2);font-weight:500;white-space:nowrap}
+
+/* ───────────── 9. Reviews, inquiry, FAQ ───────────── */
+.review_list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.review_list blockquote{margin:0;background:var(--sand);border-radius:var(--radius);padding:24px;font-size:15px}
+.review_list cite{display:block;margin-top:12px;font-style:normal;font-size:13px;color:var(--ink_2)}
+.review_list .stars{color:var(--accent);letter-spacing:2px;margin-bottom:8px}
+.review_empty{background:var(--tile_b);color:var(--tile_b_ink);border-radius:var(--radius);padding:28px;font-size:15px}
+.review_empty a{font-weight:600}
+.inquiry_panel{background:var(--tile_a);color:var(--tile_a_ink);border-radius:var(--radius);padding:40px;display:grid;grid-template-columns:.9fr 1.1fr;gap:40px}
+.inquiry_panel h2{color:var(--tile_a_ink)}
+.inquiry_panel .lead{color:inherit;opacity:.85}
+.inquiry_contact{margin-top:18px;font-size:15px;display:grid;gap:6px}
+.inquiry_form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.inquiry_form label{color:var(--tile_a_ink);opacity:.8}
+.inquiry_form .full{grid-column:1/-1}
+.inquiry_form textarea{min-height:96px;resize:vertical}
+.inquiry_sent{grid-column:1/-1;font-size:14px}
+.faq_list details{border-bottom:1px solid var(--line);padding:4px 0}
+.faq_list summary{cursor:pointer;list-style:none;font-weight:600;font-size:17px;padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq_list summary::-webkit-details-marker{display:none}
+.faq_list summary::after{content:"+";font-size:24px;font-weight:300;color:var(--accent);transition:transform .2s}
+.faq_list details[open] summary::after{transform:rotate(45deg)}
+.faq_list p{color:var(--ink_2);margin:0 0 16px;max-width:70ch}
+
+/* ───────────── 10. Footer (one row) ───────────── */
+.site_footer{background:var(--footer_bg);color:var(--footer_ink);padding:44px 0 28px;margin-top:32px}
+.footer_row{display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px}
+.footer_row .site_logo{color:#fff;font-size:20px}
+.footer_links{display:flex;flex-wrap:wrap;gap:4px 18px;margin-left:auto}
+.footer_links a{color:var(--footer_ink);font-size:14px}
+.footer_links a:hover{color:#fff}
+.footer_tagline{font-size:14px;color:var(--footer_muted);margin:14px 0 0;max-width:60ch}
+.footer_legal{border-top:1px solid rgba(255,255,255,.14);margin-top:28px;padding-top:16px;font-size:12.5px;color:var(--footer_muted);line-height:1.6}
+.footer_legal b{color:var(--footer_ink)}
+
+/* ───────────── 11. Gallery viewer (lightbox) ───────────── */
+.gallery_viewer{position:fixed;inset:0;background:rgba(7,18,25,.94);z-index:100;display:none;align-items:center;justify-content:center;flex-direction:column}
+.gallery_viewer.open{display:flex}
+.gallery_viewer img{max-width:min(92vw,1400px);max-height:78vh;border-radius:var(--radius_sm);object-fit:contain}
+.gallery_viewer .cap{color:#CFE9F3;margin-top:14px;font-size:15px;text-align:center;padding:0 20px}
+.gallery_viewer button{position:absolute;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:22px;display:flex;align-items:center;justify-content:center}
+.gallery_viewer button:hover{background:rgba(255,255,255,.22)}
+.gallery_viewer .x{top:18px;right:18px}.gallery_viewer .prev{left:18px;top:50%;transform:translateY(-50%)}.gallery_viewer .next{right:18px;top:50%;transform:translateY(-50%)}
+.gallery_viewer .count{position:absolute;top:28px;left:24px;color:#8FB3C9;font-size:13px}
+
+/* ───────────── 12. Property cards (properties.html) ───────────── */
+.property_cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.property_card{border-radius:var(--radius);overflow:hidden;background:var(--sand);color:inherit;display:block}
+.property_card img{aspect-ratio:4/3;width:100%;object-fit:cover;transition:transform .5s}
+.property_card:hover img{transform:scale(1.03)}
+.property_card .body{padding:20px}
+.property_card h3{font-size:20px;margin-bottom:4px}
+.property_card .meta{font-size:14px;color:var(--ink_2);margin-bottom:12px}
+.property_card .from{font-weight:600;color:var(--accent)}
+
+/* ───────────── 13. Motion + tablet + phone ───────────── */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:1040px){
+  .gallery_grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:190px}
+  .amenity_groups{grid-template-columns:1fr;gap:24px}
+  .property_cards{grid-template-columns:repeat(2,1fr)}
+  .condo_split,.rates_grid,.location_grid,.inquiry_panel,.hero_grid{grid-template-columns:1fr}
+  .review_list{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  section{padding:48px 0}
+  .hero{padding:20px 0 24px}
+  .hero_grid{gap:22px}
+  .hero_photo{order:-1;aspect-ratio:16/10}
+  .hero_line{justify-content:flex-start;gap:6px 18px;font-size:14px}
+  /* slim top strip: logo + button. Links drop to a bottom bar. */
+  .site_header .wrap{height:56px}
+  .site_nav{position:fixed;left:0;right:0;bottom:0;z-index:60;margin:0;background:color-mix(in srgb,var(--page) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);justify-content:space-around;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
+  .site_nav a{font-size:13px;padding:8px 10px}
+  body{padding-bottom:64px}
+  .gallery_grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}
+  .gallery_tile.w2{grid-column:span 2}.gallery_tile.h2{grid-row:span 1}
+  .quote_calendar{grid-template-columns:1fr}
+  .cal_month.second{display:none}
+  .cal_nav[disabled]{visibility:visible}
+  .quote_dates,.inquiry_form,.property_cards{grid-template-columns:1fr}
+  .inquiry_panel{padding:28px 22px}
+  .footer_links{margin-left:0}
+}

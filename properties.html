@@ -4,49 +4,48 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>All properties · SunDestin Online · Owner-run condos in Destin, FL</title>
-<meta name="description" content="Owner-run Gulf-front vacation condos in Destin, Florida. Book direct with the owner, no platform fee.">
+<meta name="description" content="Owner-run beachfront vacation condos in Destin, Florida. Book direct with the owner, no platform fee.">
 <link rel="canonical" href="https://sundestinonline.com/properties.html">
 <meta property="og:title" content="SunDestin Online · All properties">
 <meta property="og:image" content="https://sundestinonline.com/images/kitchen_wide.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site.css?v=4">
+<link rel="stylesheet" href="css/site_style.css?v=5">
 </head>
 <body>
-<!-- Layout only. Text comes from data/site.js (list.*) and data/properties.js. -->
-<header class="topbar">
+<!-- Layout only. Text comes from data/site_text.js (list.*) and data/properties.js. -->
+<header class="site_header">
   <div class="wrap">
-    <a class="logo" href="index.html" data-block="logo"></a>
-    <button class="menu-btn" aria-label="Menu" aria-controls="nav">Menu</button>
-    <nav class="nav" id="nav" data-block="nav" data-prefix="index.html"></nav>
-    <label class="theme"><span data-t="site.themeLabel"></span> <select class="theme-pick" aria-label="Colour theme"></select></label>
-    <a class="btn btn-primary" href="index.html#book" data-t="site.navCta"></a>
+    <a class="site_logo" href="index.html" data-block="site_logo"></a>
+    <nav class="site_nav" id="site_nav" data-block="site_nav" data-prefix="index.html"></nav>
+    <a class="btn btn_primary" href="index.html#rates" data-t="site.nav_cta"></a>
   </div>
 </header>
 
-<section>
+<section id="property_list">
   <div class="wrap">
     <div class="kicker" data-t="site.list.kicker"></div>
     <h2 data-t="site.list.title"></h2>
     <p class="lead" style="margin:14px 0 28px" data-t="site.list.lead"></p>
-    <div class="cards" id="cards"></div>
+    <div class="property_cards" id="property_cards"></div>
   </div>
 </section>
 
-<footer class="footer">
+<footer class="site_footer" id="site_footer">
   <div class="wrap">
-    <div class="cols">
-      <div><a class="logo" href="index.html" data-block="logo"></a><p class="tag" data-t="site.footer.tagline"></p></div>
-      <div data-block="footer-cols" data-prefix="index.html" style="display:contents"></div>
+    <div class="footer_row">
+      <a class="site_logo" href="index.html" data-block="site_logo"></a>
+      <nav class="footer_links" data-block="footer_links" data-prefix="index.html"></nav>
+      <label class="site_theme" data-block="site_theme"></label>
     </div>
-    <div class="legal"><b data-t="site.footer.legalLead"></b> <span data-t="site.footer.legal"></span> © <span id="yr"></span> <span data-t="site.footer.copyright"></span></div>
+    <p class="footer_tagline" data-t="site.footer.tagline"></p>
+    <div class="footer_legal"><b data-t="site.footer.legal_lead"></b> <span data-t="site.footer.legal"></span> © <span id="footer_year"></span> <span data-t="site.footer.copyright"></span></div>
   </div>
 </footer>
-<a class="btn btn-primary sticky-cta" href="index.html#book" data-t="site.stickyCta"></a>
-<script src="data/site.js?v=4"></script>
-<script src="data/properties.js?v=4"></script>
-<script src="js/csv.js?v=4"></script>
-<script src="js/site.js?v=4"></script>
+<script src="data/site_text.js?v=5"></script>
+<script src="data/properties.js?v=5"></script>
+<script src="js/csv.js?v=5"></script>
+<script src="js/site_app.js?v=5"></script>
 </body>
 </html>
