@@ -20,7 +20,7 @@ window.SDO_PROPERTIES = [
       { src: "images/balcony_gulf_view.jpg",     alt: "Private balcony with table and chairs looking straight out over the Gulf of Mexico", tag: "Balcony" },
       { src: "images/balcony_over_pool.jpg",     alt: "Balcony view down onto the beachside pool and the white-sand beach", tag: "Balcony" },
       { src: "images/living_slider_gulf.jpg",    alt: "Living room with floor-to-ceiling slider opening onto the beachfront balcony", tag: "Living" },
-      { src: "images/pool_deck_gulf.jpg",        alt: "Gated beachfront pool deck with the beach and emerald water beyond", tag: "Pool" },
+      { src: "images/pool_deck_gulf.jpg",        alt: "Beachfront pool deck with the beach and emerald water beyond", tag: "Pool" },
       { src: "images/living_sofa_balcony.jpg",   alt: "Striped sleeper sofa and leather chair facing the balcony and Gulf", tag: "Living" },
       { src: "images/dining_living_balcony.jpg", alt: "Dining table for four beside the living area and balcony", tag: "Dining" },
       { src: "images/dining_table_gulf.jpg",     alt: "Glass dining table with the Gulf framed in the slider behind", tag: "Dining" },
@@ -36,13 +36,13 @@ window.SDO_PROPERTIES = [
       { src: "images/beach_umbrellas.jpg",       alt: "Rows of beach umbrellas on the sand seen from the pool deck", tag: "Beach" }
     ],
     description: [
-      "Wake up to the emerald-green Gulf of Mexico from this beautifully kept 2nd-floor condo at Sun Destin Beach Resort. Your private balcony hangs directly over the beachside pool and sugar-white sand, close enough to hear the waves and low enough to count the umbrellas.",
+      "Wake up to the emerald-green Gulf of Mexico in this beautifully kept 2nd-floor condo. From the balcony you are close enough to hear the waves and low enough to count the umbrellas on the sugar-white sand.",
       "Inside, the open floor plan flows from a fully equipped kitchen with stainless appliances and breakfast bar, through a bright dining area, into a coastal-blue living room with a flat-screen TV and a wall of glass framing the Gulf. The queen sleeper sofa and a charming built-in bunk nook let the condo comfortably sleep 6. Kids claim the bunks every time.",
-      "Step out the slider and the best of Destin is at your feet: a gated beachfront pool deck, seasonal beach chair service on one of Florida's most celebrated beaches, and HarborWalk Village, Big Kahuna's and Destin Commons only minutes away. Being on the 2nd floor means no elevator waits. Door to the sand in under a minute."
+      "Step out through the sliding glass door and the best of Destin is at your feet: a beachfront pool deck, seasonal beach chair service on one of Florida's most celebrated beaches, and HarborWalk Village, Big Kahuna's and Destin Commons only minutes away. Being on the 2nd floor means no elevator waits. Door to the sand in under a minute."
     ],
     /* three groups: [group title, icon, [items]] */
     amenity_groups: [
-      ["Beach and pool", "beach", ["Beachfront private balcony", "Beachside heated pool", "Direct beach access", "Seasonal beach chair service", "Gated pool deck"]],
+      ["Beach and pool", "beach", ["Beachfront private balcony", "Beachside heated pool", "Direct beach access", "Seasonal beach chair service", "Pool deck steps from the sand"]],
       ["Inside",         "kitchen", ["Fully equipped kitchen", "Breakfast bar", "Dishwasher and microwave", "Coffee maker", "Flat-screen TVs in living room and bedroom"]],
       ["Comfort",        "wifi", ["Free Wi-Fi", "Free parking", "Central air conditioning", "Linens and towels provided", "Hair dryer", "2nd floor, no elevator wait"]]
     ],

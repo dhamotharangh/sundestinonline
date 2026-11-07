@@ -15,13 +15,14 @@ window.SDO_SITE = {
   hero: {
     title: "Step onto the beach.",
     title2: "Watch kids in sight.",
-    sub: "The pool and the beach sit right under your balcony, so you see everything from your chair. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Sleeps 6, door to the sand in under a minute.",
+    sub: "Your balcony sits right over the pool and the sand, so you watch the kids from your chair. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Sleeps 6.",
+    sub_strong: "Door to the sand in under a minute.",
     cta: "Check dates",
     /* one quiet line under the photo, instead of three tiles */
     line: ["No platform fee", "Book direct with the owner", "The price you see is the price you pay"]
   },
 
-  gallery:   { kicker: "Photos", title: "Look around", lead: "Tap any tile. Arrow keys or swipe to move through the set.", all_label: "All", more_label: "more photos" },
+  gallery:   { kicker: "Photos", title: "Every room, every view", lead: "", all_label: "All", see_all: "See all {n} photos" },
   condo:     { kicker: "The condo", fact_labels: { bedrooms: "Bedrooms", bathrooms: "Bathrooms", sleeps: "Sleeps", floor: "Floor", view: "View", complex: "Resort", beds: "Beds", address: "Address" } },
   amenities: { kicker: "Amenities", title: "Everything a beach week needs" },
   rates:     { kicker: "Rates and dates", title_prefix: "From", title_suffix: "a night",

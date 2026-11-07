@@ -76,9 +76,10 @@ section{padding:64px 0}
 /* ───────────── 4. Hero: text left, clean photo right ───────────── */
 .hero{padding:40px 0 28px}
 .hero_grid{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
-.hero h1{font-size:clamp(38px,5.2vw,68px)}
+.hero h1{font-size:clamp(30px,3.8vw,48px)}
 .hero_title_soft{color:var(--accent)}
 .hero_sub{font-size:18px;color:var(--ink_2);max-width:48ch;margin:20px 0 22px}
+.hero_sub strong{color:var(--ink);font-weight:600}
 .hero_chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
 .hero_chip{display:inline-flex;align-items:center;padding:7px 14px;border-radius:var(--pill);font-size:14px;font-weight:500;background:var(--sand);color:var(--ink)}
 .hero_photo{border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;background:var(--tile_b);box-shadow:var(--shadow)}

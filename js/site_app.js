@@ -141,13 +141,15 @@
   var viewerIndex = 0, shown = P.photos || [];
   function renderGrid(list) {
     shown = list;
-    var spans = ["w2 h2", "", "", "w2", "", ""], max = 6;
+    var spans = ["w2 h2", "", "", "w2", "", "", "", ""], max = 8;
     grid.innerHTML = list.slice(0, max).map(function (ph, i) {
       return '<button class="gallery_tile ' + (spans[i] || "") + '" data-i="' + i + '" aria-label="' + esc(ph.alt) + '">' +
         '<img src="' + esc(ph.src) + '" alt="' + esc(ph.alt) + '" loading="' + (i < 2 ? "eager" : "lazy") + '">' +
         '<span class="cap">' + esc(ph.tag) + "</span></button>";
-    }).join("") + (list.length > max ? '<button class="gallery_tile more" data-i="' + max + '">+' + (list.length - max) + " " + esc(S.gallery.more_label) + "</button>" : "");
+    }).join("");
     $$(".gallery_tile", grid).forEach(function (t) { t.addEventListener("click", function () { openViewer(+t.getAttribute("data-i")); }); });
+    var seeAll = $("#gallery_see_all");
+    if (seeAll) { seeAll.textContent = fmt(S.gallery.see_all, { n: list.length }) + " ›"; seeAll.onclick = function () { openViewer(0); }; }
   }
   if (grid && P.photos) {
     var tags = [];
