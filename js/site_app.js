@@ -405,23 +405,37 @@
     });
   })();
 
-  /* ── 9. Location: OpenStreetMap with a pin for the condo and each nearby place ── */
+  /* ── 9. Location: OpenStreetMap, numbered pins that match the list; hover highlights both ── */
   var map = $("#location_map"), nearList = $("#location_nearby");
   if (map && nearList) {
-    nearList.innerHTML = (P.nearby || []).map(function (n, i) { return '<div data-i="' + i + '"' + (n[2] ? ' class="has_pin"' : "") + ">" + esc(n[0]) + "<span>" + esc(n[1]) + "</span></div>"; }).join("");
+    nearList.innerHTML = (P.nearby || []).map(function (n, i) {
+      return '<div class="near_row' + (n[2] ? " has_pin" : "") + '" data-i="' + i + '"><i class="near_num">' + (i + 1) + "</i><span class=\"near_name\">" + esc(n[0]) + '</span><span class="near_dist">' + esc(n[1]) + "</span></div>";
+    }).join("");
     if (window.L && P.lat) {
       var lmap = L.map(map, { scrollWheelZoom: false }).setView([P.lat, P.lng], 12);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap contributors" }).addTo(lmap);
-      var home = L.circleMarker([P.lat, P.lng], { radius: 11, color: "#fff", weight: 3, fillColor: "#0FA3A3", fillOpacity: 1 }).addTo(lmap).bindPopup("<b>" + esc(P.name) + "</b><br>" + esc(P.address));
+      L.marker([P.lat, P.lng], { icon: L.divIcon({ className: "pin pin_home", html: "<span>&#9679;</span>", iconSize: [34, 34], iconAnchor: [17, 17] }), zIndexOffset: 1000 })
+        .addTo(lmap).bindPopup("<b>" + esc(P.name) + "</b><br>" + esc(P.address));
       var pins = [], bounds = [[P.lat, P.lng]];
       (P.nearby || []).forEach(function (n, i) {
         if (!n[2]) return;
-        var m = L.circleMarker([n[2], n[3]], { radius: 7, color: "#fff", weight: 2, fillColor: "#1D7FA8", fillOpacity: 1 }).addTo(lmap).bindPopup("<b>" + esc(n[0]) + "</b><br>" + esc(n[1]));
-        pins[i] = m; if (Math.abs(n[2] - P.lat) < 0.06 && Math.abs(n[3] - P.lng) < 0.08) bounds.push([n[2], n[3]]); /* far places (airport) stay off the first view */
+        var m = L.marker([n[2], n[3]], { icon: L.divIcon({ className: "pin", html: "<span>" + (i + 1) + "</span>", iconSize: [28, 28], iconAnchor: [14, 14] }) })
+          .addTo(lmap).bindPopup("<b>" + esc(n[0]) + "</b><br>" + esc(n[1]));
+        pins[i] = m;
+        if (Math.abs(n[2] - P.lat) < 0.06 && Math.abs(n[3] - P.lng) < 0.08) bounds.push([n[2], n[3]]);
+        m.on("mouseover", function () { hi(i, true); }); m.on("mouseout", function () { hi(i, false); });
+        m.on("click", function () { var r = $('.near_row[data-i="' + i + '"]', nearList); if (r) r.scrollIntoView({ block: "nearest", behavior: "smooth" }); });
       });
       lmap.fitBounds(bounds, { padding: [28, 28] });
-      $$("div.has_pin", nearList).forEach(function (d) {
-        d.addEventListener("click", function () { var m = pins[+d.getAttribute("data-i")]; if (m) { lmap.panTo(m.getLatLng()); m.openPopup(); } });
+      function hi(i, on) {
+        var r = $('.near_row[data-i="' + i + '"]', nearList); if (r) r.classList.toggle("hover", on);
+        var el = pins[i] && pins[i].getElement(); if (el) el.classList.toggle("hover", on);
+      }
+      $$(".near_row.has_pin", nearList).forEach(function (d) {
+        var i = +d.getAttribute("data-i");
+        d.addEventListener("mouseenter", function () { hi(i, true); });
+        d.addEventListener("mouseleave", function () { hi(i, false); });
+        d.addEventListener("click", function () { var m = pins[i]; if (m) { lmap.panTo(m.getLatLng()); m.openPopup(); } });
       });
       map.addEventListener("click", function () { lmap.scrollWheelZoom.enable(); });
     } else {

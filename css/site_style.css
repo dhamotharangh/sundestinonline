@@ -179,11 +179,22 @@ section{padding:64px 0}
 .location_grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 .location_map{border-radius:var(--radius);overflow:hidden;min-height:380px;height:420px;background:var(--tile_b);z-index:0}
 .location_map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
-.location_nearby{display:grid;gap:10px}
-.location_nearby div.has_pin{cursor:pointer}
-.location_nearby div.has_pin:hover{background:var(--tile_b);color:var(--tile_b_ink)}
-.location_nearby div{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--sand);border-radius:var(--radius_sm);padding:14px 18px;font-weight:500}
-.location_nearby span{font-size:13px;color:var(--ink_2);font-weight:500;white-space:nowrap}
+.location_nearby{display:flex;flex-direction:column;background:var(--page);border-radius:var(--radius);padding:6px 8px;align-self:start}
+.near_row{display:flex;align-items:center;gap:14px;padding:13px 12px;border-bottom:1px solid var(--line);border-radius:var(--radius_sm);font-weight:500;transition:background .15s}
+.near_row:last-child{border-bottom:0}
+.near_row.has_pin{cursor:pointer}
+.near_row.has_pin:hover,.near_row.hover{background:var(--tile_a);color:var(--tile_a_ink)}
+.near_num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--link);color:#fff;font-style:normal;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
+.near_row.hover .near_num,.near_row.has_pin:hover .near_num{background:var(--accent);transform:scale(1.15)}
+.near_name{flex:1}
+.near_dist{font-size:13px;color:var(--ink_2);white-space:nowrap}
+.near_row.hover .near_dist,.near_row.has_pin:hover .near_dist{color:inherit}
+/* map pins (Leaflet divIcon) */
+.pin{background:transparent;border:0}
+.pin span{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--link);color:#fff;font:700 12px/1 var(--font);border:2px solid #fff;box-shadow:0 2px 8px rgba(14,58,91,.35);transition:transform .15s,background .15s}
+.pin.hover span{background:var(--accent);transform:scale(1.25)}
+.pin_home span{width:34px;height:34px;background:var(--accent);font-size:16px}
+.leaflet-container{font-family:var(--font)}
 
 /* ───────────── 9. Reviews, inquiry, FAQ ───────────── */
 .review_head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}
