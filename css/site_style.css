@@ -249,7 +249,8 @@ section{padding:64px 0}
   .hero_photo{order:-1;aspect-ratio:16/10}
   .hero_line{justify-content:flex-start;gap:6px 18px;font-size:14px}
   /* slim top strip: logo + button. Links drop to a bottom bar. */
-  .site_header .wrap{height:56px}
+  .site_header{backdrop-filter:none;background:var(--page)} /* blur would anchor the fixed bottom bar */
+  .site_header .wrap{height:56px;justify-content:space-between}
   .site_nav{position:fixed;left:0;right:0;bottom:0;z-index:60;margin:0;background:color-mix(in srgb,var(--page) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);justify-content:space-around;padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
   .site_nav a{font-size:13px;padding:8px 10px}
   body{padding-bottom:64px}

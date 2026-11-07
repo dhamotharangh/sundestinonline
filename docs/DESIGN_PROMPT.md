@@ -45,7 +45,17 @@ Taken from the water in the owner's photos. Blue-green only; no orange or red an
 
 Three alternates ship in the theme dropdown and must stay within the same grammar (one accent, two tile tints, one surface): **Deep Gulf** (lagoon accent), **Sunset sand** (warm accent for an evening campaign), **Night swim** (dark). The visitor's choice is remembered in the browser.
 
-## 5. Page structure (home)
+## 5. Page structure (home) — revised 2026-11-07
+
+1. **Header** (`site_header`): logo, three links Photos · Rates · Contact (`site_nav`, a bottom bar on phones), "Check dates". Theme dropdown lives in the footer.
+2. **Hero** (`hero`): H1 "No platform fee. / Just you and the Gulf.", one sentence, fact chips, one button, clean photo tile (`kitchen_wide.jpg`), then one quiet line: No platform fee · Talk to the owner · One clear policy.
+3. **Gallery** (`gallery`): "Step onto the beach. Kids in sight.", tag filters, six-tile grid plus "+N more", viewer.
+4. **Condo** (`condo`): description beside the facts card (resort: Sun Destin Beach Resort, view: Beachfront).
+5. **Amenities** (`amenities`): three groups with one icon each: Beach and pool, Inside, Comfort.
+6. **Rates and dates** (`rates`): season band, package cards computed from `rates.csv` (minimum stay × nightly + cleaning), two-month calendar with click or drag selection, booked nights hatched, estimate, "Ask for these dates".
+7. **Location**, **Reviews**, **Inquiry**, **FAQ**, one-row **footer**.
+
+### Original structure (2026-11-06, superseded)
 
 1. **Top bar**: logo, Photos · The condo · Rates · Map · FAQ · All properties, theme dropdown, "Check dates".
 2. **Hero**: badge "Book direct with the owner", H1 "No platform fee. / Just you and the Gulf.", one-sentence sub, fact chips (1 bedroom · 1 bath · Sleeps 6 · 2nd floor · beachfront), two buttons, clean photo tile.
