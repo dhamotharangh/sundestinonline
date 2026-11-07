@@ -38,7 +38,7 @@ window.SDO_PROPERTIES = [
     description: [
       "Wake up to the emerald-green Gulf of Mexico from this beautifully kept 2nd-floor condo at Sun Destin Beach Resort. Your private balcony hangs directly over the beachside pool and sugar-white sand, close enough to hear the waves and low enough to count the umbrellas.",
       "Inside, the open floor plan flows from a fully equipped kitchen with stainless appliances and breakfast bar, through a bright dining area, into a coastal-blue living room with a flat-screen TV and a wall of glass framing the Gulf. The queen sleeper sofa and a charming built-in bunk nook let the condo comfortably sleep 6. Kids claim the bunks every time.",
-      "Step out the slider and the best of Destin is at your feet: a gated beachfront pool deck, seasonal beach chair service on one of Florida's most celebrated beaches, and HarborWalk Village, Big Kahuna's and Destin Commons only minutes away. Being on the 2nd floor means no elevator waits. You are from your door to the sand in twenty seconds."
+      "Step out the slider and the best of Destin is at your feet: a gated beachfront pool deck, seasonal beach chair service on one of Florida's most celebrated beaches, and HarborWalk Village, Big Kahuna's and Destin Commons only minutes away. Being on the 2nd floor means no elevator waits. Door to the sand in under a minute."
     ],
     /* three groups: [group title, icon, [items]] */
     amenity_groups: [

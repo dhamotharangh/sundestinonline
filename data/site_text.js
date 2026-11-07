@@ -15,7 +15,7 @@ window.SDO_SITE = {
   hero: {
     title: "Step onto the beach.",
     title2: "Watch kids in sight.",
-    sub: "The pool and the beach sit right under your balcony, so you see everything from your chair. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Sleeps 6, twenty seconds to the sand.",
+    sub: "The pool and the beach sit right under your balcony, so you see everything from your chair. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Sleeps 6, door to the sand in under a minute.",
     cta: "Check dates",
     /* one quiet line under the photo, instead of three tiles */
     line: ["No platform fee", "Book direct with the owner", "The price you see is the price you pay"]
