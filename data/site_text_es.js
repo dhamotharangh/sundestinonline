@@ -3,6 +3,7 @@
 window.SDO_SITE_ES = {
   nav: [["Fotos", "#gallery"], ["Tarifas", "#rates"], ["Contacto", "#inquiry"]],
   nav_cta: "Ver fechas",
+  signin_link: "Entrar", account_link: "Hola, {user}",
   theme_label: "Tema",
   themes: [["emerald_water", "Agua esmeralda"], ["deep_gulf", "Golfo profundo"], ["sunset_sand", "Arena al atardecer"], ["night_swim", "Baño nocturno"]],
 

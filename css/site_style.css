@@ -74,6 +74,10 @@ section{padding:64px 0}
 .site_lang{display:inline-flex;border:1px solid var(--line);border-radius:var(--pill);overflow:hidden}
 .site_lang button{font:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;padding:6px 10px;border:0;background:transparent;color:var(--ink_2);cursor:pointer}
 .site_lang button.on{background:var(--accent);color:var(--on_accent)}
+.site_account{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:var(--pill);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap}
+.site_account::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--tile_a);box-shadow:inset 0 -5px 0 var(--accent)}
+.site_account.on{background:var(--tile_a);color:var(--tile_a_ink);border-color:transparent}
+.site_account:hover{background:var(--sand)}
 .site_theme_head{color:var(--ink_2)}
 .site_header .site_theme select{color:var(--ink);background-color:var(--sand);border-color:var(--line);font-weight:500}
 .site_header .site_theme select option{color:var(--ink);background:var(--page)}
@@ -231,7 +235,8 @@ section{padding:64px 0}
 .review_msg{font-size:14px;margin-top:10px}.review_msg.err{color:#B3261E}.review_msg.ok{color:#137333}
 .review_list cite{display:block;margin-top:12px;font-style:normal;font-size:13px;color:var(--ink_2)}
 .review_list .stars{color:var(--accent);letter-spacing:2px;margin-bottom:8px}
-.review_empty{background:var(--tile_b);color:var(--tile_b_ink);border-radius:var(--radius);padding:28px;font-size:15px}
+.review_list blockquote{border:1px solid var(--line)}
+.review_empty{background:var(--tile_a);color:var(--tile_a_ink);border-radius:var(--radius);padding:28px;font-size:15px}
 .review_empty a{font-weight:600}
 .inquiry_panel{background:var(--tile_a);color:var(--tile_a_ink);border-radius:var(--radius);padding:40px;display:grid;grid-template-columns:.9fr 1.1fr;gap:40px}
 .inquiry_panel h2{color:var(--tile_a_ink)}
@@ -242,12 +247,14 @@ section{padding:64px 0}
 .inquiry_form .full{grid-column:1/-1}
 .inquiry_form textarea{min-height:96px;resize:vertical}
 .inquiry_sent{grid-column:1/-1;font-size:14px}
-.faq_list details{border-bottom:1px solid var(--line);padding:4px 0}
-.faq_list summary{cursor:pointer;list-style:none;font-weight:600;font-size:17px;padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.faq_list details{background:var(--sand);border-radius:var(--radius_sm);margin-bottom:10px;padding:0 20px;transition:background .2s}
+.faq_list details[open]{background:var(--tile_a);color:var(--tile_a_ink)}
+.faq_list summary{cursor:pointer;list-style:none;font-weight:600;font-size:16px;padding:16px 0;display:flex;align-items:center;gap:14px}
 .faq_list summary::-webkit-details-marker{display:none}
-.faq_list summary::after{content:"+";font-size:24px;font-weight:300;color:var(--accent);transition:transform .2s}
-.faq_list details[open] summary::after{transform:rotate(45deg)}
-.faq_list p{color:var(--ink_2);margin:0 0 16px;max-width:70ch}
+.faq_list summary::before{content:"+";flex:none;width:28px;height:28px;border-radius:50%;background:var(--page);color:var(--accent);font-size:20px;font-weight:400;line-height:1;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+.faq_list details[open] summary::before{content:"\2013";background:var(--accent);color:var(--on_accent)}
+.faq_list p{color:var(--ink_2);margin:0 0 18px 42px;max-width:70ch}
+.faq_list details[open] p{color:var(--tile_a_ink);opacity:.9}
 
 /* ───────────── 10. Footer (one row) ───────────── */
 .site_footer{background:var(--footer_bg);color:var(--footer_ink);padding:44px 0 28px;margin-top:32px}
@@ -301,6 +308,8 @@ section{padding:64px 0}
   .site_header{backdrop-filter:none;background:var(--page)} /* blur would anchor the fixed bottom bar */
   .site_header .wrap{height:56px;justify-content:space-between;gap:8px}
   .site_switches{margin-left:auto;gap:6px}
+  .site_account{padding:6px;font-size:0;gap:0}
+  .site_header .btn{white-space:nowrap;flex:none}
   .site_theme_head{display:none} /* phones: theme stays in the footer */
   .site_header .btn{padding:8px 12px;font-size:13px}
   .site_logo{font-size:16px}

@@ -78,6 +78,12 @@
     el.innerHTML = '<button type="button" data-lang="en"' + (LANG === "en" ? ' class="on"' : "") + '>EN</button><button type="button" data-lang="es"' + (LANG === "es" ? ' class="on"' : "") + ">ES</button>";
     $$("button", el).forEach(function (b) { b.addEventListener("click", function () { try { localStorage.setItem("sdo_lang", b.getAttribute("data-lang")); } catch (e) {} location.reload(); }); });
   };
+  B.site_account = function (el) {
+    var pre = el.getAttribute("data-prefix") || "", u = ST ? ST.current() : null;
+    el.href = pre + "register.html";
+    el.textContent = u ? fmt(S.account_link || "Hi, {user}", { user: (u.name || "").split(" ")[0] }) : (S.signin_link || "Sign in");
+    el.classList.toggle("on", !!u);
+  };
   B.site_theme = function (el) { el.innerHTML = '<span>' + esc(S.theme_label || "Theme") + '</span> <select class="theme_pick" aria-label="Colour theme"></select>'; };
   B.hero_chips = function (el) {
     var f = P.facts || {};
