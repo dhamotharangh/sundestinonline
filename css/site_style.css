@@ -93,7 +93,7 @@ section{padding:64px 0}
 
 /* ───────────── 4. Hero: text left, clean photo right ───────────── */
 .hero{padding:40px 0 28px}
-.hero_grid{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:stretch}
+.hero_grid{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:stretch}
 .hero_title{font-size:clamp(26px,3.3vw,44px);margin-bottom:18px;line-height:1.15}
 .hero_title span{white-space:nowrap}
 .hero_title_soft{color:var(--accent)}
@@ -101,7 +101,7 @@ section{padding:64px 0}
 .hero_sub strong{color:var(--ink);font-weight:600}
 .hero_chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:0}
 .hero_chip{display:inline-flex;align-items:center;padding:7px 14px;border-radius:var(--pill);font-size:14px;font-weight:500;background:var(--sand);color:var(--ink)}
-.hero_photo{position:relative;border-radius:var(--radius);overflow:hidden;min-height:300px;background:var(--tile_b);box-shadow:var(--shadow)}
+.hero_photo{position:relative;border-radius:var(--radius);overflow:hidden;min-height:480px;background:var(--tile_b);box-shadow:var(--shadow)}
 .hero_text{display:flex;flex-direction:column;justify-content:space-between;gap:24px}
 .hero_photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero_line{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:24px auto 0}
@@ -312,7 +312,7 @@ section{padding:64px 0}
   .hero_title{font-size:22px}
   .hero_title span{white-space:normal}
   .hero_grid{gap:22px}
-  .hero_photo{order:-1;aspect-ratio:16/10}
+  .hero_photo{order:-1;aspect-ratio:4/3;min-height:0}
   .hero_line{justify-content:flex-start;gap:6px 18px;font-size:14px}
   /* slim top strip: logo + button. Links drop to a bottom bar. */
   .site_header{backdrop-filter:none;background:var(--page)} /* blur would anchor the fixed bottom bar */
@@ -336,4 +336,13 @@ section{padding:64px 0}
   .quote_dates,.inquiry_form,.property_cards{grid-template-columns:1fr}
   .inquiry_panel{padding:28px 22px}
   .footer_links{margin-left:0}
+}
+
+/* narrow phones: the header must fit logo, EN/ES, Login and Check dates on one line */
+@media (max-width: 400px) {
+  .site_header .wrap{gap:6px}
+  .site_logo{font-size:15px}
+  .site_lang button{padding:5px 7px;font-size:11px}
+  .site_header .btn{padding:7px 10px;font-size:12px}
+  .site_switches{gap:5px}
 }
