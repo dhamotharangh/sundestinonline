@@ -9,13 +9,13 @@ window.SDO_SITE = {
   /* Slim menu: three links. On phones they sit in a bottom bar. */
   nav: [["Photos", "#gallery"], ["Rates", "#rates"], ["Contact", "#inquiry"]],
   nav_cta: "Check dates",
-  signin_link: "Sign in", account_link: "Hi, {user}",
+  signin_link: "Login", account_link: "Hi, {user}",
   theme_label: "Theme",
   themes: [["emerald_water", "Emerald water"], ["deep_gulf", "Deep Gulf"], ["sunset_sand", "Sunset sand"], ["night_swim", "Night swim"]],
 
   hero: {
-    title: "Step onto the beach.",
-    title2: "Watch kids in sight.",
+    title: "Breathtaking beachfront views",
+    title2: "from your private balcony",
     sub: "Your balcony sits right over the pool and the sand, so you watch the kids from your chair. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Sleeps 6.",
     sub_strong: "Door to the sand in under a minute.",
     cta: "Check dates",

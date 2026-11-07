@@ -3,10 +3,10 @@
 window.SDO_PROPERTIES_ES = {
   sundestin_203: {
     complex: "Sun Destin Beach Resort",
-    headline: "Vistas impresionantes al mar desde tu balcón privado",
+    headline: "Pisa la playa. Con los niños a la vista.",
     subhead: "Pisa la arena directamente y disfruta la playa sin perder de vista a los niños.",
     facts: { floor: "2.º piso", view: "Frente al mar" },
-    beds: ["Cama queen", "Sofá cama queen", "Literas individuales empotradas (2)"],
+    beds: ["Cama queen en el dormitorio", "Sofá cama queen en la sala", "Literas individuales empotradas (2) junto a la entrada"],
     photo_tags: { Kitchen: "Cocina", Balcony: "Balcón", Living: "Sala", Pool: "Piscina", Dining: "Comedor", Bedroom: "Dormitorio", Bunks: "Literas", Bath: "Baño", Beach: "Playa" },
     description: [
       "Despierta frente al verde esmeralda del Golfo de México en este cuidado condominio del 2.º piso. Desde el balcón estás lo bastante cerca para oír las olas y lo bastante bajo para contar las sombrillas sobre la arena blanca.",

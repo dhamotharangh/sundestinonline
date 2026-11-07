@@ -10,10 +10,10 @@ window.SDO_PROPERTIES = [
     complex: "Sun Destin Beach Resort",
     address: "1040 Highway 98 East, #203, Destin, FL 32541",
     lat: 30.3864, lng: -86.4617,
-    headline: "Breathtaking beachfront views from your private balcony",
+    headline: "Step onto the beach. Watch kids in sight.",
     subhead: "Step right onto the sand and enjoy the beach while keeping the kids in sight.",
     facts: { bedrooms: 1, bathrooms: 1.5, sleeps: 6, floor: "2nd floor", view: "Beachfront" },
-    beds: ["Queen bed", "Queen sleeper sofa", "Built-in twin bunks (2)"],
+    beds: ["Queen bed in the bedroom", "Queen sleeper sofa in the living room", "Built-in twin bunks (2) by the entry"],
     hero: "images/kitchen_wide.jpg",
     photos: [
       { src: "images/kitchen_wide.jpg",          alt: "Kitchen with stainless appliances looking through to the Gulf", tag: "Kitchen" },

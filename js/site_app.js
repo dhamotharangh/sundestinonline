@@ -84,7 +84,13 @@
     el.textContent = u ? fmt(S.account_link || "Hi, {user}", { user: (u.name || "").split(" ")[0] }) : (S.signin_link || "Sign in");
     el.classList.toggle("on", !!u);
   };
-  B.site_theme = function (el) { el.innerHTML = '<span>' + esc(S.theme_label || "Theme") + '</span> <select class="theme_pick" aria-label="Colour theme"></select>'; };
+  B.site_theme = function (el) {
+    var colors = { emerald_water: "#0FA3A3", deep_gulf: "#1D7FA8", sunset_sand: "#E8893D", night_swim: "#0B1A26" };
+    el.innerHTML = (S.themes || []).map(function (t) {
+      return '<button type="button" class="theme_dot" data-theme="' + esc(t[0]) + '" title="' + esc(t[1]) + '" aria-label="' + esc(t[1]) + '" style="background:' + (colors[t[0]] || "#999") + '"></button>';
+    }).join("");
+    $$(".theme_dot", el).forEach(function (b) { b.addEventListener("click", function () { applyTheme(b.getAttribute("data-theme")); }); });
+  };
   B.hero_chips = function (el) {
     var f = P.facts || {};
     var W = LANG === "es" ? ["dormitorio", "dormitorios", "baño", "baños", "Capacidad "] : ["bedroom", "bedrooms", "bath", "baths", "Sleeps "];
@@ -146,17 +152,13 @@
   function applyTheme(t) {
     if (t === THEMES[0][0]) document.documentElement.removeAttribute("data-theme");
     else document.documentElement.setAttribute("data-theme", t);
-    $$("select.theme_pick").forEach(function (s) { s.value = t; });
+    $$(".theme_dot").forEach(function (b) { b.classList.toggle("on", b.getAttribute("data-theme") === t); });
     try { localStorage.setItem("sdo_theme", t); } catch (e) {}
   }
   (function initTheme() {
     var saved = THEMES[0][0];
     try { saved = localStorage.getItem("sdo_theme") || saved; } catch (e) {}
     if (!THEMES.some(function (t) { return t[0] === saved; })) saved = THEMES[0][0];
-    $$("select.theme_pick").forEach(function (s) {
-      s.innerHTML = THEMES.map(function (t) { return '<option value="' + esc(t[0]) + '">' + esc(t[1]) + "</option>"; }).join("");
-      s.addEventListener("change", function () { applyTheme(s.value); });
-    });
     applyTheme(saved);
   })();
 
@@ -452,6 +454,8 @@
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap contributors" }).addTo(lmap);
       L.marker([P.lat, P.lng], { icon: L.divIcon({ className: "pin_home", html: '<svg viewBox="0 0 32 44" width="32" height="44" aria-hidden="true"><path d="M16 1C7.7 1 1 7.6 1 15.8 1 27 16 43 16 43s15-16 15-27.2C31 7.6 24.3 1 16 1z" fill="#F26B3A" stroke="#fff" stroke-width="2"/><path d="M9 17l7-6 7 6v8h-5v-5h-4v5H9z" fill="#fff"/></svg>', iconSize: [32, 44], iconAnchor: [16, 43], popupAnchor: [0, -40] }), zIndexOffset: 1000 })
         .addTo(lmap).bindPopup("<b>" + esc(P.name) + "</b><br>" + esc(P.address));
+      /* 5-mile radius around the condo */
+      var ring = L.circle([P.lat, P.lng], { radius: 8047, color: "#0FA3A3", weight: 1.5, dashArray: "6 6", fillColor: "#0FA3A3", fillOpacity: 0.06, interactive: false }).addTo(lmap);
       var pins = [], bounds = [[P.lat, P.lng]];
       (P.nearby || []).forEach(function (n, i) {
         if (!n[2]) return;
@@ -462,7 +466,7 @@
         m.on("mouseover", function () { hi(i, true); }); m.on("mouseout", function () { hi(i, false); });
         m.on("click", function () { $$(".near_row.hover", nearList).forEach(function (x) { hi(+x.getAttribute("data-i"), false); }); hi(i, true); var r = $('.near_row[data-i="' + i + '"]', nearList); if (r) r.scrollIntoView({ block: "nearest", behavior: "smooth" }); });
       });
-      lmap.fitBounds(bounds, { padding: [28, 28] });
+      lmap.fitBounds(ring.getBounds(), { padding: [10, 10] });
       function hi(i, on) {
         var r = $('.near_row[data-i="' + i + '"]', nearList); if (r) r.classList.toggle("hover", on);
         var el = pins[i] && pins[i].getElement(); if (el) el.classList.toggle("hover", on);

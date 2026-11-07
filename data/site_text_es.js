@@ -8,8 +8,8 @@ window.SDO_SITE_ES = {
   themes: [["emerald_water", "Agua esmeralda"], ["deep_gulf", "Golfo profundo"], ["sunset_sand", "Arena al atardecer"], ["night_swim", "Baño nocturno"]],
 
   hero: {
-    title: "Pisa la playa.",
-    title2: "Con los niños a la vista.",
+    title: "Vistas impresionantes al mar",
+    title2: "desde tu balcón privado",
     sub: "Tu balcón está justo sobre la piscina y la arena, así que vigilas a los niños desde tu silla. Condominio frente al mar en el 2.º piso de Sun Destin Beach Resort, Destin FL. Capacidad para 6.",
     sub_strong: "De la puerta a la arena en menos de un minuto.",
     cta: "Ver fechas",
