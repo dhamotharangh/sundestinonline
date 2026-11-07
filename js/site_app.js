@@ -86,7 +86,7 @@
       .map(function (c) { return '<span class="hero_chip">' + esc(c) + "</span>"; }).join("");
   };
   B.hero_img = function (el) { el.src = P.hero; el.alt = ((P.photos || [])[0] || {}).alt || P.name; };
-  B.hero_line = function (el) { el.innerHTML = (S.hero.line || []).map(function (t) { return "<span>" + esc(t) + "</span>"; }).join(""); };
+  B.hero_line = function (el) { el.innerHTML = (S.hero.line || []).map(function (t, i) { return '<span class="hero_pill' + (i === 1 ? " on" : "") + '">' + esc(t) + "</span>"; }).join(""); };
   B.condo_desc = function (el) { el.innerHTML = (P.description || []).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join(""); };
   B.condo_facts = function (el) {
     var FL = S.condo.fact_labels, f = P.facts;
@@ -112,8 +112,8 @@
   B.inquiry_placeholder = function (el) { el.placeholder = S.inquiry.placeholder || ""; };
   B.quote_occupancy = function (el) {
     var n = (P.facts || {}).sleeps || 6, R2 = S.rates || {};
-    el.innerHTML = '<label><span>' + esc(R2.guests_label || "Guests") + '</span><select id="quote_guests">' + occOptions(1, n, 2) + "</select></label>" +
-                   '<label><span>' + esc(R2.children_label || "Children") + '</span><select id="quote_children">' + occOptions(0, n - 1, 0) + "</select></label>";
+    el.innerHTML = '<div class="occ_line"><span>' + esc(R2.guests_label || "Guests") + '</span><select id="quote_guests">' + occOptions(1, n, 2) + "</select></div>" +
+                   '<div class="occ_line"><span>' + esc(R2.children_label || "Children") + '</span><select id="quote_children">' + occOptions(0, n - 1, 0) + "</select></div>";
     var g = $("#quote_guests", el), c = $("#quote_children", el);
     function sync() {
       var max = n - (+g.value); if (+c.value > max) c.value = max;
@@ -295,7 +295,7 @@
       var when = r.start ? fmtDate(r.start < today ? today : r.start) + " – " + fmtDate(r.end) : (r.when || "");
       return '<button class="package_card" data-start="' + esc(r.start < today ? today : (r.start || "")) + '" data-min="' + r.min + '">' +
         '<i style="background:' + colorFor(r.season) + '"></i><div><b>' + esc(r.label) + "</b><small>" + esc(when) + " · " + r.min + " " + esc(R.nights_word) + "</small></div>" +
-        '<div class="price">' + money(price) + "<small> " + esc(R.from_word) + "</small></div></button>";
+        '<div class="price">' + money(price) + "</div></button>";
     }).join("");
     $$(".package_card", packages).forEach(function (b) {
       b.addEventListener("click", function () {
@@ -327,7 +327,7 @@
     var first = new Date(y, m, 1), days = new Date(y, m + 1, 0).getDate();
     var today = C.iso(new Date()), qi = qin.value, qo = qout.value;
     var selA = qi, selB = qo;
-    if (dragStart && dragHover) { selA = dragStart < dragHover ? dragStart : dragHover; selB = C.iso(C.addDays(new Date((dragStart < dragHover ? dragHover : dragStart) + "T12:00"), 1)); }
+    if (dragStart && dragHover) { selA = dragStart < dragHover ? dragStart : dragHover; selB = dragStart < dragHover ? dragHover : dragStart; }
     var h = '<div class="cal_month' + (which === 1 ? " second" : "") + '"><div class="cal_head">' +
       '<button type="button" class="cal_nav" data-d="-1" aria-label="Previous month"' + (which === 1 ? " disabled" : "") + ">‹</button><b>" +
       first.toLocaleDateString(LOCALE, { month: "long", year: "numeric" }) +
@@ -338,10 +338,12 @@
       var s = C.iso(new Date(y, m, d)), cls = "cal_day", r = rateFor(new Date(y, m, d)), dis = false;
       if (s < today) { cls += " past"; dis = true; }
       else if (bookedNights.has(s)) { cls += " booked"; dis = true; }
-      if (selA && selB && s >= selA && s < selB) cls += " sel"; else if (selA && !selB && s === selA) cls += " sel";
+      if (selA && selB && s >= selA && s <= selB) cls += " sel"; else if (selA && !selB && s === selA) cls += " sel";
       if (s === selA) cls += " in";
-      if (selB && s === C.iso(C.addDays(new Date(selB + "T12:00"), -1))) cls += " out";
-      h += '<button type="button" class="' + cls + '" data-day="' + s + '"' + (dis ? " disabled" : "") + "><span>" + d + "</span>" + (r && !dis ? "<i>" + money(r.nightly) + "</i>" : "") + "</button>";
+      if (selB && s === selB) cls += " out";
+      var outOk = cls.indexOf("booked") > -1 && qi && !qo && s > qi && !bookedNights.has(C.iso(C.addDays(new Date(s + "T12:00"), -1)));
+      if (outOk) { dis = false; cls += " out_ok"; }
+      h += '<button type="button" class="' + cls + '" data-day="' + s + '"' + (dis ? " disabled" : "") + "><span>" + d + "</span>" + (r && cls.indexOf("booked") < 0 && cls.indexOf("past") < 0 ? "<i>" + money(r.nightly) + "</i>" : "") + "</button>";
     }
     return h + "</div></div>";
   }
@@ -366,7 +368,7 @@
     if (!dragStart) return;
     if (dragHover && dragHover !== dragStart) {
       var a = dragStart < dragHover ? dragStart : dragHover, b = dragStart < dragHover ? dragHover : dragStart;
-      qin.value = a; qout.value = C.iso(C.addDays(new Date(b + "T12:00"), 1)); qout.min = a;
+      qin.value = a; qout.value = b; qout.min = a;
       dragStart = null; dragHover = null; quote(); renderCal();
     } else { dragStart = null; dragHover = null; }
   });
@@ -438,7 +440,7 @@
     if (window.L && P.lat) {
       var lmap = L.map(map, { scrollWheelZoom: false }).setView([P.lat, P.lng], 12);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap contributors" }).addTo(lmap);
-      L.marker([P.lat, P.lng], { icon: L.divIcon({ className: "pin pin_home", html: "<span>&#9679;</span>", iconSize: [34, 34], iconAnchor: [17, 17] }), zIndexOffset: 1000 })
+      L.marker([P.lat, P.lng], { icon: L.divIcon({ className: "pin_home", html: '<svg viewBox="0 0 32 44" width="32" height="44" aria-hidden="true"><path d="M16 1C7.7 1 1 7.6 1 15.8 1 27 16 43 16 43s15-16 15-27.2C31 7.6 24.3 1 16 1z" fill="#0FA3A3" stroke="#fff" stroke-width="2"/><path d="M9 17l7-6 7 6v8h-5v-5h-4v5H9z" fill="#fff"/></svg>', iconSize: [32, 44], iconAnchor: [16, 43], popupAnchor: [0, -40] }), zIndexOffset: 1000 })
         .addTo(lmap).bindPopup("<b>" + esc(P.name) + "</b><br>" + esc(P.address));
       var pins = [], bounds = [[P.lat, P.lng]];
       (P.nearby || []).forEach(function (n, i) {
