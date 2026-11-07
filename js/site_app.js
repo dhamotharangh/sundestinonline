@@ -349,6 +349,8 @@
       if (selB && s === selB) cls += " out";
       var outOk = cls.indexOf("booked") > -1 && qi && !qo && s > qi && !bookedNights.has(C.iso(C.addDays(new Date(s + "T12:00"), -1)));
       if (outOk) { dis = false; cls += " out_ok"; }
+      /* after a check-in is chosen, days closer than the minimum stay cannot be the check-out */
+      if (qi && !qo && s > qi && !dis && Math.round((new Date(s + "T12:00") - new Date(qi + "T12:00")) / 864e5) < (P.min_nights || 1)) { dis = true; cls += " too_soon"; }
       h += '<button type="button" class="' + cls + '" data-day="' + s + '"' + (dis ? " disabled" : "") + "><span>" + d + "</span>" + (r && cls.indexOf("booked") < 0 && cls.indexOf("past") < 0 ? "<i>" + money(r.nightly) + "</i>" : "") + "</button>";
     }
     return h + "</div></div>";
@@ -384,8 +386,9 @@
     $$(".package_card.on", packages).forEach(function (x) { x.classList.remove("on"); });
     if (!qin.value || !qout.value) { qres.innerHTML = '<span class="hint">' + esc(R.empty_hint) + "</span>"; return; }
     var a = new Date(qin.value + "T12:00"), b = new Date(qout.value + "T12:00");
-    var nights = Math.round((b - a) / 864e5);
+    var nights = Math.round((b - a) / 864e5), MIN = P.min_nights || 1;
     if (nights < 1) { qres.innerHTML = '<span class="hint">' + esc(R.order_hint) + "</span>"; return; }
+    if (nights < MIN) { qres.innerHTML = '<span class="hint warn">' + esc(fmt(R.min_hard, { min: MIN })) + "</span>"; return; }
     var sub = 0, mins = 0, lines = {}, order = [], clash = 0, missing = 0;
     for (var d = new Date(a); d < b; d.setDate(d.getDate() + 1)) {
       if (bookedNights.has(C.iso(d))) clash++;
@@ -439,19 +442,20 @@
 
   /* ── 9. Location: OpenStreetMap, numbered pins that match the list; hover highlights both ── */
   var map = $("#location_map"), nearList = $("#location_nearby");
+  function pinNo(i) { var n = 0; for (var k = 0; k <= i; k++) if ((P.nearby[k] || [])[2]) n++; return n; }
   if (map && nearList) {
     nearList.innerHTML = (P.nearby || []).map(function (n, i) {
-      return '<div class="near_row' + (n[2] ? " has_pin" : "") + '" data-i="' + i + '"><i class="near_num">' + (i + 1) + "</i><span class=\"near_name\">" + esc(n[0]) + '</span><span class="near_dist">' + esc(n[1]) + "</span></div>";
+      return '<div class="near_row' + (n[2] ? " has_pin" : "") + '" data-i="' + i + '"><i class="near_num' + (n[2] ? "" : " home") + '">' + (n[2] ? pinNo(i) : "") + "</i><span class=\"near_name\">" + esc(n[0]) + '</span><span class="near_dist">' + esc(n[1]) + "</span></div>";
     }).join("");
     if (window.L && P.lat) {
       var lmap = L.map(map, { scrollWheelZoom: false }).setView([P.lat, P.lng], 12);
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap contributors" }).addTo(lmap);
-      L.marker([P.lat, P.lng], { icon: L.divIcon({ className: "pin_home", html: '<svg viewBox="0 0 32 44" width="32" height="44" aria-hidden="true"><path d="M16 1C7.7 1 1 7.6 1 15.8 1 27 16 43 16 43s15-16 15-27.2C31 7.6 24.3 1 16 1z" fill="#0FA3A3" stroke="#fff" stroke-width="2"/><path d="M9 17l7-6 7 6v8h-5v-5h-4v5H9z" fill="#fff"/></svg>', iconSize: [32, 44], iconAnchor: [16, 43], popupAnchor: [0, -40] }), zIndexOffset: 1000 })
+      L.marker([P.lat, P.lng], { icon: L.divIcon({ className: "pin_home", html: '<svg viewBox="0 0 32 44" width="32" height="44" aria-hidden="true"><path d="M16 1C7.7 1 1 7.6 1 15.8 1 27 16 43 16 43s15-16 15-27.2C31 7.6 24.3 1 16 1z" fill="#F26B3A" stroke="#fff" stroke-width="2"/><path d="M9 17l7-6 7 6v8h-5v-5h-4v5H9z" fill="#fff"/></svg>', iconSize: [32, 44], iconAnchor: [16, 43], popupAnchor: [0, -40] }), zIndexOffset: 1000 })
         .addTo(lmap).bindPopup("<b>" + esc(P.name) + "</b><br>" + esc(P.address));
       var pins = [], bounds = [[P.lat, P.lng]];
       (P.nearby || []).forEach(function (n, i) {
         if (!n[2]) return;
-        var m = L.marker([n[2], n[3]], { icon: L.divIcon({ className: "pin", html: "<span>" + (i + 1) + "</span>", iconSize: [28, 28], iconAnchor: [14, 14] }) })
+        var m = L.marker([n[2], n[3]], { icon: L.divIcon({ className: "pin", html: "<span>" + pinNo(i) + "</span>", iconSize: [28, 28], iconAnchor: [14, 14] }) })
           .addTo(lmap).bindPopup("<b>" + esc(n[0]) + "</b><br>" + esc(n[1]));
         pins[i] = m;
         if (Math.abs(n[2] - P.lat) < 0.06 && Math.abs(n[3] - P.lng) < 0.08) bounds.push([n[2], n[3]]);

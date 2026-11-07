@@ -44,7 +44,7 @@ window.SDO_PROPERTIES = [
     amenity_groups: [
       ["Beach and pool", "beach", ["Beachfront private balcony", "Beachside heated pool", "Direct beach access", "Seasonal beach chair service", "Pool deck steps from the sand"]],
       ["Inside",         "kitchen", ["Fully equipped kitchen", "Breakfast bar", "Dishwasher and microwave", "Coffee maker", "Flat-screen TVs in living room and bedroom"]],
-      ["Comfort",        "wifi", ["Free Wi-Fi", "Free parking", "Central air conditioning", "Linens and towels provided", "Hair dryer", "2nd floor, no elevator wait"]]
+      ["Comfort",        "wifi", ["Free Wi-Fi", "Free parking", "Central air conditioning", "Linens and towels provided", "Hair dryer", "2nd floor, one flight of stairs up"]]
     ],
     seasons: [
       { key: "off",      label: "Off-season",  when: "Nov – Feb",             nightly: 149, min: 2, color: "var(--season_off)" },
@@ -55,10 +55,11 @@ window.SDO_PROPERTIES = [
     month_season: ["off","off","shoulder","shoulder","shoulder","peak","peak","peak","shoulder","shoulder","off","off"],
     holiday_ranges: [["03-07","03-31"],["07-01","07-07"],["11-20","11-30"],["12-20","01-03"]],
     fees: { cleaning: 150, tax_rate: 0.12 },
+    min_nights: 2,
     rates_note: "Sample rates for layout only. The owner confirms live nightly rates, minimum stays and fees before launch.",
     /* nearby: [name, distance text, lat, lng]. Coordinates are approximate; adjust if a pin sits wrong. */
     nearby: [
-      ["Beach", "under a minute: out the door, one flight down, across the pool deck", 30.3856, -86.4612],
+      ["Beach", "under a minute: out the door, one flight down, across the pool deck"],
       ["Big Kahuna's Water & Adventure Park", "about 1 mi", 30.3936, -86.4546],
       ["Henderson Beach State Park", "about 2 mi", 30.3838, -86.4387],
       ["HarborWalk Village & Destin Harbor", "about 3 mi", 30.3935, -86.5085],

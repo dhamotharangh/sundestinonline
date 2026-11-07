@@ -179,6 +179,8 @@ section{padding:64px 0}
 .cal_day.sel i{color:var(--tile_a_ink);opacity:.75}
 .cal_day.in,.cal_day.out{background:var(--accent);color:var(--on_accent)}
 .cal_day.out_ok{cursor:pointer;text-decoration:none;background:var(--sand)}
+.cal_day.too_soon{background:transparent;color:var(--ink_3);cursor:not-allowed}
+.cal_day.too_soon i{visibility:hidden}
 .cal_day.in i,.cal_day.out i{color:var(--on_accent);opacity:.85}
 .cal_legend{display:flex;gap:14px;font-size:12px;color:var(--ink_2);margin:10px 0 16px}
 .cal_legend span{display:inline-flex;align-items:center;gap:6px}
@@ -205,6 +207,7 @@ section{padding:64px 0}
 .near_row:last-child{border-bottom:0}
 .near_row.has_pin{cursor:pointer}
 .near_row.has_pin:hover,.near_row.hover{background:var(--tile_a);color:var(--tile_a_ink)}
+.near_num.home{background:#F26B3A;box-shadow:inset 0 0 0 3px #fff;border:1px solid #F26B3A}
 .near_num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--link);color:#fff;font-style:normal;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:transform .15s,background .15s}
 .near_row.hover .near_num,.near_row.has_pin:hover .near_num{background:var(--accent);transform:scale(1.15)}
 .near_name{flex:1}

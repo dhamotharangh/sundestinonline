@@ -35,6 +35,7 @@ window.SDO_SITE = {
                empty_hint: "Pick check-in and check-out to see an estimate.", order_hint: "Check-out must be after check-in.",
                cleaning: "Cleaning", taxes: "Taxes",
                min_hint: "These dates usually need a {min}-night minimum. Ask anyway, the owner may make an exception.",
+               min_hard: "Stays are a minimum of {min} nights. Pick a later check-out.",
                booked_hint: "{n} of those nights are already booked. Try other dates.",
                no_rate_hint: "No rate is published for part of those dates yet. Ask the owner.",
                estimate_hint: "Estimate only. The owner confirms the exact quote.",

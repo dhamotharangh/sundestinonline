@@ -28,6 +28,7 @@ window.SDO_SITE_ES = {
                empty_hint: "Elige llegada y salida para ver un estimado.", order_hint: "La salida debe ser después de la llegada.",
                cleaning: "Limpieza", taxes: "Impuestos",
                min_hint: "Estas fechas suelen pedir un mínimo de {min} noches. Pregunta igual, el propietario puede hacer una excepción.",
+               min_hard: "La estancia mínima es de {min} noches. Elige una salida posterior.",
                booked_hint: "{n} de esas noches ya están reservadas. Prueba otras fechas.",
                no_rate_hint: "Aún no hay tarifa publicada para parte de esas fechas. Pregunta al propietario.",
                estimate_hint: "Solo un estimado. El propietario confirma el precio exacto.",
