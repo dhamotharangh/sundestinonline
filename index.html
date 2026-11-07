@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Search / social preview text. Edit here (crawlers read these before JavaScript runs). -->
+<title>SunDestin #203 · Gulf-front condo in Destin, FL · No platform fee, book direct</title>
+<meta name="description" content="2nd-floor Gulf-front condo at Sun Destin, Destin FL. Private balcony over the beachside pool, sleeps 6, direct beach access. Book direct with the owner, no platform fee.">
+<link rel="canonical" href="https://sundestinonline.com/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SunDestin #203 · No platform fee. Just you and the Gulf.">
+<meta property="og:description" content="Gulf-front condo in Destin, FL. Sleeps 6, beachside pool, 1 minute to the sand. Book direct with the owner.">
+<meta property="og:image" content="https://sundestinonline.com/images/2729825.jpg">
+<meta property="og:url" content="https://sundestinonline.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css?v=3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230FA3A3'/%3E%3Cpath d='M6 20c3-2 5-2 8 0s5 2 8 0 3-2 4-1' stroke='%23fff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='10' r='3.5' fill='%23fff'/%3E%3C/svg%3E">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VacationRental",
+  "name": "SunDestin #203",
+  "description": "2nd-floor Gulf-front condo at the Sun Destin Vacation Complex with a private balcony over the beachside pool. 1 bedroom, 1 bath, sleeps 6.",
+  "url": "https://sundestinonline.com/",
+  "image": ["https://sundestinonline.com/images/2729825.jpg", "https://sundestinonline.com/images/2509279.jpg", "https://sundestinonline.com/images/2729820.jpg"],
+  "address": {"@type": "PostalAddress", "streetAddress": "1040 Highway 98 East, #203", "addressLocality": "Destin", "addressRegion": "FL", "postalCode": "32541", "addressCountry": "US"},
+  "geo": {"@type": "GeoCoordinates", "latitude": 30.3864, "longitude": -86.4617},
+  "numberOfRooms": 1,
+  "occupancy": {"@type": "QuantitativeValue", "value": 6}
+}
+</script>
+</head>
+<body>
+<!-- ═══════════════════════════════════════════════════════════════════
+     LAYOUT ONLY. No copy lives in this file.
+     Text   → data/site.js (site-wide) and data/properties.js (per property)
+     Slots  → data-t="site.path" or data-t="p.path" are filled by js/site.js
+     Blocks → data-block="..." are rendered from lists in the data files
+     Move a section: cut and paste its <section>. Order is free.
+     ═══════════════════════════════════════════════════════════════════ -->
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="index.html" data-block="logo"></a>
+    <button class="menu-btn" aria-label="Menu" aria-controls="nav">Menu</button>
+    <nav class="nav" id="nav" data-block="nav"></nav>
+    <label class="theme"><span data-t="site.themeLabel"></span> <select class="theme-pick" aria-label="Colour theme"></select></label>
+    <a class="btn btn-primary" href="#book" data-t="site.navCta"></a>
+  </div>
+</header>
+
+<!-- HERO: text left, clean photo tile right (no overlay on the photo) -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="badge"><span class="dot"></span><span data-t="site.hero.badge"></span></span>
+      <h1><span data-t="site.hero.title"></span><br><span class="h1-soft" data-t="site.hero.title2"></span></h1>
+      <p class="sub" data-t="site.hero.sub"></p>
+      <div class="chips" data-block="chips"></div>
+      <div class="cta">
+        <a class="btn btn-primary" href="#book" data-t="site.hero.cta1"></a>
+        <a class="btn btn-ghost" href="#photos" data-t="site.hero.cta2"></a>
+      </div>
+    </div>
+    <div class="hero-photo"><img data-block="hero-img" alt="" fetchpriority="high"></div>
+  </div>
+</section>
+
+<section id="why" style="padding-top:0">
+  <div class="wrap why reveal" data-block="why"></div>
+</section>
+
+<section id="photos" style="padding-top:24px">
+  <div class="wrap">
+    <div class="kicker" data-t="site.photos.kicker"></div>
+    <h2 class="reveal" data-t="site.photos.title"></h2>
+    <p class="lead reveal" style="margin:14px 0 24px" data-t="site.photos.lead"></p>
+    <div class="filters" id="filters"></div>
+    <div class="bento reveal" id="bento"></div>
+  </div>
+</section>
+
+<section id="condo" style="background:var(--sand)">
+  <div class="wrap split">
+    <div class="reveal">
+      <div class="kicker" data-t="site.condo.kicker"></div>
+      <h2 data-t="p.headline"></h2>
+      <div class="desc" data-block="description"></div>
+    </div>
+    <div class="facts reveal" style="background:var(--page)"><dl data-block="facts"></dl></div>
+  </div>
+</section>
+
+<section id="amenities-sec">
+  <div class="wrap">
+    <div class="kicker" data-t="site.amenities.kicker"></div>
+    <h2 class="reveal" style="margin-bottom:28px" data-t="site.amenities.title"></h2>
+    <div class="am-grid reveal" id="amenities"></div>
+  </div>
+</section>
+
+<section id="rates" style="background:var(--sand)">
+  <div class="wrap">
+    <div class="kicker" data-t="site.rates.kicker"></div>
+    <h2 class="reveal"><span data-t="site.rates.titlePrefix"></span> <span id="from">$—</span> <span data-t="site.rates.titleSuffix"></span></h2>
+    <div class="rates" style="margin-top:20px">
+      <div class="reveal">
+        <div class="band" id="band"></div>
+        <div class="months" id="months"></div>
+        <div class="legend" id="legend"></div>
+        <table class="rtable" id="rtable"><thead><tr data-block="rate-cols"></tr></thead><tbody></tbody></table>
+        <p class="note" id="rates-note" data-t="p.ratesNote"></p>
+      </div>
+      <div class="quote reveal" style="background:var(--page)">
+        <h3 style="margin-bottom:16px" data-t="site.rates.quoteTitle"></h3>
+        <div class="row">
+          <div><label for="q-in" data-t="site.rates.checkIn"></label><input type="date" id="q-in"></div>
+          <div><label for="q-out" data-t="site.rates.checkOut"></label><input type="date" id="q-out"></div>
+        </div>
+        <div class="qout" id="q-res"></div>
+        <a class="btn btn-primary" href="#book" style="margin-top:18px;width:100%;justify-content:center" data-t="site.rates.askCta"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="map">
+  <div class="wrap">
+    <div class="kicker" data-t="site.location.kicker"></div>
+    <h2 class="reveal" style="margin-bottom:28px" data-t="site.location.title"></h2>
+    <div class="loc">
+      <div class="map reveal" id="map-embed"></div>
+      <div class="near reveal" id="near"></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews" style="background:var(--sand)">
+  <div class="wrap">
+    <div class="kicker" data-t="site.reviews.kicker"></div>
+    <h2 class="reveal" style="margin-bottom:28px" data-t="site.reviews.title"></h2>
+    <div class="rev reveal" id="reviews-grid"></div>
+  </div>
+</section>
+
+<section id="book">
+  <div class="wrap">
+    <div class="book reveal">
+      <div>
+        <div class="kicker" style="color:inherit;opacity:.7" data-t="site.book.kicker"></div>
+        <h2 data-t="site.book.title"></h2>
+        <p class="lead" style="margin-top:14px" data-t="site.book.lead"></p>
+        <div class="contact-lines">
+          <a data-contact="email" href="#"></a>
+          <a data-contact="phone" href="#"></a>
+          <a data-contact="whatsapp" href="#"></a>
+        </div>
+      </div>
+      <form class="form" id="inquiry" novalidate>
+        <div><label for="f-name" data-t="site.book.labels.name"></label><input id="f-name" name="name" required autocomplete="name"></div>
+        <div><label for="f-email" data-t="site.book.labels.email"></label><input id="f-email" name="email" type="email" required autocomplete="email"></div>
+        <div><label for="f-in" data-t="site.book.labels.checkin"></label><input id="f-in" name="checkin" type="date" required></div>
+        <div><label for="f-out" data-t="site.book.labels.checkout"></label><input id="f-out" name="checkout" type="date" required></div>
+        <div><label for="f-guests" data-t="site.book.labels.guests"></label><select id="f-guests" name="guests" data-block="guests"></select></div>
+        <div class="full"><label for="f-msg" data-t="site.book.labels.message"></label><textarea id="f-msg" name="message" data-block="msg-placeholder"></textarea></div>
+        <div class="full"><button class="btn btn-primary" type="submit" data-t="site.book.submit"></button></div>
+        <div class="ok" id="form-ok"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="padding-top:24px">
+  <div class="wrap faq" style="max-width:820px">
+    <div class="kicker" data-t="site.faq.kicker"></div>
+    <h2 class="reveal" style="margin-bottom:20px" data-t="site.faq.title"></h2>
+    <div data-block="faq"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div><a class="logo" href="index.html" data-block="logo"></a><p class="tag" data-t="site.footer.tagline"></p></div>
+      <div data-block="footer-cols" style="display:contents"></div>
+    </div>
+    <div class="legal"><b data-t="site.footer.legalLead"></b> <span data-t="site.footer.legal"></span> © <span id="yr"></span> <span data-t="site.footer.copyright"></span></div>
+  </div>
+</footer>
+
+<a class="btn btn-primary sticky-cta" href="#book" data-t="site.stickyCta"></a>
+
+<div class="lb" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <span class="count"></span>
+  <button class="x" aria-label="Close">×</button>
+  <button class="prev" aria-label="Previous photo">‹</button>
+  <img src="" alt="">
+  <div class="lcap"></div>
+  <button class="next" aria-label="Next photo">›</button>
+</div>
+
+<script src="data/site.js?v=3"></script>
+<script src="data/properties.js?v=3"></script>
+<script src="js/site.js?v=3"></script>
+</body>
+</html>

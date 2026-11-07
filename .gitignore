@@ -1,0 +1,9 @@
+# Archive photos and raw downloads stay on disk, never in the deployed site
+images/archive_photos/
+
+# Local tooling
+.claude/
+__pycache__/
+*.log
+Thumbs.db
+.DS_Store
