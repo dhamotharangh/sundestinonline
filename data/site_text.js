@@ -13,15 +13,15 @@ window.SDO_SITE = {
   themes: [["emerald_water", "Emerald water"], ["deep_gulf", "Deep Gulf"], ["sunset_sand", "Sunset sand"], ["night_swim", "Night swim"]],
 
   hero: {
-    title: "No platform fee.",
-    title2: "Just you and the Gulf.",
-    sub: "The price you see is the price you pay. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Private balcony over the pool, sleeps 6, one minute to the sand.",
+    title: "Step onto the beach.",
+    title2: "Kids in sight.",
+    sub: "The pool and the beach sit right under your balcony, so you see everything from your chair. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Sleeps 6, one minute to the sand.",
     cta: "Check dates",
     /* one quiet line under the photo, instead of three tiles */
-    line: ["No platform fee", "Talk to the owner", "One clear policy"]
+    line: ["No platform fee", "Book direct with the owner", "The price you see is the price you pay"]
   },
 
-  gallery:   { kicker: "Photos", title: "Step onto the beach. Kids in sight.", lead: "The pool and the beach sit right under the balcony, so you see everything from your chair.", all_label: "All", more_label: "more photos" },
+  gallery:   { kicker: "Photos", title: "Look around", lead: "Tap any tile. Arrow keys or swipe to move through the set.", all_label: "All", more_label: "more photos" },
   condo:     { kicker: "The condo", fact_labels: { bedrooms: "Bedrooms", bathrooms: "Bathrooms", sleeps: "Sleeps", floor: "Floor", view: "View", complex: "Resort", beds: "Beds", address: "Address" } },
   amenities: { kicker: "Amenities", title: "Everything a beach week needs" },
   rates:     { kicker: "Rates and dates", title_prefix: "From", title_suffix: "a night",
