@@ -59,7 +59,7 @@ window.SDO_SITE = {
   footer: {
     tagline: "Owner-run beachfront condos in Destin, Florida. Book direct, keep the fee.",
     links: [["Photos", "#gallery"], ["Rates", "#rates"], ["Map", "#location"], ["FAQ", "#faq"], ["All properties", "properties.html"], ["Your account", "register.html"], ["Terms", "terms.html"], ["Privacy", "privacy.html"]],
-    legal_lead: "Who you book with:",
+    legal_lead: "Book direct with Owner:",
     legal: "every reservation, payment, cancellation and refund is a direct agreement between you and the property owner. SunDestin Online is the owner's own website, not a marketplace or agent.",
     copyright: "SunDestin Online"
   },
