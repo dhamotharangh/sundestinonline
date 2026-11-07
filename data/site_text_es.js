@@ -52,7 +52,7 @@ window.SDO_SITE_ES = {
   footer: {
     tagline: "Condominios frente al mar en Destin, Florida, gestionados por su propietario. Reserva directa, sin comisión.",
     links: [["Fotos", "#gallery"], ["Tarifas", "#rates"], ["Mapa", "#location"], ["Preguntas", "#faq"], ["Todas las propiedades", "properties.html"], ["Tu cuenta", "register.html"], ["Términos", "terms.html"], ["Privacidad", "privacy.html"]],
-    legal_lead: "Reserva directa con el propietario:",
+    legal_lead: "Reserva directa con el propietario. Sin comisión de plataforma:",
     legal: "cada reserva, pago, cancelación y reembolso es un acuerdo directo entre tú y el propietario. SunDestin Online es el sitio propio del propietario, no un mercado ni una agencia.",
     copyright: "SunDestin Online"
   },
