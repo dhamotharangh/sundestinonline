@@ -85,7 +85,9 @@ section{padding:64px 0}
 /* ───────────── 4. Hero: text left, clean photo right ───────────── */
 .hero{padding:40px 0 28px}
 .hero_grid{display:grid;grid-template-columns:1fr 1.15fr;gap:40px;align-items:center}
-.hero h1{font-size:clamp(30px,3.8vw,48px)}
+.hero h1{font-size:clamp(26px,3vw,44px)}
+.hero h1 span{display:block;white-space:nowrap}
+.hero h1 br{display:none}
 .hero_title_soft{color:var(--accent)}
 .hero_sub{font-size:18px;color:var(--ink_2);max-width:48ch;margin:20px 0 22px}
 .hero_sub strong{color:var(--ink);font-weight:600}
