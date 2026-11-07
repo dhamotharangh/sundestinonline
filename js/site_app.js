@@ -69,11 +69,11 @@
   B.hero_line = function (el) { el.innerHTML = (S.hero.line || []).map(function (t) { return "<span>" + esc(t) + "</span>"; }).join(""); };
   B.condo_desc = function (el) { el.innerHTML = (P.description || []).map(function (p) { return "<p>" + esc(p) + "</p>"; }).join(""); };
   B.condo_facts = function (el) {
-    var L = S.condo.fact_labels, f = P.facts;
+    var FL = S.condo.fact_labels, f = P.facts;
     el.innerHTML = [["bedrooms", f.bedrooms], ["bathrooms", f.bathrooms], ["sleeps", f.sleeps], ["floor", f.floor], ["view", f.view], ["complex", P.complex]]
-      .map(function (x) { return "<div><dt>" + esc(L[x[0]]) + "</dt><dd>" + esc(x[1]) + "</dd></div>"; }).join("") +
-      '<div class="wide"><dt>' + esc(L.beds) + "</dt><dd><ul>" + (P.beds || []).map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul></dd></div>" +
-      '<div class="wide"><dt>' + esc(L.address) + "</dt><dd>" + esc(P.address) + "</dd></div>";
+      .map(function (x) { return "<div><dt>" + esc(FL[x[0]]) + "</dt><dd>" + esc(x[1]) + "</dd></div>"; }).join("") +
+      '<div class="wide"><dt>' + esc(FL.beds) + "</dt><dd><ul>" + (P.beds || []).map(function (b) { return "<li>" + esc(b) + "</li>"; }).join("") + "</ul></dd></div>" +
+      '<div class="wide"><dt>' + esc(FL.address) + "</dt><dd>" + esc(P.address) + "</dd></div>";
   };
   B.amenity_groups = function (el) {
     el.innerHTML = (P.amenity_groups || []).map(function (g) {
@@ -86,6 +86,19 @@
     el.innerHTML = h;
   };
   B.inquiry_placeholder = function (el) { el.placeholder = S.inquiry.placeholder || ""; };
+  B.quote_occupancy = function (el) {
+    var n = (P.facts || {}).sleeps || 6, R2 = S.rates || {};
+    var opts = function (from, to, sel) { var h = ""; for (var i = from; i <= to; i++) h += "<option" + (i === sel ? " selected" : "") + ">" + i + "</option>"; return h; };
+    el.innerHTML = '<label><span>' + esc(R2.guests_label || "Guests") + '</span><select id="quote_guests">' + opts(1, n, 2) + "</select></label>" +
+                   '<label><span>' + esc(R2.children_label || "Children") + '</span><select id="quote_children">' + opts(0, n - 1, 0) + "</select></label>";
+    var g = $("#quote_guests", el), c = $("#quote_children", el);
+    function sync() {
+      var max = n - (+g.value); if (+c.value > max) c.value = max;
+      $$("option", c).forEach(function (o) { o.disabled = +o.value > max; });
+      var fg = $("#inquiry_guests"); if (fg) fg.value = Math.min(n, (+g.value) + (+c.value));
+    }
+    g.addEventListener("change", sync); c.addEventListener("change", sync); sync();
+  };
   B.faq_list = function (el) {
     el.innerHTML = (P.faq || []).map(function (q) { return "<details><summary>" + esc(q[0]) + "</summary><p>" + esc(q[1]) + "</p></details>"; }).join("");
   };
@@ -353,7 +366,7 @@
     if (clash) { qres.innerHTML = '<span class="hint warn">' + esc(fmt(R.booked_hint, { n: clash })) + "</span>"; return; }
     if (missing) { qres.innerHTML = '<span class="hint warn">' + esc(R.no_rate_hint) + "</span>"; return; }
     var tax = (sub + P.fees.cleaning) * P.fees.tax_rate;
-    var html = order.map(function (k) { var L = lines[k]; return "<div><span>" + L.n + " × " + esc(k) + " @ " + money(L.nightly) + "</span><span>" + money(L.n * L.nightly) + "</span></div>"; }).join("");
+    var html = order.map(function (k) { var ln = lines[k]; return "<div><span>" + ln.n + " × " + esc(k) + " @ " + money(ln.nightly) + "</span><span>" + money(ln.n * ln.nightly) + "</span></div>"; }).join("");
     html += "<div><span>" + esc(R.cleaning) + "</span><span>" + money(P.fees.cleaning) + "</span></div>";
     html += "<div><span>" + esc(R.taxes) + " (" + Math.round(P.fees.tax_rate * 100) + "%)</span><span>" + money(tax) + "</span></div>";
     html += '<div class="tot"><span>' + nights + " " + esc(R.nights_word) + "</span><span>" + money(sub + P.fees.cleaning + tax) + "</span></div>";
@@ -392,19 +405,40 @@
     });
   })();
 
-  /* ── 9. Location ── */
-  var map = $("#location_map");
-  if (map) {
-    map.innerHTML = '<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of ' + esc(P.name) + '" src="https://www.google.com/maps?q=' + encodeURIComponent(P.address) + '&z=15&output=embed"></iframe>';
-    $("#location_nearby").innerHTML = (P.nearby || []).map(function (n) { return "<div>" + esc(n[0]) + "<span>" + esc(n[1]) + "</span></div>"; }).join("");
+  /* ── 9. Location: OpenStreetMap with a pin for the condo and each nearby place ── */
+  var map = $("#location_map"), nearList = $("#location_nearby");
+  if (map && nearList) {
+    nearList.innerHTML = (P.nearby || []).map(function (n, i) { return '<div data-i="' + i + '"' + (n[2] ? ' class="has_pin"' : "") + ">" + esc(n[0]) + "<span>" + esc(n[1]) + "</span></div>"; }).join("");
+    if (window.L && P.lat) {
+      var lmap = L.map(map, { scrollWheelZoom: false }).setView([P.lat, P.lng], 12);
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap contributors" }).addTo(lmap);
+      var home = L.circleMarker([P.lat, P.lng], { radius: 11, color: "#fff", weight: 3, fillColor: "#0FA3A3", fillOpacity: 1 }).addTo(lmap).bindPopup("<b>" + esc(P.name) + "</b><br>" + esc(P.address));
+      var pins = [], bounds = [[P.lat, P.lng]];
+      (P.nearby || []).forEach(function (n, i) {
+        if (!n[2]) return;
+        var m = L.circleMarker([n[2], n[3]], { radius: 7, color: "#fff", weight: 2, fillColor: "#1D7FA8", fillOpacity: 1 }).addTo(lmap).bindPopup("<b>" + esc(n[0]) + "</b><br>" + esc(n[1]));
+        pins[i] = m; if (Math.abs(n[2] - P.lat) < 0.06 && Math.abs(n[3] - P.lng) < 0.08) bounds.push([n[2], n[3]]); /* far places (airport) stay off the first view */
+      });
+      lmap.fitBounds(bounds, { padding: [28, 28] });
+      $$("div.has_pin", nearList).forEach(function (d) {
+        d.addEventListener("click", function () { var m = pins[+d.getAttribute("data-i")]; if (m) { lmap.panTo(m.getLatLng()); m.openPopup(); } });
+      });
+      map.addEventListener("click", function () { lmap.scrollWheelZoom.enable(); });
+    } else {
+      map.innerHTML = '<iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map of ' + esc(P.name) + '" src="https://www.google.com/maps?q=' + encodeURIComponent(P.address) + '&z=15&output=embed"></iframe>';
+    }
   }
 
-  /* ── 10. Reviews ── */
-  var rv = $("#review_list"), RV = S.reviews || {};
-  if (rv) {
-    if ((P.reviews || []).length) {
-      rv.innerHTML = P.reviews.map(function (r) {
-        return '<blockquote><div class="stars">' + "★★★★★".slice(0, r.stars || 5) + "</div>" + esc(r.text) + "<cite>" + esc(r.name) + (r.when ? " · " + esc(r.when) : "") + "</cite></blockquote>";
+  /* ── 10. Reviews: data file + guest reviews (demo), scroll strip, add / edit ── */
+  var rv = $("#review_list"), RV = S.reviews || {}, rvTools = $("#review_tools"), rvForm = $("#review_form");
+  function allReviews() { var mine = ST ? ST.reviews(P.id) : []; return mine.map(function (r) { return Object.assign({ demo: true }, r); }).concat(P.reviews || []); }
+  function renderReviews() {
+    if (!rv) return;
+    var list = allReviews();
+    if (list.length) {
+      rv.className = "review_list";
+      rv.innerHTML = list.map(function (r) {
+        return '<blockquote><div class="stars">' + "★★★★★".slice(0, r.stars || 5) + "</div>" + esc(r.text) + "<cite>" + esc(r.name) + (r.when ? " · " + esc(r.when) : "") + (r.demo ? ' · <i>' + esc(RV.demo_tag) + "</i>" : "") + "</cite></blockquote>";
       }).join("");
     } else {
       rv.className = "review_empty";
@@ -412,7 +446,35 @@
         ? esc(RV.empty_links) + " " + P.review_links.map(function (l) { return '<a href="' + esc(l[1]) + '" rel="noopener" target="_blank">' + esc(l[0]) + "</a>"; }).join(" and ") + "."
         : esc(RV.empty_no_links));
     }
+    var nav = $("#review_nav"); if (nav) nav.hidden = list.length < 2;
+    if (rvTools && ST) {
+      var u = ST.current(), mine = ST.myReview(P.id);
+      rvTools.innerHTML = u
+        ? '<button class="btn btn_ghost" type="button" id="review_open">' + esc(mine ? RV.edit_btn : RV.add_btn) + "</button>"
+        : '<span class="muted" style="font-size:14px">' + esc(RV.signin_hint) + ' <a href="register.html">' + esc(RV.signin_link) + "</a></span>";
+      var open = $("#review_open");
+      if (open) open.addEventListener("click", function () {
+        rvForm.hidden = false;
+        rvForm.elements.stars.value = mine ? mine.stars : 5; rvForm.elements.text.value = mine ? mine.text : ""; rvForm.elements.when.value = mine ? mine.when : "";
+        $("#review_delete").hidden = !mine;
+        rvForm.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    }
   }
+  if (rvForm && ST) {
+    rvForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var r = ST.saveReview(P.id, rvForm.elements.stars.value, rvForm.elements.text.value, rvForm.elements.when.value);
+      var m = $("#review_msg"); m.textContent = r.ok ? RV.saved : r.error; m.className = "review_msg " + (r.ok ? "ok" : "err");
+      if (r.ok) { rvForm.hidden = true; renderReviews(); }
+    });
+    $("#review_cancel").addEventListener("click", function () { rvForm.hidden = true; });
+    $("#review_delete").addEventListener("click", function () { if (confirm("Delete your review?")) { ST.deleteReview(P.id); rvForm.hidden = true; renderReviews(); } });
+    $$("#review_nav button").forEach(function (b) {
+      b.addEventListener("click", function () { rv.scrollBy({ left: (+b.getAttribute("data-d")) * (rv.clientWidth * 0.8), behavior: "smooth" }); });
+    });
+  }
+  renderReviews();
 
   /* ── 11. Inquiry form → email ── */
   var form = $("#inquiry_form");
@@ -425,19 +487,20 @@
     });
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var f = form.elements, v = { "in": f.checkin.value, out: f.checkout.value, guests: f.guests.value, message: f.message.value || "", guest: f.name.value, guestEmail: f.email.value, email: P.contact.email };
+      var f = form.elements, qg = $("#quote_guests"), qc = $("#quote_children");
+      var v = { "in": f.checkin.value, out: f.checkout.value, guests: f.guests.value + (qg ? " (" + qg.value + " adults, " + (qc ? qc.value : 0) + " children)" : ""), message: f.message.value || "", guest: f.name.value, guestEmail: f.email.value, email: P.contact.email };
       window.location.href = "mailto:" + P.contact.email + "?subject=" + encodeURIComponent(fmt(S.inquiry.mail_subject, v)) + "&body=" + encodeURIComponent(fmt(S.inquiry.mail_body, v));
       $("#inquiry_sent").textContent = fmt(S.inquiry.sent, v);
     });
   }
 
   /* ── 12. Property cards (properties.html) ── */
-  var cards = $("#property_cards"), L = S.list || {};
+  var cards = $("#property_cards"), LST = S.list || {};
   if (cards) {
     cards.innerHTML = props.map(function (p) {
       var from = Math.min.apply(null, p.seasons.map(function (s) { return s.nightly; }));
       return '<a class="property_card" href="' + (p.featured ? "index.html" : "index.html?p=" + esc(p.id)) + '"><img src="' + esc(p.hero) + '" alt="' + esc(p.name) + '" loading="lazy"><div class="body"><h3>' + esc(p.name) + "</h3>" +
-        '<div class="meta">' + p.facts.bedrooms + " BR · " + p.facts.bathrooms + " BA · sleeps " + p.facts.sleeps + " · " + esc(p.facts.view) + '</div><span class="from">' + esc(L.from) + " " + money(from) + " " + esc(L.per_night) + "</span></div></a>";
+        '<div class="meta">' + p.facts.bedrooms + " BR · " + p.facts.bathrooms + " BA · sleeps " + p.facts.sleeps + " · " + esc(p.facts.view) + '</div><span class="from">' + esc(LST.from) + " " + money(from) + " " + esc(LST.per_night) + "</span></div></a>";
     }).join("");
   }
 })();

@@ -62,6 +62,19 @@
       write("session", null); return true;
     },
 
+    /* guest reviews (demo): one per signed-in user per property */
+    reviews: function (pid) { return read("reviews_" + pid, []); },
+    myReview: function (pid) { var u = this.current(); if (!u) return null; return this.reviews(pid).filter(function (r) { return r.email === u.email; })[0] || null; },
+    saveReview: function (pid, stars, text, when) {
+      var u = this.current(); if (!u) return { ok: false, error: "Sign in first." };
+      text = String(text || "").trim(); if (text.length < 10) return { ok: false, error: "Write at least a sentence." };
+      stars = Math.min(5, Math.max(1, +stars || 5));
+      var all = this.reviews(pid).filter(function (r) { return r.email !== u.email; });
+      all.unshift({ email: u.email, name: u.name, stars: stars, text: text, when: String(when || "").trim(), updated: new Date().toISOString() });
+      write("reviews_" + pid, all); return { ok: true };
+    },
+    deleteReview: function (pid) { var u = this.current(); if (!u) return false; write("reviews_" + pid, this.reviews(pid).filter(function (r) { return r.email !== u.email; })); return true; },
+
     /* owner gate (demo): passcode from data/site_text.js admin.demo_passcode */
     isAdmin: function () { return read("admin", false) === true; },
     adminSignIn: function (code) { var want = ((window.SDO_SITE || {}).admin || {}).demo_passcode || ""; if (code && code === want) { write("admin", true); return true; } return false; },

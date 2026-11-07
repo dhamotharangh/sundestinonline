@@ -135,6 +135,11 @@ section{padding:64px 0}
 .rate_note{font-size:13px;color:var(--ink_3);margin-top:14px}
 .quote_card{background:var(--page);border-radius:var(--radius);padding:24px}
 .quote_card h3{margin-bottom:4px}
+.quote_head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.quote_occupancy{display:grid;gap:6px;flex:none}
+.quote_occupancy label{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:var(--ink_2)}
+.quote_occupancy select{font:inherit;font-size:13px;padding:5px 26px 5px 10px;border-radius:var(--pill);border:1px solid var(--line);background:var(--sand);color:var(--ink);appearance:none;-webkit-appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238A9BAA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 9px center}
 .quote_hint{font-size:13px;color:var(--ink_3);margin-bottom:14px}
 .quote_calendar{display:grid;grid-template-columns:1fr 1fr;gap:20px;user-select:none;-webkit-user-select:none}
 .cal_month{min-width:0}
@@ -172,15 +177,29 @@ section{padding:64px 0}
 
 /* ───────────── 8. Location ───────────── */
 .location_grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.location_map{border-radius:var(--radius);overflow:hidden;min-height:380px;background:var(--tile_b)}
+.location_map{border-radius:var(--radius);overflow:hidden;min-height:380px;height:420px;background:var(--tile_b);z-index:0}
 .location_map iframe{width:100%;height:100%;min-height:380px;border:0;display:block}
 .location_nearby{display:grid;gap:10px}
+.location_nearby div.has_pin{cursor:pointer}
+.location_nearby div.has_pin:hover{background:var(--tile_b);color:var(--tile_b_ink)}
 .location_nearby div{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--sand);border-radius:var(--radius_sm);padding:14px 18px;font-weight:500}
 .location_nearby span{font-size:13px;color:var(--ink_2);font-weight:500;white-space:nowrap}
 
 /* ───────────── 9. Reviews, inquiry, FAQ ───────────── */
-.review_list{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.review_list blockquote{margin:0;background:var(--sand);border-radius:var(--radius);padding:24px;font-size:15px}
+.review_head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}
+.review_nav{display:flex;gap:8px}
+.review_nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--page);color:var(--ink);cursor:pointer;font-size:20px;line-height:1}
+.review_nav button:hover{background:var(--tile_a)}
+.review_list{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px;scrollbar-width:thin}
+.review_list blockquote{margin:0;flex:0 0 min(360px,85%);scroll-snap-align:start;background:var(--page);border-radius:var(--radius);padding:24px;font-size:15px}
+.review_list cite i{font-style:normal;color:var(--accent)}
+.review_tools{margin-top:16px}
+.review_form{background:var(--page);border-radius:var(--radius);padding:24px;margin-top:16px;max-width:620px}
+.review_form label{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink_3);margin:12px 0 6px}
+.review_form select,.review_form textarea,.review_form input{width:100%;font:inherit;font-size:15px;padding:12px 14px;border-radius:var(--radius_sm);border:1px solid var(--line);background:var(--page);color:var(--ink)}
+.review_form textarea{min-height:110px;resize:vertical}
+.review_actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.review_msg{font-size:14px;margin-top:10px}.review_msg.err{color:#B3261E}.review_msg.ok{color:#137333}
 .review_list cite{display:block;margin-top:12px;font-style:normal;font-size:13px;color:var(--ink_2)}
 .review_list .stars{color:var(--accent);letter-spacing:2px;margin-bottom:8px}
 .review_empty{background:var(--tile_b);color:var(--tile_b_ink);border-radius:var(--radius);padding:28px;font-size:15px}
@@ -241,7 +260,6 @@ section{padding:64px 0}
   .amenity_groups{grid-template-columns:1fr;gap:24px}
   .property_cards{grid-template-columns:repeat(2,1fr)}
   .condo_split,.rates_grid,.location_grid,.inquiry_panel,.hero_grid{grid-template-columns:1fr}
-  .review_list{grid-template-columns:1fr}
 }
 @media (max-width:720px){
   section{padding:48px 0}

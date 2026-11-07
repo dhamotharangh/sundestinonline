@@ -12,7 +12,7 @@ window.SDO_PROPERTIES = [
     lat: 30.3864, lng: -86.4617,
     headline: "Breathtaking beachfront views from your private balcony",
     subhead: "Step right onto the sand and enjoy the beach while keeping the kids in sight.",
-    facts: { bedrooms: 1, bathrooms: 1, sleeps: 6, floor: "2nd floor", view: "Beachfront" },
+    facts: { bedrooms: 1, bathrooms: 1.5, sleeps: 6, floor: "2nd floor", view: "Beachfront" },
     beds: ["Queen bed", "Queen sleeper sofa", "Built-in twin bunks (2)"],
     hero: "images/kitchen_wide.jpg",
     photos: [
@@ -56,13 +56,14 @@ window.SDO_PROPERTIES = [
     holiday_ranges: [["03-07","03-31"],["07-01","07-07"],["11-20","11-30"],["12-20","01-03"]],
     fees: { cleaning: 150, tax_rate: 0.12 },
     rates_note: "Sample rates for layout only. The owner confirms live nightly rates, minimum stays and fees before launch.",
+    /* nearby: [name, distance text, lat, lng]. Coordinates are approximate; adjust if a pin sits wrong. */
     nearby: [
-      ["Beach", "0 min · out the slider"],
-      ["Big Kahuna's Water & Adventure Park", "about 1 mi"],
-      ["HarborWalk Village & Destin Harbor", "about 3 mi"],
-      ["Destin Commons (shopping, dining)", "about 4 mi"],
-      ["Henderson Beach State Park", "about 2 mi"],
-      ["Destin–Fort Walton Beach Airport (VPS)", "about 25 min"]
+      ["Beach", "steps away, through the sliding glass door", 30.3856, -86.4612],
+      ["Big Kahuna's Water & Adventure Park", "about 1 mi", 30.3936, -86.4546],
+      ["Henderson Beach State Park", "about 2 mi", 30.3838, -86.4387],
+      ["HarborWalk Village & Destin Harbor", "about 3 mi", 30.3935, -86.5085],
+      ["Destin Commons (shopping, dining)", "about 4 mi", 30.3913, -86.4265],
+      ["Destin–Fort Walton Beach Airport (VPS)", "about 25 min", 30.4832, -86.5254]
     ],
     reviews: [],
     review_links: [],
