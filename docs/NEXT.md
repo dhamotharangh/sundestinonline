@@ -1,3 +1,17 @@
+# Where things stand (updated 2026-11-07, end of session)
+
+**Live on GitHub (dhamotharangh/sundestinonline, branch main), local preview `.\server.bat -start` → http://127.0.0.1:8765/**
+
+Built so far: static site with all copy in data files (EN in `site_text.js` / `properties.js`, ES in `site_text_es.js` / `properties_es.js`, EN/ES switch in header), four colour themes (dropdown in header on desktop, footer on phones), hero "Step onto the beach. Watch kids in sight.", eight-tile gallery with viewer, condo text, three amenity groups, rates from `data/rates.csv` with package cards and a two-month click-or-drag calendar (check-in to check-out highlighted inclusive, booked nights hatched) reading `data/availability.csv`, Guests/Children selectors, OpenStreetMap with numbered pins and two-way hover, guest reviews (add/edit, demo), inquiry by email, FAQ, Terms and Privacy pages, demo `register.html`, demo owner tools at `/admin/` (passcode `admin.demo_passcode`), CSP and Hostinger `.htaccess`, `check_pages.ps1` smoke test.
+
+**Owner inputs still needed:** real rates/min stays (`data/rates.csv`), real blocked dates (`data/availability.csv`), cleaning fee + tax (`data/properties.js › fees`), owner email, review links, Terms placeholders, new admin passcode, map pin coordinates check.
+
+**Decided path:** Hostinger Premium now (Git deploy, password-protect `/admin/`), OwnerRez (~$40/mo, no booking fee) when bookings justify instant reservation + card payment; alternative is a PHP + MySQL backend on Hostinger replacing `js/site_store.js`. Rejected: Supabase, Guesty, Hospitable, Squarespace, GoDaddy.
+
+**Owner working style:** explain and wait for "approve" before building; sends screenshots with numbered fixes; wants exact wording kept (e.g. "Watch kids in sight.").
+
+---
+
 # Where things stand (updated 2026-11-07)
 
 **Decided path (owner, 2026-11-07):**
