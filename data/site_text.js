@@ -52,12 +52,24 @@ window.SDO_SITE = {
 
   footer: {
     tagline: "Owner-run beachfront condos in Destin, Florida. Book direct, keep the fee.",
-    links: [["Photos", "#gallery"], ["Rates", "#rates"], ["Map", "#location"], ["FAQ", "#faq"], ["All properties", "properties.html"], ["Terms", "#"], ["Privacy", "#"]],
+    links: [["Photos", "#gallery"], ["Rates", "#rates"], ["Map", "#location"], ["FAQ", "#faq"], ["All properties", "properties.html"], ["Your account", "register.html"], ["Terms", "#"], ["Privacy", "#"], ["Owner", "admin.html"]],
     legal_lead: "Who you book with:",
     legal: "every reservation, payment, cancellation and refund is a direct agreement between you and the property owner. SunDestin Online is the owner's own website, not a marketplace or agent.",
     copyright: "SunDestin Online"
   },
 
+  /* register.html + admin.html (demo: browser storage only) */
+  account: { kicker: "Guests", title: "Your account", lead: "Register once and your details are ready for every inquiry. Demo: stored in this browser only.",
+             consent: "We keep only your name and email, and only the owner sees them. Delete your account here at any time.",
+             signup_title: "Register", signin_title: "Sign in", name: "Name", email: "Email", password: "Password", password_hint: "At least 8 characters",
+             signup_btn: "Create account", signin_btn: "Sign in", signout_btn: "Sign out", delete_btn: "Delete my account",
+             hello: "Hello, {user}", since: "Registered {date}", switch_in: "Already registered? Sign in", switch_up: "New here? Register" },
+  admin:   { demo_passcode: "sundestin", kicker: "Owner", title: "Edit the site", lead: "Change the text, upload rates and availability, and block days on the calendar. Demo: changes live in this browser only; use Export to publish them through GitHub.",
+             gate_title: "Owner sign-in", gate_label: "Passcode", gate_btn: "Open", gate_error: "Wrong passcode.",
+             text_title: "Text", headline: "Condo headline", subhead: "Sub-line", description: "Description (one paragraph per line)",
+             rates_title: "Rates CSV", availability_title: "Availability CSV", calendar_title: "Block or unblock days", calendar_hint: "Click a day to toggle it. Blocked days show hatched.",
+             save_btn: "Save", saved: "Saved. Open the site to see it.", export_btn: "Export files", reset_btn: "Discard changes", reset_done: "Changes discarded. The site shows the published files again.",
+             signout_btn: "Close owner tools" },
   /* properties.html */
   list: { kicker: "Properties", title: "Owner-run condos on the Destin beach", lead: "Each one is booked directly with its owner. Pick a condo to see photos, rates and the map.", from: "from", per_night: "/ night" }
 };

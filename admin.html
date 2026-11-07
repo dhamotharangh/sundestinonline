@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Owner tools · SunDestin Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site_style.css?v=6">
+<style>
+  .admin_grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .admin_card{background:var(--sand);border-radius:var(--radius);padding:24px}
+  .admin_card h3{margin-bottom:6px}
+  .admin_card label{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink_3);margin:12px 0 6px}
+  .admin_card input,.admin_card textarea{width:100%;font:inherit;font-size:15px;padding:12px 14px;border-radius:var(--radius_sm);border:1px solid var(--line);background:var(--page);color:var(--ink)}
+  .admin_card textarea{min-height:180px;resize:vertical;line-height:1.5}
+  .admin_card input:focus,.admin_card textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+  .admin_card input[type=file]{padding:8px;background:transparent;border:0}
+  .admin_msg{font-size:13px;line-height:1.5;margin-top:10px;white-space:pre-line;min-height:18px}
+  .admin_msg.err{color:#B3261E}.admin_msg.ok{color:#137333}
+  .admin_actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;align-items:center}
+  .admin_hint{font-size:13px;color:var(--ink_3)}
+  .admin_hint code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:rgba(0,0,0,.06);padding:1px 6px;border-radius:4px}
+  .admin_cal .quote_calendar{grid-template-columns:1fr 1fr}
+  .admin_cal .cal_day.booked{cursor:pointer}
+  .demo_badge{display:inline-block;background:var(--tile_b);color:var(--tile_b_ink);border-radius:var(--pill);padding:4px 12px;font-size:12px;font-weight:600;margin-left:10px;vertical-align:middle}
+  @media (max-width:1040px){.admin_grid{grid-template-columns:1fr}}
+  @media (max-width:720px){.admin_cal .quote_calendar{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="site_header">
+  <div class="wrap">
+    <a class="site_logo" href="index.html" data-block="site_logo"></a>
+    <nav class="site_nav" id="site_nav" data-block="site_nav" data-prefix="index.html"></nav>
+    <a class="btn btn_primary" href="index.html" >View site</a>
+  </div>
+</header>
+
+<section id="admin">
+  <div class="wrap">
+    <div class="kicker" data-t="site.admin.kicker"></div>
+    <h2><span data-t="site.admin.title"></span><span class="demo_badge">Demo</span></h2>
+    <p class="lead" style="margin:14px 0 28px" data-t="site.admin.lead"></p>
+
+    <form class="admin_card" id="gate" style="max-width:420px" novalidate>
+      <h3 data-t="site.admin.gate_title"></h3>
+      <label for="gate_code" data-t="site.admin.gate_label"></label><input id="gate_code" type="password" autocomplete="off">
+      <button class="btn btn_primary" type="submit" style="margin-top:16px" data-t="site.admin.gate_btn"></button>
+      <div class="admin_msg" id="gate_msg"></div>
+    </form>
+
+    <div id="tools" hidden>
+      <div class="admin_grid">
+        <div class="admin_card">
+          <h3 data-t="site.admin.text_title"></h3>
+          <label for="text_headline" data-t="site.admin.headline"></label><input id="text_headline">
+          <label for="text_subhead" data-t="site.admin.subhead"></label><input id="text_subhead">
+          <label for="text_description" data-t="site.admin.description"></label><textarea id="text_description"></textarea>
+        </div>
+        <div>
+          <div class="admin_card" style="margin-bottom:20px">
+            <h3 data-t="site.admin.rates_title"></h3>
+            <div class="admin_hint">Columns: <code>property_id,start,end,season,label,nightly,min_nights</code>, start and end inclusive. <a href="data/rates.csv" download>Download current</a></div>
+            <input type="file" id="rates_file" accept=".csv,text/csv">
+            <div class="admin_msg" id="rates_msg"></div>
+          </div>
+          <div class="admin_card">
+            <h3 data-t="site.admin.availability_title"></h3>
+            <div class="admin_hint">Columns: <code>property_id,checkin,checkout,status,note</code>, check-out is the departure day. <a href="data/availability.csv" download>Download current</a></div>
+            <input type="file" id="availability_file" accept=".csv,text/csv">
+            <div class="admin_msg" id="availability_msg"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin_card admin_cal" style="margin-top:20px">
+        <h3 data-t="site.admin.calendar_title"></h3>
+        <p class="admin_hint" data-t="site.admin.calendar_hint"></p>
+        <div class="quote_calendar" id="admin_calendar"></div>
+      </div>
+
+      <div class="admin_actions">
+        <button class="btn btn_primary" id="save_btn" data-t="site.admin.save_btn"></button>
+        <button class="btn btn_ghost" id="export_btn" data-t="site.admin.export_btn"></button>
+        <button class="btn btn_ghost" id="reset_btn" data-t="site.admin.reset_btn"></button>
+        <button class="btn btn_ghost" id="signout_btn" data-t="site.admin.signout_btn"></button>
+        <span class="admin_msg" id="save_msg"></span>
+      </div>
+      <p class="admin_hint" style="margin-top:16px">To publish: Export, then commit <code>data/properties.js</code>, <code>data/rates.csv</code> and <code>data/availability.csv</code> to GitHub. Hosting redeploys on push.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="site_footer" id="site_footer">
+  <div class="wrap">
+    <div class="footer_row">
+      <a class="site_logo" href="index.html" data-block="site_logo"></a>
+      <nav class="footer_links" data-block="footer_links" data-prefix="index.html"></nav>
+      <label class="site_theme" data-block="site_theme"></label>
+    </div>
+    <div class="footer_legal"><b data-t="site.footer.legal_lead"></b> <span data-t="site.footer.legal"></span> © <span id="footer_year"></span> <span data-t="site.footer.copyright"></span></div>
+  </div>
+</footer>
+<script src="data/site_text.js?v=6"></script>
+<script src="data/properties.js?v=6"></script>
+<script src="js/csv.js?v=6"></script>
+<script src="js/site_store.js?v=6"></script>
+<script src="js/site_app.js?v=6"></script>
+<script>
+(function () {
+  var S = window.SDO_STORE, C = window.SDO_CSV, T = window.SDO_SITE.admin;
+  var P = window.SDO_PROPERTIES.filter(function (p) { return p.featured; })[0] || window.SDO_PROPERTIES[0];
+  var $ = function (s) { return document.querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };
+  function msg(id, cls, text) { var m = $(id); m.className = m.className.replace(/ (ok|err)/g, "") + " " + cls; m.textContent = text; }
+
+  /* state being edited */
+  var ratesCsv = null, availRows = [], availHeader = ["property_id", "checkin", "checkout", "status", "note"];
+  var calMonth = new Date(); calMonth.setDate(1);
+
+  function gate() {
+    var open = S.isAdmin();
+    $("#gate").hidden = open; $("#tools").hidden = !open;
+    if (open) load();
+  }
+  $("#gate").addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (S.adminSignIn($("#gate_code").value)) { $("#gate_code").value = ""; gate(); }
+    else msg("#gate_msg", "err", T.gate_error);
+  });
+  $("#signout_btn").addEventListener("click", function () { S.adminSignOut(); gate(); });
+
+  async function fetchText(url) { try { var r = await fetch(url, { cache: "no-store" }); return r.ok ? await r.text() : null; } catch (e) { return null; } }
+  async function load() {
+    var t = S.getText(P.id) || {};
+    $("#text_headline").value = t.headline || P.headline;
+    $("#text_subhead").value = t.subhead || P.subhead;
+    $("#text_description").value = (t.description || P.description).join("\n\n");
+    ratesCsv = S.getRatesCsv() || await fetchText("data/rates.csv");
+    var a = S.getAvailabilityCsv() || await fetchText("data/availability.csv");
+    availRows = a ? C.validateAvailability(C.parse(a)).rows : [];
+    renderCal();
+  }
+
+  /* CSV uploads */
+  function wire(inputId, msgId, validate, onOk) {
+    $(inputId).addEventListener("change", function () {
+      var f = this.files[0]; if (!f) return;
+      var rd = new FileReader();
+      rd.onload = function () {
+        var v = validate(C.parse(rd.result));
+        if (v.errors.length) { msg(msgId, "err", v.errors.length + " problem" + (v.errors.length > 1 ? "s" : "") + ":\n" + v.errors.slice(0, 15).join("\n")); return; }
+        msg(msgId, "ok", v.rows.length + " rows, no problems."); onOk(rd.result, v.rows);
+      };
+      rd.readAsText(f);
+    });
+  }
+  wire("#rates_file", "#rates_msg", C.validateRates, function (text) { ratesCsv = text; });
+  wire("#availability_file", "#availability_msg", C.validateAvailability, function (text, rows) { availRows = rows; renderCal(); });
+
+  /* calendar: click a day to block / unblock one night */
+  function blockedSet() { var s = new Set(); availRows.filter(function (r) { return r.property_id === P.id; }).forEach(function (r) { C.nightsBetween(r.checkin, r.checkout).forEach(function (n) { s.add(n); }); }); return s; }
+  function monthHtml(y, m, which) {
+    var first = new Date(y, m, 1), days = new Date(y, m + 1, 0).getDate(), today = C.iso(new Date()), blocked = blockedSet();
+    var h = '<div class="cal_month"><div class="cal_head"><button type="button" class="cal_nav" data-d="-1"' + (which ? " disabled" : "") + '>‹</button><b>' + first.toLocaleDateString("en-US", { month: "long", year: "numeric" }) + '</b><button type="button" class="cal_nav" data-d="1"' + (which ? "" : " disabled") + '>›</button></div><div class="cal_grid">';
+    h += "SMTWTFS".split("").map(function (d) { return '<span class="dow">' + d + "</span>"; }).join("");
+    for (var i = 0; i < first.getDay(); i++) h += "<span></span>";
+    for (var d = 1; d <= days; d++) {
+      var s = C.iso(new Date(y, m, d)), cls = "cal_day" + (s < today ? " past" : blocked.has(s) ? " booked" : "");
+      h += '<button type="button" class="' + cls + '" data-day="' + s + '"' + (s < today ? " disabled" : "") + "><span>" + d + "</span></button>";
+    }
+    return h + "</div></div>";
+  }
+  function renderCal() {
+    var y = calMonth.getFullYear(), m = calMonth.getMonth(), cal = $("#admin_calendar");
+    cal.innerHTML = monthHtml(y, m, 0) + monthHtml(y + (m === 11 ? 1 : 0), (m + 1) % 12, 1);
+    $$(".cal_nav", cal).forEach(function (b) { b.addEventListener("click", function () { calMonth.setMonth(calMonth.getMonth() + +b.getAttribute("data-d")); renderCal(); }); });
+    $$(".cal_day:not([disabled])", cal).forEach(function (b) { b.addEventListener("click", function () { toggle(b.getAttribute("data-day")); }); });
+  }
+  function toggle(day) {
+    /* rebuild rows as single-night entries for this property, then merge consecutive nights */
+    var nights = blockedSet();
+    if (nights.has(day)) nights.delete(day); else nights.add(day);
+    var sorted = Array.from(nights).sort(), rows = [], cur = null;
+    sorted.forEach(function (n) {
+      var next = C.iso(C.addDays(new Date(n + "T12:00"), 1));
+      if (cur && cur.checkout === n) cur.checkout = next;
+      else { cur = { property_id: P.id, checkin: n, checkout: next, status: "blocked", note: "" }; rows.push(cur); }
+    });
+    availRows = availRows.filter(function (r) { return r.property_id !== P.id; }).concat(rows);
+    renderCal();
+  }
+
+  /* save / export / reset */
+  function availCsv() { return C.toCsv(availHeader, availRows); }
+  function textObj() {
+    return { headline: $("#text_headline").value.trim(), subhead: $("#text_subhead").value.trim(),
+             description: $("#text_description").value.split(/\n\s*\n/).map(function (p) { return p.trim(); }).filter(Boolean) };
+  }
+  $("#save_btn").addEventListener("click", function () {
+    S.setText(P.id, textObj());
+    if (ratesCsv) S.setRatesCsv(ratesCsv);
+    S.setAvailabilityCsv(availCsv());
+    msg("#save_msg", "ok", T.saved);
+  });
+  function download(name, text, type) { var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], { type: type || "text/plain" })); a.download = name; a.click(); }
+  $("#export_btn").addEventListener("click", function () {
+    var t = textObj(), src = JSON.stringify(window.SDO_PROPERTIES, null, 2);
+    var props = window.SDO_PROPERTIES.map(function (p) { return p.id === P.id ? Object.assign({}, p, t) : p; });
+    var js = "/* SunDestin Online — PROPERTY DATA (exported from admin.html " + new Date().toISOString().slice(0, 10) + ") */\nwindow.SDO_PROPERTIES = " + JSON.stringify(props, null, 2) + ";\n";
+    download("properties.js", js, "text/javascript");
+    if (ratesCsv) download("rates.csv", ratesCsv, "text/csv");
+    download("availability.csv", availCsv(), "text/csv");
+    msg("#save_msg", "ok", "Exported. Commit the files under data/ to publish.");
+  });
+  $("#reset_btn").addEventListener("click", function () {
+    if (!confirm("Discard the changes saved in this browser?")) return;
+    S.clearText(P.id); S.clearCsv(); load(); msg("#save_msg", "ok", T.reset_done);
+  });
+  gate();
+})();
+</script>
+</body>
+</html>

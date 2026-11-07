@@ -15,6 +15,9 @@
   var qs = new URLSearchParams(location.search);
   var P = props.filter(function (p) { return p.id === qs.get("p"); })[0] ||
           props.filter(function (p) { return p.featured; })[0] || props[0] || {};
+  /* owner edits saved from admin.html (demo: this browser) override the data file */
+  var ST = window.SDO_STORE, ov = ST && P.id ? ST.getText(P.id) : null;
+  if (ov) P = Object.assign({}, P, ov);
   var money = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };
   function get(path) {
@@ -374,8 +377,7 @@
   }
   function fetchText(url) { return fetch(url, { cache: "no-store" }).then(function (r) { return r.ok ? r.text() : null; }).catch(function () { return null; }); }
   if (C && (band || cal)) (function loadData() {
-    var pr = null, pa = null;
-    try { pr = localStorage.getItem("sdo_preview_rates"); pa = localStorage.getItem("sdo_preview_availability"); } catch (e) {}
+    var pr = ST ? ST.getRatesCsv() : null, pa = ST ? ST.getAvailabilityCsv() : null;
     if (pr || pa) {
       previewMode = true;
       if (pr) applyRatesText(pr); if (pa) applyAvailText(pa);

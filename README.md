@@ -20,7 +20,10 @@ Open http://127.0.0.1:8765/. (Opening `index.html` straight from the file system
 | `data/properties.js` | **Every property**: name, headline, description, facts, photos + captions, amenities, fallback seasons, fees, nearby places, reviews, FAQ, contact. |
 | `data/rates.csv` | **Nightly rates by date range** (`property_id,start,end,season,label,nightly,min_nights`). Read by the site at load. |
 | `data/availability.csv` | **Booked and blocked dates** (`property_id,checkin,checkout,status,note`). Drives the calendar and the estimate. |
-| `rates_upload.html` | Owner tool: upload a CSV, validate it, preview it on the site, download a cleaned copy. Not indexed. |
+| `admin.html` | Owner tools (demo): passcode gate, edit headline / sub-line / description, upload rates and availability CSV, click days to block, Save (this browser), Export files to commit. Not indexed. |
+| `register.html` | Guest registration and sign-in (demo: this browser only). Not indexed. |
+| `js/site_store.js` | Storage module behind both pages. Demo = localStorage; the production backend replaces this one file. |
+| `rates_upload.html` | Redirects to admin.html. |
 | `js/csv.js` | CSV parser and validators shared by the site and the upload page. |
 | `.htaccess` | Hostinger/Apache: HTTPS redirect, security headers, caching, blocks `/.git`. |
 | `docs/DEPLOY.md` | GitHub → Hostinger (or Render/Cloudflare/Netlify) deployment steps. |
@@ -45,6 +48,10 @@ Copy the object in `data/properties.js`, change `id`, `name`, photos and the res
 ## Update rates or availability
 
 Edit `data/rates.csv` / `data/availability.csv` and commit. To check a file first, open `rates_upload.html`, pick the CSV, read the validation result, click "Preview on the site" (this browser only), then commit the file. Rates: one row per date range, both dates inclusive. Availability: check-out is the departure day and is not blocked.
+
+## Demo accounts and owner tools
+
+Registration and the owner tools run in the visitor's browser only (localStorage) and are labelled Demo. The owner passcode is `admin.demo_passcode` in `data/site_text.js`. Nothing here is a secure system: it is the demo before the PHP + MySQL backend on Hostinger, which will replace `js/site_store.js` with API calls.
 
 ## Change the asset version
 

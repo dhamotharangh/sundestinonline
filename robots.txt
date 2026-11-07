@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /rates_upload.html
+Disallow: /admin.html
+Disallow: /register.html
 Disallow: /images/archive_photos/
 Sitemap: https://sundestinonline.com/sitemap.xml
