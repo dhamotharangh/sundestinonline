@@ -14,7 +14,7 @@ window.SDO_PROPERTIES = [
     subhead: "2nd-floor Gulf-front condo with direct beach access, a beachside pool and room for 6, steps from the heart of Destin.",
     facts: { bedrooms: 1, bathrooms: 1, sleeps: 6, floor: "2nd floor", view: "Gulf-front" },
     beds: ["Queen bed", "Queen sleeper sofa", "Built-in twin bunks (2)"],
-    hero: "images/2729825.jpg",
+    hero: "images/2729818.jpg",
     photos: [
       { src: "images/2729825.jpg", alt: "Private balcony with table and chairs looking straight out over the Gulf of Mexico", tag: "Balcony" },
       { src: "images/2509279.jpg", alt: "Balcony view down onto the beachside pool and the white-sand beach", tag: "Balcony" },

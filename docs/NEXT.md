@@ -3,7 +3,7 @@
 Owner's direction for the next session: **simpler and more impactful**, like
 `docs/reference/simple-layout-reference.webp` (the ChatGPT property-page wireframe):
 
-1. One big clean photo at the top, fact chips under it (bedrooms, bathrooms, guests).
+1. One big clean photo at the top: `images/2729818.jpg` (kitchen through to the Gulf, owner picked it 2026-11-06 as "wide and impressive"), full width, fact chips under it.
 2. A single row of plain text links: Overview · Amenities · Photos · Reviews · House rules.
 3. One block, "Check availability & reserve": availability calendar on the left,
    reservation summary on the right (nights x rate, cleaning fee, taxes, total),
