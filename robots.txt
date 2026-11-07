@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
 Disallow: /images/archive_photos/
 Sitemap: https://sundestinonline.com/sitemap.xml

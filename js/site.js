@@ -213,36 +213,111 @@
   var am = $("#amenities");
   if (am) am.innerHTML = (P.amenities || []).map(function (a) { return '<div class="am">' + icon(a[1]) + "<span>" + esc(a[0]) + "</span></div>"; }).join("");
 
-  /* ── 8. Rates: band, legend, table, quote ── */
+  /* ── 8. Rates + availability: CSV first, properties.js fallback ── */
+  var C = window.SDO_CSV, R = S.rates || {}, band = $("#band");
   var sz = {}; (P.seasons || []).forEach(function (s) { sz[s.key] = s; });
-  function seasonFor(d) {
+  var rateRows = null, bookedNights = new Set(), avRows = [];
+  var calMonth = new Date(); calMonth.setDate(1);
+  var previewMode = false;
+
+  function monthSeasonFallback(d) {
     var mmdd = (d.getMonth() + 1 + "").padStart(2, "0") + "-" + (d.getDate() + "").padStart(2, "0");
     var hol = (P.holidayRanges || []).some(function (r) { return r[0] <= r[1] ? (mmdd >= r[0] && mmdd <= r[1]) : (mmdd >= r[0] || mmdd <= r[1]); });
-    return hol && sz.holiday ? "holiday" : P.monthSeason[d.getMonth()];
+    var k = hol && sz.holiday ? "holiday" : P.monthSeason[d.getMonth()];
+    return { season: k, label: sz[k].label, nightly: sz[k].nightly, min: sz[k].min };
   }
-  var band = $("#band"), R = S.rates || {};
-  if (band && P.seasons) {
-    band.innerHTML = P.monthSeason.map(function (k) { return '<span style="background:' + sz[k].color + '" title="' + esc(sz[k].label) + '"></span>'; }).join("");
-    $("#months").innerHTML = "JFMAMJJASOND".split("").map(function (m) { return "<span>" + m + "</span>"; }).join("");
-    $("#legend").innerHTML = P.seasons.map(function (s) { return '<span><i style="background:' + s.color + '"></i>' + esc(s.label) + "</span>"; }).join("");
-    $("#rtable tbody").innerHTML = P.seasons.map(function (s) {
-      return "<tr><td><b style='color:" + s.color + "'>●</b>&nbsp; " + esc(s.label) + '<br><span class="muted" style="font-size:13px">' + esc(s.when) + "</span></td><td>" + s.min + " " + esc(R.nightsWord) + "</td><td><b>" + money(s.nightly) + "</b> / night</td></tr>";
+  function rateFor(d) {
+    var s = C.iso(d);
+    if (rateRows) {
+      for (var i = 0; i < rateRows.length; i++) if (s >= rateRows[i].start && s <= rateRows[i].end) return rateRows[i];
+      return null;
+    }
+    return monthSeasonFallback(d);
+  }
+  function colorFor(k) { return sz[k] ? sz[k].color : "var(--season-off)"; }
+  function fmtRange(a, b) {
+    var f = function (s) { var d = new Date(s + "T12:00"); return d.toLocaleDateString("en-US", { month: "short", day: "numeric" }); };
+    return f(a) + " – " + f(b);
+  }
+
+  function renderRates() {
+    if (!band) return;
+    var y = new Date().getFullYear(), legend = {}, order = [];
+    band.innerHTML = Array.apply(null, Array(12)).map(function (_, m) {
+      var r = rateFor(new Date(y, m, 15));
+      return '<span style="background:' + (r ? colorFor(r.season) : "var(--line)") + '" title="' + esc(r ? r.label : "no rate") + '"></span>';
     }).join("");
-    $("#from").textContent = money(Math.min.apply(null, P.seasons.map(function (s) { return s.nightly; })));
+    $("#months").innerHTML = "JFMAMJJASOND".split("").map(function (m) { return "<span>" + m + "</span>"; }).join("");
+    var rows = rateRows ? rateRows.filter(function (r) { return r.end >= C.iso(new Date()); }) : (P.seasons || []).map(function (s) { return { season: s.key, label: s.label, when: s.when, nightly: s.nightly, min: s.min }; });
+    rows.forEach(function (r) {
+      var k = r.season + "|" + r.label;
+      if (!legend[k]) { legend[k] = { season: r.season, label: r.label, nightly: r.nightly, min: r.min, when: r.when || [] }; order.push(k); }
+      if (!r.when) legend[k].when.push(fmtRange(r.start, r.end));
+    });
+    var seen = {};
+    $("#legend").innerHTML = order.filter(function (k) { var s = legend[k].season; if (seen[s]) return false; seen[s] = 1; return true; })
+      .map(function (k) { return '<span><i style="background:' + colorFor(legend[k].season) + '"></i>' + esc(sz[legend[k].season] ? sz[legend[k].season].label : legend[k].label) + "</span>"; }).join("");
+    $("#rtable tbody").innerHTML = order.map(function (k) {
+      var L = legend[k], when = Array.isArray(L.when) ? L.when.slice(0, 3).join(" · ") + (L.when.length > 3 ? " …" : "") : L.when;
+      return "<tr><td><b style='color:" + colorFor(L.season) + "'>●</b>&nbsp; " + esc(L.label) + '<br><span class="muted" style="font-size:13px">' + esc(when) + "</span></td><td>" + L.min + " " + esc(R.nightsWord) + "</td><td><b>" + money(L.nightly) + "</b> / night</td></tr>";
+    }).join("");
+    var all = rows.map(function (r) { return r.nightly; });
+    $("#from").textContent = all.length ? money(Math.min.apply(null, all)) : "$—";
+    var note = $("#rates-note");
+    if (note) note.textContent = (previewMode ? (R.previewNote || "") : "") + (rateRows ? (R.csvNote || "") : (P.ratesNote || ""));
   }
-  var qin = $("#q-in"), qout = $("#q-out"), qres = $("#q-res");
+
+  /* availability calendar inside the quote card */
+  var qin = $("#q-in"), qout = $("#q-out"), qres = $("#q-res"), cal = $("#cal");
+  function renderCal() {
+    if (!cal) return;
+    var y = calMonth.getFullYear(), m = calMonth.getMonth(), first = new Date(y, m, 1), days = new Date(y, m + 1, 0).getDate();
+    var today = C.iso(new Date()), qi = qin.value, qo = qout.value;
+    var h = '<div class="cal-head"><button type="button" class="cal-nav" data-d="-1" aria-label="Previous month">‹</button><b>' + first.toLocaleDateString("en-US", { month: "long", year: "numeric" }) + '</b><button type="button" class="cal-nav" data-d="1" aria-label="Next month">›</button></div>';
+    h += '<div class="cal-grid">' + "SMTWTFS".split("").map(function (d) { return '<span class="dow">' + d + "</span>"; }).join("");
+    for (var i = 0; i < first.getDay(); i++) h += "<span></span>";
+    for (var d = 1; d <= days; d++) {
+      var s = C.iso(new Date(y, m, d)), cls = "day", r = rateFor(new Date(y, m, d)), dis = false;
+      if (s < today) { cls += " past"; dis = true; }
+      else if (bookedNights.has(s)) { cls += " booked"; dis = true; }
+      if (qi && qo && s >= qi && s < qo) cls += " sel"; else if (qi && !qo && s === qi) cls += " sel";
+      if (s === qi) cls += " in";
+      if (qo && s === C.iso(C.addDays(new Date(qo + "T12:00"), -1))) cls += " out";
+      h += '<button type="button" class="' + cls + '" data-day="' + s + '"' + (dis ? " disabled" : "") + "><span>" + d + "</span>" + (r && !dis ? "<i>" + money(r.nightly) + "</i>" : "") + "</button>";
+    }
+    h += "</div>";
+    h += '<div class="cal-legend"><span><i class="l-free"></i>' + esc(R.legendFree || "Available") + '</span><span><i class="l-booked"></i>' + esc(R.legendBooked || "Booked") + '</span><span><i class="l-sel"></i>' + esc(R.legendSel || "Your dates") + "</span></div>";
+    cal.innerHTML = h;
+    $$(".cal-nav", cal).forEach(function (b) { b.addEventListener("click", function () { calMonth.setMonth(calMonth.getMonth() + +b.getAttribute("data-d")); renderCal(); }); });
+    $$(".day:not([disabled])", cal).forEach(function (b) {
+      b.addEventListener("click", function () {
+        var s = b.getAttribute("data-day");
+        if (!qin.value || (qin.value && qout.value) || s <= qin.value) { qin.value = s; qout.value = ""; qout.min = s; }
+        else qout.value = s;
+        quote(); renderCal();
+      });
+    });
+  }
+
   function quote() {
+    if (!qres) return;
     if (!qin.value || !qout.value) { qres.innerHTML = '<span class="hint">' + esc(R.emptyHint) + "</span>"; return; }
     var a = new Date(qin.value + "T12:00"), b = new Date(qout.value + "T12:00");
     var nights = Math.round((b - a) / 864e5);
     if (nights < 1) { qres.innerHTML = '<span class="hint">' + esc(R.orderHint) + "</span>"; return; }
-    var sub = 0, mins = 0, lines = {};
+    var sub = 0, mins = 0, lines = {}, order = [], clash = 0, missing = 0;
     for (var d = new Date(a); d < b; d.setDate(d.getDate() + 1)) {
-      var k = seasonFor(d); sub += sz[k].nightly; mins = Math.max(mins, sz[k].min);
-      lines[k] = (lines[k] || 0) + 1;
+      if (bookedNights.has(C.iso(d))) clash++;
+      var r = rateFor(d);
+      if (!r) { missing++; continue; }
+      sub += r.nightly; mins = Math.max(mins, r.min);
+      if (!lines[r.season]) { lines[r.season] = { label: r.label, nightly: r.nightly, n: 0 }; order.push(r.season); }
+      lines[r.season].n++;
     }
+    if (clash) { qres.innerHTML = '<span class="hint warn">' + esc(fmt(R.bookedHint || "{n} of those nights are already booked. Try other dates.", { n: clash })) + "</span>"; return; }
+    if (missing) { qres.innerHTML = '<span class="hint warn">' + esc(R.noRateHint || "No rate is published for part of those dates yet. Ask the owner.") + "</span>"; return; }
     var tax = (sub + P.fees.cleaning) * P.fees.taxRate;
-    var html = Object.keys(lines).map(function (k) { return "<div><span>" + lines[k] + " × " + esc(sz[k].label) + " @ " + money(sz[k].nightly) + "</span><span>" + money(lines[k] * sz[k].nightly) + "</span></div>"; }).join("");
+    var html = order.map(function (k) { var L = lines[k]; return "<div><span>" + L.n + " × " + esc(L.label) + " @ " + money(L.nightly) + "</span><span>" + money(L.n * L.nightly) + "</span></div>"; }).join("");
     html += "<div><span>" + esc(R.cleaning) + "</span><span>" + money(P.fees.cleaning) + "</span></div>";
     html += "<div><span>" + esc(R.taxes) + " (" + Math.round(P.fees.taxRate * 100) + "%)</span><span>" + money(tax) + "</span></div>";
     html += '<div class="tot"><span>' + nights + " " + esc(R.nightsWord) + "</span><span>" + money(sub + P.fees.cleaning + tax) + "</span></div>";
@@ -255,10 +330,32 @@
   if (qin) {
     var today = new Date().toISOString().slice(0, 10);
     qin.min = today; qout.min = today;
-    qin.addEventListener("change", function () { qout.min = qin.value; quote(); });
-    qout.addEventListener("change", quote);
-    quote();
+    qin.addEventListener("change", function () { qout.min = qin.value; quote(); renderCal(); });
+    qout.addEventListener("change", function () { quote(); renderCal(); });
   }
+
+  /* load CSVs: localStorage preview (set by admin.html) wins, then data/*.csv, then properties.js */
+  function applyRatesText(t) { var v = C.validateRates(C.parse(t)); var rows = v.rows.filter(function (r) { return r.property_id === P.id; }); if (!v.errors.length && rows.length) rateRows = rows; }
+  function applyAvailText(t) {
+    var v = C.validateAvailability(C.parse(t)); if (v.errors.length) return;
+    avRows = v.rows.filter(function (r) { return r.property_id === P.id; });
+    bookedNights = new Set(); avRows.forEach(function (r) { C.nightsBetween(r.checkin, r.checkout).forEach(function (n) { bookedNights.add(n); }); });
+  }
+  function fetchText(url) { return fetch(url, { cache: "no-store" }).then(function (r) { return r.ok ? r.text() : null; }).catch(function () { return null; }); }
+  if (C && (band || cal)) (function loadData() {
+    var pr = null, pa = null;
+    try { pr = localStorage.getItem("sdo-preview-rates"); pa = localStorage.getItem("sdo-preview-availability"); } catch (e) {}
+    if (pr || pa) {
+      previewMode = true;
+      if (pr) applyRatesText(pr); if (pa) applyAvailText(pa);
+      renderRates(); quote(); renderCal(); return;
+    }
+    renderRates(); quote(); renderCal();
+    Promise.all([fetchText("data/rates.csv"), fetchText("data/availability.csv")]).then(function (t) {
+      if (t[0]) applyRatesText(t[0]); if (t[1]) applyAvailText(t[1]);
+      renderRates(); quote(); renderCal();
+    });
+  })();
 
   /* ── 9. Location ── */
   var map = $("#map-embed");
