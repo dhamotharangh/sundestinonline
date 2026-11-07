@@ -20,7 +20,7 @@ window.SDO_SITE = {
     sub_strong: "Door to the sand in under a minute.",
     cta: "Check dates",
     /* one quiet line under the photo, instead of three tiles */
-    line: ["No platform fee", "Book direct with the owner", "The price you see is the price you pay"]
+    line: ["No Platform fee", "Book direct with the owner", "The price you see is the price you pay"]
   },
 
   gallery:   { kicker: "Photos", title: "Every room, every view", lead: "", all_label: "All", see_all: "See all {n} photos" },
