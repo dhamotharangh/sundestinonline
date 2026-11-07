@@ -100,22 +100,26 @@
       return '<div class="amenity_group">' + icon(g[1]) + "<h3>" + esc(g[0]) + "</h3><ul>" + g[2].map(function (a) { return "<li>" + esc(a) + "</li>"; }).join("") + "</ul></div>";
     }).join("");
   };
-  B.inquiry_guests = function (el) {
-    var n = (P.facts || {}).sleeps || 6, h = "";
-    for (var i = 1; i <= n; i++) h += "<option" + (i === Math.min(4, n) ? " selected" : "") + ">" + i + "</option>";
-    el.innerHTML = h;
+  function occOptions(from, to, sel) { var h = ""; for (var i = from; i <= to; i++) h += "<option" + (i === sel ? " selected" : "") + ">" + i + "</option>"; return h; }
+  B.inquiry_occupancy = function (el) {
+    var n = (P.facts || {}).sleeps || 6;
+    $("#inquiry_guests", el).innerHTML = occOptions(1, n, 2);
+    $("#inquiry_children", el).innerHTML = occOptions(0, n - 1, 0);
+    var g = $("#inquiry_guests", el), c = $("#inquiry_children", el);
+    function cap() { var max = n - (+g.value); if (+c.value > max) c.value = max; $$("option", c).forEach(function (o) { o.disabled = +o.value > max; }); }
+    g.addEventListener("change", cap); c.addEventListener("change", cap); cap();
   };
   B.inquiry_placeholder = function (el) { el.placeholder = S.inquiry.placeholder || ""; };
   B.quote_occupancy = function (el) {
     var n = (P.facts || {}).sleeps || 6, R2 = S.rates || {};
-    var opts = function (from, to, sel) { var h = ""; for (var i = from; i <= to; i++) h += "<option" + (i === sel ? " selected" : "") + ">" + i + "</option>"; return h; };
-    el.innerHTML = '<label><span>' + esc(R2.guests_label || "Guests") + '</span><select id="quote_guests">' + opts(1, n, 2) + "</select></label>" +
-                   '<label><span>' + esc(R2.children_label || "Children") + '</span><select id="quote_children">' + opts(0, n - 1, 0) + "</select></label>";
+    el.innerHTML = '<label><span>' + esc(R2.guests_label || "Guests") + '</span><select id="quote_guests">' + occOptions(1, n, 2) + "</select></label>" +
+                   '<label><span>' + esc(R2.children_label || "Children") + '</span><select id="quote_children">' + occOptions(0, n - 1, 0) + "</select></label>";
     var g = $("#quote_guests", el), c = $("#quote_children", el);
     function sync() {
       var max = n - (+g.value); if (+c.value > max) c.value = max;
       $$("option", c).forEach(function (o) { o.disabled = +o.value > max; });
-      var fg = $("#inquiry_guests"); if (fg) fg.value = Math.min(n, (+g.value) + (+c.value));
+      var fg = $("#inquiry_guests"), fc = $("#inquiry_children");
+      if (fg) { fg.value = g.value; } if (fc) { fc.value = c.value; $$("option", fc).forEach(function (o) { o.disabled = +o.value > max; }); }
     }
     g.addEventListener("change", sync); c.addEventListener("change", sync); sync();
   };
@@ -525,8 +529,8 @@
     });
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      var f = form.elements, qg = $("#quote_guests"), qc = $("#quote_children");
-      var v = { "in": f.checkin.value, out: f.checkout.value, guests: f.guests.value + (qg ? " (" + qg.value + " adults, " + (qc ? qc.value : 0) + " children)" : ""), message: f.message.value || "", guest: f.name.value, guestEmail: f.email.value, email: P.contact.email };
+      var f = form.elements, kids = f.children ? +f.children.value : 0;
+      var v = { "in": f.checkin.value, out: f.checkout.value, guests: f.guests.value + " " + esc(S.rates.guests_label).toLowerCase() + (kids ? ", " + kids + " " + esc(S.rates.children_label).toLowerCase() : ""), message: f.message.value || "", guest: f.name.value, guestEmail: f.email.value, email: P.contact.email };
       window.location.href = "mailto:" + P.contact.email + "?subject=" + encodeURIComponent(fmt(S.inquiry.mail_subject, v)) + "&body=" + encodeURIComponent(fmt(S.inquiry.mail_body, v));
       $("#inquiry_sent").textContent = fmt(S.inquiry.sent, v);
     });

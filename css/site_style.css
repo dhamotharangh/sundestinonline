@@ -124,7 +124,10 @@ section{padding:64px 0}
 .amenity_group li:last-child{border-bottom:0}
 
 /* ───────────── 7. Rates: packages + calendar + quote ───────────── */
-.rates_grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:start}
+.rates_grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:24px;align-items:stretch}
+.rates_left{display:flex;flex-direction:column;min-height:0}
+.rates_left .package_list{flex:1 1 0;min-height:0;overflow-y:auto;padding-right:4px;scrollbar-width:thin}
+.inquiry_occupancy{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .season_band{display:flex;gap:4px;height:12px;margin:16px 0 6px}
 .season_band span{border-radius:6px;flex:1}
 .season_months{display:grid;grid-template-columns:repeat(12,1fr);font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--ink_3);text-align:center;margin-bottom:16px}
@@ -279,6 +282,7 @@ section{padding:64px 0}
   .amenity_groups{grid-template-columns:1fr;gap:24px}
   .property_cards{grid-template-columns:repeat(2,1fr)}
   .condo_split,.rates_grid,.location_grid,.inquiry_panel,.hero_grid{grid-template-columns:1fr}
+  .rates_left .package_list{flex:none;overflow:visible}
 }
 @media (max-width:720px){
   section{padding:48px 0}
