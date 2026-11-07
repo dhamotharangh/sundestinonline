@@ -61,6 +61,9 @@ After editing CSS or JS, bump `?v=5` in index.html, properties.html and rates_up
 
 ## Before launch
 
+- Password-protect `/admin/` in hPanel and change `admin.demo_passcode` in `data/site_text.js`.
+- Review `terms.html` (payment and cancellation placeholders) and `privacy.html`.
+
 - Replace the sample rows in `data/rates.csv` and `data/availability.csv`; set cleaning fee and tax rate in `data/properties.js › fees`.
 - Set the owner's real email (and phone / WhatsApp if wanted) in `data/properties.js › contact`.
 - Add review links or real reviews.

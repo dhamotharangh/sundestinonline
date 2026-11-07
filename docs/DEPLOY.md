@@ -13,7 +13,8 @@ Hostinger shared plans, Premium included, have a built-in Git deployment: hPanel
    - Install path: leave empty to deploy into `public_html`.
 3. Click **Deploy**. The files land in `public_html`, `.htaccess` included.
 4. Copy the **webhook URL** hPanel shows and add it on GitHub → repo → Settings → Webhooks (content type `application/json`, "Just the push event"). From then on every commit to `main` redeploys automatically.
-5. Point the domain `sundestinonline.com` at the Hostinger site (hPanel → Domains) and turn on the free SSL (hPanel → Security → SSL). `.htaccess` then forces HTTPS.
+5. Protect the owner tools: hPanel → Advanced → **Password Protect Directories**, choose `public_html/admin`, set a user and password. The server then asks for them before `/admin/` loads. Nothing on the site links to that folder.
+6. Point the domain `sundestinonline.com` at the Hostinger site (hPanel → Domains) and turn on the free SSL (hPanel → Security → SSL). `.htaccess` then forces HTTPS.
 
 **Is this safe?** Yes, for this site:
 - The repository holds no secrets: no API keys, no passwords, no guest data. The inquiry form opens the visitor's email app; nothing is stored on the server.
