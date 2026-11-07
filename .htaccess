@@ -18,6 +18,7 @@ RewriteRule ^ https://sundestinonline.com%{REQUEST_URI} [L,R=301]
 # Never serve git metadata or local tooling
 RedirectMatch 404 /\.git
 RedirectMatch 404 /\.claude
+RedirectMatch 404 /admin/\.htpasswd
 RedirectMatch 404 /images/archive_photos
 
 # Cache photos and versioned assets for a year, HTML and CSV briefly

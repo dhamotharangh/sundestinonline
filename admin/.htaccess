@@ -1,0 +1,7 @@
+# Owner tools: not linked from the site, not indexed, and protected by the server's own password prompt.
+# On Hostinger: hPanel -> Advanced -> Password Protect Directories -> choose /public_html/admin and set a user
+# and password. hPanel writes the AuthUserFile lines below for you. Until then this file only blocks listing.
+Options -Indexes
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+</IfModule>

@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Owner tools · SunDestin Online</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site_style.css?v=6">
+<link rel="stylesheet" href="../css/site_style.css?v=6">
 <style>
   .admin_grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .admin_card{background:var(--sand);border-radius:var(--radius);padding:24px}
@@ -31,9 +31,9 @@
 <body>
 <header class="site_header">
   <div class="wrap">
-    <a class="site_logo" href="index.html" data-block="site_logo"></a>
-    <nav class="site_nav" id="site_nav" data-block="site_nav" data-prefix="index.html"></nav>
-    <a class="btn btn_primary" href="index.html" >View site</a>
+    <a class="site_logo" href="../index.html" data-block="site_logo"></a>
+    <nav class="site_nav" id="site_nav" data-block="site_nav" data-prefix="../index.html"></nav>
+    <a class="btn btn_primary" href="../index.html">View site</a>
   </div>
 </header>
 
@@ -61,13 +61,13 @@
         <div>
           <div class="admin_card" style="margin-bottom:20px">
             <h3 data-t="site.admin.rates_title"></h3>
-            <div class="admin_hint">Columns: <code>property_id,start,end,season,label,nightly,min_nights</code>, start and end inclusive. <a href="data/rates.csv" download>Download current</a></div>
+            <div class="admin_hint">Columns: <code>property_id,start,end,season,label,nightly,min_nights</code>, start and end inclusive. <a href="../data/rates.csv" download>Download current</a></div>
             <input type="file" id="rates_file" accept=".csv,text/csv">
             <div class="admin_msg" id="rates_msg"></div>
           </div>
           <div class="admin_card">
             <h3 data-t="site.admin.availability_title"></h3>
-            <div class="admin_hint">Columns: <code>property_id,checkin,checkout,status,note</code>, check-out is the departure day. <a href="data/availability.csv" download>Download current</a></div>
+            <div class="admin_hint">Columns: <code>property_id,checkin,checkout,status,note</code>, check-out is the departure day. <a href="../data/availability.csv" download>Download current</a></div>
             <input type="file" id="availability_file" accept=".csv,text/csv">
             <div class="admin_msg" id="availability_msg"></div>
           </div>
@@ -95,18 +95,18 @@
 <footer class="site_footer" id="site_footer">
   <div class="wrap">
     <div class="footer_row">
-      <a class="site_logo" href="index.html" data-block="site_logo"></a>
-      <nav class="footer_links" data-block="footer_links" data-prefix="index.html"></nav>
+      <a class="site_logo" href="../index.html" data-block="site_logo"></a>
+      <nav class="footer_links" data-block="footer_links" data-prefix="../index.html"></nav>
       <label class="site_theme" data-block="site_theme"></label>
     </div>
     <div class="footer_legal"><b data-t="site.footer.legal_lead"></b> <span data-t="site.footer.legal"></span> © <span id="footer_year"></span> <span data-t="site.footer.copyright"></span></div>
   </div>
 </footer>
-<script src="data/site_text.js?v=6"></script>
-<script src="data/properties.js?v=6"></script>
-<script src="js/csv.js?v=6"></script>
-<script src="js/site_store.js?v=6"></script>
-<script src="js/site_app.js?v=6"></script>
+<script src="../data/site_text.js?v=6"></script>
+<script src="../data/properties.js?v=6"></script>
+<script src="../js/csv.js?v=6"></script>
+<script src="../js/site_store.js?v=6"></script>
+<script src="../js/site_app.js?v=6"></script>
 <script>
 (function () {
   var S = window.SDO_STORE, C = window.SDO_CSV, T = window.SDO_SITE.admin;
@@ -137,8 +137,8 @@
     $("#text_headline").value = t.headline || P.headline;
     $("#text_subhead").value = t.subhead || P.subhead;
     $("#text_description").value = (t.description || P.description).join("\n\n");
-    ratesCsv = S.getRatesCsv() || await fetchText("data/rates.csv");
-    var a = S.getAvailabilityCsv() || await fetchText("data/availability.csv");
+    ratesCsv = S.getRatesCsv() || await fetchText("../data/rates.csv");
+    var a = S.getAvailabilityCsv() || await fetchText("../data/availability.csv");
     availRows = a ? C.validateAvailability(C.parse(a)).rows : [];
     renderCal();
   }
