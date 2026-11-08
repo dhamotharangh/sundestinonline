@@ -170,7 +170,30 @@ section{padding:64px 0}
 .rate_note{font-size:13px;color:var(--ink_3);margin-top:14px}
 .quote_card{background:var(--page);border-radius:var(--radius);padding:24px}
 .quote_card h3{margin-bottom:4px}
-.quote_occupancy{display:grid;gap:6px;margin:-4px 0 14px}
+.quote_head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:10px}
+.quote_head .quote_hint{margin-bottom:0}
+.quote_kicker{margin-bottom:6px}
+.quote_occupancy{display:grid;gap:6px;flex:none}
+.quote_occupancy .occ_line{justify-content:flex-end}
+.quote_reserve{margin-top:18px;width:100%;font-size:16px;padding:14px 22px}
+.reserve_panel{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+.reserve_panel .full{grid-column:1/-1}
+.reserve_panel label{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink_3);margin-bottom:6px}
+.reserve_panel input:not([type=checkbox]){width:100%;font:inherit;font-size:15px;padding:12px 14px;border-radius:var(--radius_sm);border:1px solid var(--line);background:var(--page);color:var(--ink)}
+.reserve_panel input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.reserve_agree{font-size:14px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink_2);display:flex;gap:8px;align-items:center}
+.reserve_agree a{color:var(--accent);text-decoration:underline}
+.reserve_actions{display:flex;gap:10px;flex-wrap:wrap}
+.reserve_msg{font-size:14px;color:#B45309;min-height:1em}
+.reserve_done{margin-top:16px;padding:16px 18px;border-radius:var(--radius_sm);background:var(--sand);font-size:15px}
+.reserve_done b{display:block;margin-bottom:4px}
+.reserve_done .muted{font-size:13px}
+.contact_strip{padding:40px 0}
+.contact_row{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;background:var(--tile_a);color:var(--tile_a_ink);border-radius:var(--radius);padding:32px 40px}
+.contact_row h2{color:var(--tile_a_ink)}
+.contact_row .lead{color:inherit;opacity:.85}
+.contact_row .kicker{color:inherit;opacity:.7}
+.contact_row .inquiry_contact{margin-top:0;font-size:17px;font-weight:600}
 .occ_line{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink_2)}
 .occ_line span{width:64px}
 .quote_occupancy select{font:inherit;font-size:13px;padding:5px 26px 5px 10px;border-radius:var(--pill);border:1px solid var(--line);background:var(--sand);color:var(--ink);appearance:none;-webkit-appearance:none;cursor:pointer;
@@ -346,7 +369,10 @@ section{padding:64px 0}
   .quote_calendar{grid-template-columns:1fr}
   .cal_month.second{display:none}
   .cal_nav[disabled]{visibility:visible}
-  .quote_dates,.inquiry_form,.property_cards{grid-template-columns:1fr}
+  .quote_dates,.inquiry_form,.property_cards,.reserve_panel,.contact_row{grid-template-columns:1fr}
+  .quote_head{flex-direction:column}
+  .quote_occupancy .occ_line{justify-content:flex-start}
+  .contact_row{padding:24px 22px}
   .inquiry_panel{padding:28px 22px}
   .footer_links{margin-left:0}
 }

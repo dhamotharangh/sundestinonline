@@ -140,8 +140,6 @@
     function sync() {
       var max = n - (+g.value); if (+c.value > max) c.value = max;
       $$("option", c).forEach(function (o) { o.disabled = +o.value > max; });
-      var fg = $("#inquiry_guests"), fc = $("#inquiry_children");
-      if (fg) { fg.value = g.value; } if (fc) { fc.value = c.value; $$("option", fc).forEach(function (o) { o.disabled = +o.value > max; }); }
     }
     g.addEventListener("change", sync); c.addEventListener("change", sync); sync();
   };
@@ -595,28 +593,59 @@
   }
   renderReviews();
 
-  /* ── 11. Inquiry form → email ── */
-  var form = $("#inquiry_form");
-  if (form) {
-    /* signed in: name and email come from the account */
-    (function () {
-      var u = ST ? ST.current() : null; if (!u) return;
-      var n = $("#inquiry_name"), m = $("#inquiry_email");
-      if (n && !n.value) n.value = u.name || "";
-      if (m && !m.value) m.value = u.email || "";
-    })();
-    $$("[data-contact]").forEach(function (el) {
-      var k = el.getAttribute("data-contact"), v = (P.contact || {})[k];
-      if (!v) { el.style.display = "none"; return; }
-      el.href = k === "email" ? "mailto:" + v : k === "phone" ? "tel:" + v.replace(/[^+\d]/g, "") : "https://wa.me/" + v.replace(/[^\d]/g, "");
-      el.textContent = v;
+  /* ── 11. Contact links + Reserve and Pay (hold on the server, then Stripe when connected) ── */
+  $$("[data-contact]").forEach(function (el) {
+    var k = el.getAttribute("data-contact"), v = (P.contact || {})[k];
+    if (!v) { el.style.display = "none"; return; }
+    el.href = k === "email" ? "mailto:" + v : k === "phone" ? "tel:" + v.replace(/[^+\d]/g, "") : "https://wa.me/" + v.replace(/[^\d]/g, "");
+    el.textContent = v;
+  });
+  var rsBtn = $("#quote_reserve"), rsPanel = $("#reserve_panel"), rsDone = $("#reserve_done"), RS = S.reserve || {};
+  function rsMsg(text) { var m = $("#reserve_msg"); if (m) m.textContent = text || ""; }
+  if (rsBtn && rsPanel) {
+    rsBtn.addEventListener("click", function () {
+      if (!qin.value || !qout.value || !(qres && qres.getAttribute("data-total-cents")) && apiMode) {
+        if (qres && (!qin.value || !qout.value)) qres.innerHTML = '<span class="hint warn">' + esc(R.pick_first || "") + "</span>";
+        if (!apiMode && qin.value && qout.value) {
+          /* static hosting, no API: fall back to the email inquiry with the dates filled in */
+          var v = { "in": qin.value, out: qout.value, guests: ($("#quote_guests") || {}).value || 2, message: "", guest: "", guestEmail: "", email: P.contact.email, name: P.name };
+          window.location.href = "mailto:" + P.contact.email + "?subject=" + encodeURIComponent(fmt(S.inquiry.mail_subject, v)) + "&body=" + encodeURIComponent(fmt(S.inquiry.mail_body, v));
+        }
+        return;
+      }
+      var u = ST ? ST.current() : null;
+      if (u) { if (!rsPanel.elements.name.value) rsPanel.elements.name.value = u.name || ""; if (!rsPanel.elements.email.value) rsPanel.elements.email.value = u.email || ""; }
+      rsDone.hidden = true; rsPanel.hidden = false; rsBtn.hidden = true; rsMsg("");
+      rsPanel.elements.name.focus();
     });
-    form.addEventListener("submit", function (e) {
+    $("#reserve_cancel").addEventListener("click", function () { rsPanel.hidden = true; rsBtn.hidden = false; });
+    rsPanel.addEventListener("submit", function (e) {
       e.preventDefault();
-      var f = form.elements, kids = f.children ? +f.children.value : 0;
-      var v = { "in": f.checkin.value, out: f.checkout.value, guests: f.guests.value + " " + esc(S.rates.guests_label).toLowerCase() + (kids ? ", " + kids + " " + esc(S.rates.children_label).toLowerCase() : ""), message: f.message.value || "", guest: f.name.value, guestEmail: f.email.value, email: P.contact.email };
-      window.location.href = "mailto:" + P.contact.email + "?subject=" + encodeURIComponent(fmt(S.inquiry.mail_subject, v)) + "&body=" + encodeURIComponent(fmt(S.inquiry.mail_body, v));
-      $("#inquiry_sent").textContent = fmt(S.inquiry.sent, v);
+      var f = rsPanel.elements;
+      if (!f.name.value.trim() || !f.email.value.trim() || !f.agree.checked) { rsMsg(RS.agree + " " + RS.agree_link + "."); return; }
+      rsMsg(RS.holding || ""); f.submit = null;
+      var g = $("#quote_guests"), c = $("#quote_children");
+      var body = { property: P.id, checkin: qin.value, checkout: qout.value, guests: g ? +g.value : 2, children: c ? +c.value : 0,
+                   name: f.name.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim(), agree: true,
+                   expected_total_cents: +(qres.getAttribute("data-total-cents") || 0) };
+      fetch(apiBase + "hold.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (!d.ok) {
+            if (d.error === "price_changed" && d.quote) { rsMsg(d.message); qres.setAttribute("data-total-cents", d.quote.total_cents); quote(); return; }
+            if (d.error === "unavailable") { rsMsg(d.message); fetchApi().then(function (x) { if (x) { applyApi(x); renderCal(); quote(); } }); return; }
+            rsMsg(d.message || d.error); return;
+          }
+          if (d.checkout_url) { window.location.href = d.checkout_url; return; }   /* session 2: Stripe */
+          var until = new Date(d.hold.expires_at.replace(" ", "T") + "Z");
+          rsPanel.hidden = true;
+          rsDone.innerHTML = "<b>" + esc(fmt(RS.held || "", { time: until.toLocaleTimeString(LOCALE, { hour: "numeric", minute: "2-digit" }) })) + "</b>" +
+                             '<span class="muted">' + esc(RS.held_note || "") + "</span>";
+          rsDone.hidden = false;
+          fetchApi().then(function (x) { if (x) { applyApi(x); renderCal(); } });
+          setTimeout(function () { rsDone.innerHTML = esc(RS.expired || ""); rsBtn.hidden = false; }, Math.max(1000, until - Date.now()));
+        })
+        .catch(function () { rsMsg("Network error. Please try again."); });
     });
   }
 
