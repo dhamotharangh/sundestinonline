@@ -91,6 +91,7 @@
     }).join("");
     $$(".theme_dot", el).forEach(function (b) { b.addEventListener("click", function () { applyTheme(b.getAttribute("data-theme")); }); });
   };
+  B.location_note = function (el) { el.textContent = fmt((S.location || {}).ring_note || "", { miles: P.map_ring_miles || 3 }); };
   B.hero_chips = function (el) {
     var f = P.facts || {};
     var W = LANG === "es" ? ["dormitorio", "dormitorios", "baño", "baños", "Capacidad "] : ["bedroom", "bedrooms", "bath", "baths", "Sleeps "];
@@ -454,8 +455,8 @@
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 18, attribution: "&copy; OpenStreetMap contributors" }).addTo(lmap);
       L.marker([P.lat, P.lng], { icon: L.divIcon({ className: "pin_home", html: '<svg viewBox="0 0 32 44" width="32" height="44" aria-hidden="true"><path d="M16 1C7.7 1 1 7.6 1 15.8 1 27 16 43 16 43s15-16 15-27.2C31 7.6 24.3 1 16 1z" fill="#F26B3A" stroke="#fff" stroke-width="2"/><path d="M9 17l7-6 7 6v8h-5v-5h-4v5H9z" fill="#fff"/></svg>', iconSize: [32, 44], iconAnchor: [16, 43], popupAnchor: [0, -40] }), zIndexOffset: 1000 })
         .addTo(lmap).bindPopup("<b>" + esc(P.name) + "</b><br>" + esc(P.address));
-      /* 5-mile radius around the condo */
-      var ring = L.circle([P.lat, P.lng], { radius: 8047, color: "#0FA3A3", weight: 1.5, dashArray: "6 6", fillColor: "#0FA3A3", fillOpacity: 0.06, interactive: false }).addTo(lmap);
+      /* radius ring around the condo (miles set in properties.js map_ring_miles) */
+      var ring = L.circle([P.lat, P.lng], { radius: (P.map_ring_miles || 3) * 1609.34, color: "#0FA3A3", weight: 1.5, dashArray: "6 6", fillColor: "#0FA3A3", fillOpacity: 0.06, interactive: false }).addTo(lmap);
       var pins = [], bounds = [[P.lat, P.lng]];
       (P.nearby || []).forEach(function (n, i) {
         if (!n[2]) return;
@@ -466,7 +467,8 @@
         m.on("mouseover", function () { hi(i, true); }); m.on("mouseout", function () { hi(i, false); });
         m.on("click", function () { $$(".near_row.hover", nearList).forEach(function (x) { hi(+x.getAttribute("data-i"), false); }); hi(i, true); var r = $('.near_row[data-i="' + i + '"]', nearList); if (r) r.scrollIntoView({ block: "nearest", behavior: "smooth" }); });
       });
-      lmap.fitBounds(ring.getBounds(), { padding: [10, 10] });
+      var fit = ring.getBounds(); bounds.forEach(function (b) { fit.extend(b); });
+      lmap.fitBounds(fit, { padding: [12, 12] });
       function hi(i, on) {
         var r = $('.near_row[data-i="' + i + '"]', nearList); if (r) r.classList.toggle("hover", on);
         var el = pins[i] && pins[i].getElement(); if (el) el.classList.toggle("hover", on);

@@ -36,7 +36,7 @@ window.SDO_SITE_ES = {
                legend_free: "Disponible", legend_booked: "Reservado", legend_sel: "Tus noches",
                csv_note: "Tarifas y disponibilidad vienen de data/rates.csv y data/availability.csv.",
                preview_note: "Vista previa de un CSV cargado, solo en este navegador. " },
-  location:  { kicker: "Ubicación", title: "En la playa, en pleno Destin" },
+  location:  { kicker: "Ubicación", title: "En la playa, en pleno Destin", ring_note: "Anillo punteado: {miles} millas alrededor del condominio" },
   reviews:   { kicker: "Huéspedes", title: "Lo que dicen los huéspedes",
                empty: "Las reseñas de huéspedes llegarán pronto a esta página.", empty_links: "Mientras tanto, léelas en", empty_no_links: "Pide referencias al propietario al consultar.",
                add_btn: "Escribe tu reseña", edit_btn: "Edita tu reseña", signin_hint: "Regístrate o inicia sesión para dejar una reseña.", signin_link: "Tu cuenta",
@@ -61,9 +61,9 @@ window.SDO_SITE_ES = {
 
   account: { kicker: "Huéspedes", title: "Tu cuenta", lead: "Regístrate una vez y tus datos quedan listos para cada consulta. Demo: se guarda solo en este navegador.",
              consent: "Solo guardamos tu nombre y correo, y solo los ve el propietario. Puedes borrar tu cuenta aquí cuando quieras.",
-             signup_title: "Registrarse", signin_title: "Iniciar sesión", name: "Nombre", email: "Correo", password: "Contraseña", password_hint: "Al menos 8 caracteres",
+             signup_title: "Crear cuenta", signin_title: "Entrar", name: "Nombre", email: "Correo", password: "Contraseña", password_hint: "Al menos 8 caracteres",
              signup_btn: "Crear cuenta", signin_btn: "Entrar", signout_btn: "Salir", delete_btn: "Borrar mi cuenta",
-             hello: "Hola, {user}", since: "Registrado el {date}", switch_in: "¿Ya tienes cuenta? Inicia sesión", switch_up: "¿Nuevo aquí? Regístrate" },
+             hello: "Hola, {user}", since: "Registrado el {date}", switch_in: "¿Ya tienes cuenta? Inicia sesión", switch_up: "¿Nuevo aquí? Abre para registrarte" },
 
   list: { kicker: "Propiedades", title: "Condominios en la playa de Destin, gestionados por sus propietarios", lead: "Cada uno se reserva directamente con su propietario. Elige un condominio para ver fotos, tarifas y mapa.", from: "desde", per_night: "/ noche" }
 };

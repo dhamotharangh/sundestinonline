@@ -9,13 +9,12 @@ window.SDO_PROPERTIES_ES = {
     beds: ["Cama queen en el dormitorio", "Sofá cama queen en la sala", "Literas individuales empotradas (2) junto a la entrada"],
     photo_tags: { Kitchen: "Cocina", Balcony: "Balcón", Living: "Sala", Pool: "Piscina", Dining: "Comedor", Bedroom: "Dormitorio", Bunks: "Literas", Bath: "Baño", Beach: "Playa" },
     description: [
-      "Despierta frente al verde esmeralda del Golfo de México en este cuidado condominio del 2.º piso. Desde el balcón estás lo bastante cerca para oír las olas y lo bastante bajo para contar las sombrillas sobre la arena blanca.",
-      "Dentro, la planta abierta va de una cocina totalmente equipada con electrodomésticos de acero y barra de desayuno, pasando por un comedor luminoso, hasta una sala en azul costero con televisor de pantalla plana y un ventanal que enmarca el Golfo. El sofá cama queen y un encantador rincón de literas empotradas permiten alojar cómodamente a 6. Los niños siempre se quedan con las literas.",
+      "Dentro, la planta abierta va de una cocina totalmente equipada con electrodomésticos de acero y barra con taburetes, pasando por un comedor luminoso, hasta una sala en azul costero con televisor de pantalla plana y un ventanal que enmarca el Golfo. El sofá cama queen y un encantador rincón de literas empotradas permiten alojar cómodamente a 6. Los niños siempre se quedan con las literas.",
       "Sal al balcón y lo mejor de Destin está a tus pies: una terraza con piscina frente al mar, servicio de sillas de playa en temporada en una de las playas más celebradas de Florida, y HarborWalk Village, Big Kahuna's y Destin Commons a solo minutos. Estar en el 2.º piso significa no esperar el ascensor. De la puerta a la arena en menos de un minuto."
     ],
     amenity_groups: [
-      ["Playa y piscina", "beach", ["Balcón privado frente al mar", "Piscina climatizada junto a la playa", "Acceso directo a la playa", "Servicio de sillas de playa en temporada", "Terraza de piscina a pasos de la arena"]],
-      ["Interior",        "kitchen", ["Cocina totalmente equipada", "Barra de desayuno", "Lavavajillas y microondas", "Cafetera", "Televisores de pantalla plana en sala y dormitorio"]],
+      ["Playa y piscina", "beach", ["Balcón privado frente al mar", "Piscina climatizada junto a la playa", "Acceso directo a la playa", "Servicio de sillas de playa en temporada ($)", "Terraza de piscina a pasos de la arena"]],
+      ["Interior",        "kitchen", ["Cocina totalmente equipada", "Barra de cocina con taburetes", "Lavavajillas y microondas", "Cafetera", "Televisores de pantalla plana en sala y dormitorio"]],
       ["Confort",         "wifi", ["Wi-Fi gratis", "Estacionamiento gratis", "Aire acondicionado central", "Sábanas y toallas incluidas", "Secador de pelo", "2.º piso, un tramo de escaleras"]]
     ],
     nearby_dist: ["menos de un minuto", "a 1 milla", "a 2 millas", "a 3 millas", "a 4 millas", "a 25 minutos"],

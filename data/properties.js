@@ -24,7 +24,7 @@ window.SDO_PROPERTIES = [
       { src: "images/living_sofa_balcony.jpg",   alt: "Striped sleeper sofa and leather chair facing the balcony and Gulf", tag: "Living" },
       { src: "images/dining_living_balcony.jpg", alt: "Dining table for four beside the living area and balcony", tag: "Dining" },
       { src: "images/dining_table_gulf.jpg",     alt: "Glass dining table with the Gulf framed in the sliding glass door behind", tag: "Dining" },
-      { src: "images/kitchen_breakfast_bar.jpg", alt: "Breakfast bar and fully equipped kitchen with mosaic backsplash", tag: "Kitchen" },
+      { src: "images/kitchen_breakfast_bar.jpg", alt: "Kitchen bar with counter seating and mosaic backsplash", tag: "Kitchen" },
       { src: "images/kitchen_sink_view.jpg",     alt: "Kitchen counter and sink with a view across the living room to the water", tag: "Kitchen" },
       { src: "images/bedroom_queen.jpg",         alt: "Bedroom with queen bed in an arched alcove and a window to the palms", tag: "Bedroom" },
       { src: "images/bedroom_tv_bath.jpg",       alt: "Bedroom flat-screen TV and dresser with the bathroom beyond", tag: "Bedroom" },
@@ -36,14 +36,13 @@ window.SDO_PROPERTIES = [
       { src: "images/beach_umbrellas.jpg",       alt: "Rows of beach umbrellas on the sand seen from the pool deck", tag: "Beach" }
     ],
     description: [
-      "Wake up to the emerald-green Gulf of Mexico in this beautifully kept 2nd-floor condo. From the balcony you are close enough to hear the waves and low enough to count the umbrellas on the sugar-white sand.",
-      "Inside, the open floor plan flows from a fully equipped kitchen with stainless appliances and breakfast bar, through a bright dining area, into a coastal-blue living room with a flat-screen TV and a wall of glass framing the Gulf. The queen sleeper sofa and a charming built-in bunk nook let the condo comfortably sleep 6. Kids claim the bunks every time.",
+      "Inside, the open floor plan flows from a fully equipped kitchen with stainless appliances and a counter-seating bar, through a bright dining area, into a coastal-blue living room with a flat-screen TV and a wall of glass framing the Gulf. The queen sleeper sofa and a charming built-in bunk nook let the condo comfortably sleep 6. Kids claim the bunks every time.",
       "Step out onto the balcony and the best of Destin is at your feet: a beachfront pool deck, seasonal beach chair service on one of Florida's most celebrated beaches, and HarborWalk Village, Big Kahuna's and Destin Commons only minutes away. Being on the 2nd floor means no elevator waits. Door to the sand in under a minute."
     ],
     /* three groups: [group title, icon, [items]] */
     amenity_groups: [
-      ["Beach and pool", "beach", ["Beachfront private balcony", "Beachside heated pool", "Direct beach access", "Seasonal beach chair service", "Pool deck steps from the sand"]],
-      ["Inside",         "kitchen", ["Fully equipped kitchen", "Breakfast bar", "Dishwasher and microwave", "Coffee maker", "Flat-screen TVs in living room and bedroom"]],
+      ["Beach and pool", "beach", ["Beachfront private balcony", "Beachside heated pool", "Direct beach access", "Seasonal beach chair service ($)", "Pool deck steps from the sand"]],
+      ["Inside",         "kitchen", ["Fully equipped kitchen", "Kitchen bar with counter seating", "Dishwasher and microwave", "Coffee maker", "Flat-screen TVs in living room and bedroom"]],
       ["Comfort",        "wifi", ["Free Wi-Fi", "Free parking", "Central air conditioning", "Linens and towels provided", "Hair dryer", "2nd floor, one flight of stairs up"]]
     ],
     seasons: [
@@ -56,6 +55,7 @@ window.SDO_PROPERTIES = [
     holiday_ranges: [["03-07","03-31"],["07-01","07-07"],["11-20","11-30"],["12-20","01-03"]],
     fees: { cleaning: 150, tax_rate: 0.12 },
     min_nights: 2,
+    map_ring_miles: 3,
     rates_note: "Sample rates for layout only. The owner confirms live nightly rates, minimum stays and fees before launch.",
     /* nearby: [name, distance text, lat, lng]. Coordinates are approximate; adjust if a pin sits wrong. */
     nearby: [
@@ -76,6 +76,6 @@ window.SDO_PROPERTIES = [
       ["Is there an elevator?", "The condo is on the 2nd floor, one flight up. Most guests find the stairs faster than waiting for an elevator with beach gear."],
       ["What is the cancellation policy?", "The owner's policy is quoted with every booking. Ask before you pay if you need flexibility."]
     ],
-    contact: { email: "stay@sundestinonline.com", phone: "", whatsapp: "" }
+    contact: { email: "list.damo@gmail.com", phone: "", whatsapp: "" }
   }
 ];
