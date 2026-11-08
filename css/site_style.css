@@ -86,6 +86,10 @@ section{padding:64px 0}
 .theme_dot{width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;padding:0;transition:transform .15s}
 .theme_dot:hover{transform:scale(1.15)}
 .theme_dot.on{box-shadow:0 0 0 2px var(--accent);transform:scale(1.1)}
+/* header: one dot (the current theme); hover, focus or tap fans out the other three */
+.site_theme_head .theme_dot:not(.on){width:0;opacity:0;margin-left:-7px;transform:scale(.4);pointer-events:none;border-width:0;box-shadow:none;transition:width .18s,opacity .18s,margin .18s,transform .18s}
+.site_theme_head:hover .theme_dot:not(.on),.site_theme_head:focus-within .theme_dot:not(.on),.site_theme_head.open .theme_dot:not(.on){width:18px;opacity:1;margin-left:0;transform:none;pointer-events:auto;border-width:2px;box-shadow:0 0 0 1px var(--line)}
+.site_theme_head .theme_dot.on{order:-1}
 .site_footer .theme_dot{box-shadow:0 0 0 1px rgba(255,255,255,.3)}
 .site_footer .theme_dot.on{box-shadow:0 0 0 2px #fff}
 .site_theme select{font:inherit;font-size:13px;color:var(--footer_ink);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:var(--pill);padding:6px 28px 6px 12px;appearance:none;-webkit-appearance:none;cursor:pointer;

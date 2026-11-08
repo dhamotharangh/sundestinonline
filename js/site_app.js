@@ -89,7 +89,15 @@
     el.innerHTML = (S.themes || []).map(function (t) {
       return '<button type="button" class="theme_dot" data-theme="' + esc(t[0]) + '" title="' + esc(t[1]) + '" aria-label="' + esc(t[1]) + '" style="background:' + (colors[t[0]] || "#999") + '"></button>';
     }).join("");
-    $$(".theme_dot", el).forEach(function (b) { b.addEventListener("click", function () { applyTheme(b.getAttribute("data-theme")); }); });
+    var head = el.classList.contains("site_theme_head");
+    $$(".theme_dot", el).forEach(function (b) {
+      b.addEventListener("click", function () {
+        /* header: a tap on the lone dot opens the fan first; a pick closes it */
+        if (head && b.classList.contains("on") && !el.classList.contains("open") && !el.matches(":hover")) { el.classList.add("open"); return; }
+        applyTheme(b.getAttribute("data-theme")); el.classList.remove("open");
+      });
+    });
+    if (head) document.addEventListener("click", function (e) { if (!el.contains(e.target)) el.classList.remove("open"); });
   };
   B.location_note = function (el) { el.textContent = fmt((S.location || {}).ring_note || "", { miles: P.map_ring_miles || 3 }); };
   B.hero_chips = function (el) {
