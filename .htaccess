@@ -22,6 +22,9 @@ RedirectMatch 404 /\.git
 RedirectMatch 404 /\.claude
 RedirectMatch 404 /admin/\.htpasswd
 RedirectMatch 404 /images/archive_photos
+RedirectMatch 404 /var/
+RedirectMatch 404 /tests/
+RedirectMatch 404 /api/\.env
 
 # Cache photos and versioned assets for a year, HTML and CSV briefly
 <IfModule mod_expires.c>

@@ -1,0 +1,8 @@
+# api/ — PHP endpoints only. Secrets and SQL are never served.
+<FilesMatch "^(\.env|schema\.sql|lib\.php|cli\.php)$">
+  Require all denied
+</FilesMatch>
+Options -Indexes
+<IfModule mod_headers.c>
+  Header always set Cache-Control "no-store"
+</IfModule>

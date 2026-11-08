@@ -40,6 +40,7 @@ window.SDO_SITE = {
                booked_hint: "{n} of those nights are already booked. Try other dates.",
                no_rate_hint: "No rate is published for part of those dates yet. Ask the owner.",
                estimate_hint: "Estimate only. The owner confirms the exact quote.",
+               exact_hint: "All-in total, taxes included. Live availability.",
                legend_free: "Available", legend_booked: "Booked", legend_sel: "Your nights",
                csv_note: "Rates and availability come from data/rates.csv and data/availability.csv.",
                preview_note: "Previewing an uploaded CSV in this browser only. " },

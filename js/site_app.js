@@ -136,6 +136,7 @@
     el.innerHTML = '<div class="occ_line"><span>' + esc(R2.guests_label || "Guests") + '</span><select id="quote_guests">' + occOptions(1, n, 2) + "</select></div>" +
                    '<div class="occ_line"><span>' + esc(R2.children_label || "Children") + '</span><select id="quote_children">' + occOptions(0, n - 1, 0) + "</select></div>";
     var g = $("#quote_guests", el), c = $("#quote_children", el);
+    [g, c].forEach(function (s) { s.addEventListener("change", function () { if (window.SDO_requote) window.SDO_requote(); }); });
     function sync() {
       var max = n - (+g.value); if (+c.value > max) c.value = max;
       $$("option", c).forEach(function (o) { o.disabled = +o.value > max; });
@@ -255,7 +256,7 @@
   var R = S.rates || {};
   var sz = {}; (P.seasons || []).forEach(function (s) { sz[s.key] = s; });
   var rateRows = null, bookedNights = new Set();
-  var previewMode = false;
+  var previewMode = false, apiMode = false, apiBase = "api/";
   function monthSeasonFallback(d) {
     var mmdd = (d.getMonth() + 1 + "").padStart(2, "0") + "-" + (d.getDate() + "").padStart(2, "0");
     var hol = (P.holiday_ranges || []).some(function (r) { return r[0] <= r[1] ? (mmdd >= r[0] && mmdd <= r[1]) : (mmdd >= r[0] || mmdd <= r[1]); });
@@ -294,7 +295,7 @@
     var all = rows.map(function (r) { return r.nightly; });
     $("#rate_from").textContent = all.length ? money(Math.min.apply(null, all)) : "$—";
     var note = $("#rate_note");
-    if (note) note.textContent = (previewMode ? (R.preview_note || "") : "") + (rateRows ? (R.csv_note || "") : (P.rates_note || ""));
+    if (note) note.textContent = apiMode ? "" : (previewMode ? (R.preview_note || "") : "") + (rateRows ? (R.csv_note || "") : (P.rates_note || ""));
     renderPackages(rows);
   }
 
@@ -421,6 +422,36 @@
     qres.innerHTML = html;
     var fi = $("#inquiry_checkin"), fo = $("#inquiry_checkout");
     if (fi && fo) { fi.value = qin.value; fo.value = qout.value; }
+    if (apiMode) serverQuote();
+  }
+
+  /* API mode: the server recomputes the quote (rates, fees, tax, availability) and its answer wins */
+  var quoteSeq = 0;
+  function serverQuote() {
+    var seq = ++quoteSeq, g = $("#quote_guests"), c = $("#quote_children");
+    var body = { property: P.id, checkin: qin.value, checkout: qout.value, guests: g ? +g.value : 2, children: c ? +c.value : 0 };
+    fetch(apiBase + "quote.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (seq !== quoteSeq || !qres) return;
+        if (!d.ok) {
+          if (d.error === "min_nights") qres.innerHTML = '<span class="hint warn">' + esc(fmt(R.min_hard, { min: d.min })) + "</span>";
+          else if (d.error === "no_rate") qres.innerHTML = '<span class="hint warn">' + esc(R.no_rate_hint) + "</span>";
+          else qres.innerHTML = '<span class="hint warn">' + esc(d.message || d.error) + "</span>";
+          return;
+        }
+        var Q = d.quote;
+        if (!Q.available) { qres.innerHTML = '<span class="hint warn">' + esc(fmt(R.booked_hint, { n: Q.unavailable_nights.length })) + "</span>"; return; }
+        var html = Q.lines.map(function (ln) { return "<div><span>" + ln.nights + " × " + esc(ln.label) + " @ " + money(ln.nightly_cents / 100) + "</span><span>" + money(ln.subtotal_cents / 100) + "</span></div>"; }).join("");
+        html += "<div><span>" + esc(R.cleaning) + "</span><span>" + money(Q.cleaning_cents / 100) + "</span></div>";
+        html += "<div><span>" + esc(R.taxes) + " (" + (Q.tax_rate_bp / 100) + "%)</span><span>" + money(Q.tax_cents / 100) + "</span></div>";
+        html += '<div class="tot"><span>' + Q.nights + " " + esc(R.nights_word) + "</span><span>" + money(Q.total_cents / 100) + "</span></div>";
+        if (Q.nights < Q.season_min_nights) html += '<span class="hint">' + esc(fmt(R.min_hint, { min: Q.season_min_nights })) + "</span>";
+        html += '<span class="hint">' + esc(R.exact_hint || "") + "</span>";
+        qres.innerHTML = html;
+        qres.setAttribute("data-total-cents", Q.total_cents);
+      })
+      .catch(function () { /* keep the local estimate */ });
   }
   if (qin) {
     var today = new Date().toISOString().slice(0, 10);
@@ -437,6 +468,23 @@
     v.rows.filter(function (r) { return r.property_id === P.id; }).forEach(function (r) { C.nightsBetween(r.checkin, r.checkout).forEach(function (n) { bookedNights.add(n); }); });
   }
   function fetchText(url) { return fetch(url, { cache: "no-store" }).then(function (r) { return r.ok ? r.text() : null; }).catch(function () { return null; }); }
+  /* API mode: rates, fees, minimum stay and occupied nights come from api/calendar.php */
+  function applyApi(d) {
+    apiMode = true;
+    var pp = d.property || {};
+    P.fees = P.fees || {};
+    P.fees.cleaning = (pp.cleaning_cents || 0) / 100; P.fees.tax_rate = (pp.tax_rate_bp || 0) / 10000;
+    if (pp.min_nights) P.min_nights = pp.min_nights;
+    rateRows = (d.rates || []).map(function (r) { return { start: r.start, end: r.end, season: r.season, label: r.label, nightly: r.nightly, min: r.min_nights }; });
+    bookedNights = new Set((d.nights || []).map(function (n) { return n.night; }));
+    var note = $("#rate_note"); if (note) note.textContent = "";
+  }
+  function fetchApi() {
+    return fetch(apiBase + "calendar.php?property=" + encodeURIComponent(P.id), { cache: "no-store" })
+      .then(function (r) { return r.ok && (r.headers.get("content-type") || "").indexOf("json") > -1 ? r.json() : null; })
+      .then(function (d) { return d && d.ok ? d : null; }).catch(function () { return null; });
+  }
+  window.SDO_requote = quote;
   if (C && (band || cal)) (function loadData() {
     var pr = ST ? ST.getRatesCsv() : null, pa = ST ? ST.getAvailabilityCsv() : null;
     if (pr || pa) {
@@ -445,9 +493,12 @@
       renderRates(); quote(); renderCal(); return;
     }
     renderRates(); quote(); renderCal();
-    Promise.all([fetchText("data/rates.csv"), fetchText("data/availability.csv")]).then(function (t) {
-      if (t[0]) applyRatesText(t[0]); if (t[1]) applyAvailText(t[1]);
-      renderRates(); quote(); renderCal();
+    fetchApi().then(function (d) {
+      if (d) { applyApi(d); renderRates(); quote(); renderCal(); return; }
+      return Promise.all([fetchText("data/rates.csv"), fetchText("data/availability.csv")]).then(function (t) {
+        if (t[0]) applyRatesText(t[0]); if (t[1]) applyAvailText(t[1]);
+        renderRates(); quote(); renderCal();
+      });
     });
   })();
 

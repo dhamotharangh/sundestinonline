@@ -17,7 +17,7 @@ Built so far: static site with all copy in data files (EN in `site_text.js` / `p
 **Decided path (owner, 2026-11-07):**
 1. Hostinger Premium, Git deploy from GitHub, site live with the demo owner tools at `/admin/` (password-protect the folder in hPanel). No new monthly cost.
 2. Real rates, fees, contact email, reviews; then promotion (Google Business Profile, QR flyer, Airbnb/Vrbo listings pointing to "book direct").
-3. When bookings justify about $40/month, add OwnerRez: live calendar synced with Airbnb/Vrbo, card payment, confirmations. Its widget replaces the CSV calendar in the Rates section; the demo admin calendar and the registration page retire. Alternative if staying one host with no tool: PHP + MySQL backend on Hostinger replacing `js/site_store.js`.
+3. **Superseded 2026-11-07 (owner: "approve B").** No Airbnb/Vrbo listing, so OwnerRez is dropped. Booking is built in-house: PHP + MySQL on Hostinger Business plus Stripe Checkout, replacing `js/site_store.js`. Full plan, tables, endpoints, session order and owner inputs in `docs/BOOKING_PLAN.md`.
 
 **Not chosen:** Supabase (second host), Guesty (3-listing cap, then quote-only), Hospitable (7% on direct bookings), Squarespace (cannot run this site), GoDaddy (no advantage over Hostinger).
 

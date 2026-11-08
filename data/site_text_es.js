@@ -33,6 +33,7 @@ window.SDO_SITE_ES = {
                booked_hint: "{n} de esas noches ya están reservadas. Prueba otras fechas.",
                no_rate_hint: "Aún no hay tarifa publicada para parte de esas fechas. Pregunta al propietario.",
                estimate_hint: "Solo un estimado. El propietario confirma el precio exacto.",
+               exact_hint: "Total con todo incluido, impuestos incluidos. Disponibilidad en vivo.",
                legend_free: "Disponible", legend_booked: "Reservado", legend_sel: "Tus noches",
                csv_note: "Tarifas y disponibilidad vienen de data/rates.csv y data/availability.csv.",
                preview_note: "Vista previa de un CSV cargado, solo en este navegador. " },

@@ -7,3 +7,7 @@ __pycache__/
 *.log
 Thumbs.db
 .DS_Store
+
+# Booking backend: secrets and the local database never leave this machine
+api/.env
+var/
