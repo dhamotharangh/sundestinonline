@@ -74,7 +74,7 @@ section{padding:64px 0}
 .site_lang{display:inline-flex;border:1px solid var(--line);border-radius:var(--pill);overflow:hidden}
 .site_lang button{font:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;padding:6px 10px;border:0;background:transparent;color:var(--ink_2);cursor:pointer}
 .site_lang button.on{background:var(--accent);color:var(--on_accent)}
-.site_account{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:var(--pill);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap}
+.site_account{display:inline-flex;align-items:center;gap:6px;padding:0 12px;height:33px;box-sizing:border-box;border-radius:var(--pill);border:1px solid var(--line);font-size:13px;font-weight:600;color:var(--ink);white-space:nowrap}
 .site_account::before{content:"";width:16px;height:16px;border-radius:50%;background:var(--tile_a);box-shadow:inset 0 -5px 0 var(--accent)}
 .site_account.on{background:var(--tile_a);color:var(--tile_a_ink);border-color:transparent}
 .site_account:hover{background:var(--sand)}
@@ -90,6 +90,12 @@ section{padding:64px 0}
 .site_theme_head .theme_dot:not(.on){width:0;opacity:0;margin-left:-7px;transform:scale(.4);pointer-events:none;border-width:0;box-shadow:none;transition:width .18s,opacity .18s,margin .18s,transform .18s}
 .site_theme_head:hover .theme_dot:not(.on),.site_theme_head:focus-within .theme_dot:not(.on),.site_theme_head.open .theme_dot:not(.on){width:18px;opacity:1;margin-left:0;transform:none;pointer-events:auto;border-width:2px;box-shadow:0 0 0 1px var(--line)}
 .site_theme_head .theme_dot.on{order:-1}
+.site_theme_head{border:1px solid var(--line);border-radius:var(--pill);padding:0 7px;height:33px;box-sizing:border-box;gap:6px;transition:background .15s}
+.site_theme_head:hover,.site_theme_head.open{background:var(--sand)}
+.site_theme_head .theme_dot{width:16px;height:16px;border-width:1.5px}
+.site_theme_head .theme_dot.on{box-shadow:0 0 0 1.5px var(--accent);transform:none}
+.site_theme_head:hover .theme_dot:not(.on),.site_theme_head:focus-within .theme_dot:not(.on),.site_theme_head.open .theme_dot:not(.on){width:16px}
+.site_theme_head .theme_dot:not(.on){margin-left:-6px}
 .site_footer .theme_dot{box-shadow:0 0 0 1px rgba(255,255,255,.3)}
 .site_footer .theme_dot.on{box-shadow:0 0 0 2px #fff}
 .site_theme select{font:inherit;font-size:13px;color:var(--footer_ink);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:var(--pill);padding:6px 28px 6px 12px;appearance:none;-webkit-appearance:none;cursor:pointer;

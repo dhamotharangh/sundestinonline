@@ -547,6 +547,13 @@
   /* ── 11. Inquiry form → email ── */
   var form = $("#inquiry_form");
   if (form) {
+    /* signed in: name and email come from the account */
+    (function () {
+      var u = ST ? ST.current() : null; if (!u) return;
+      var n = $("#inquiry_name"), m = $("#inquiry_email");
+      if (n && !n.value) n.value = u.name || "";
+      if (m && !m.value) m.value = u.email || "";
+    })();
     $$("[data-contact]").forEach(function (el) {
       var k = el.getAttribute("data-contact"), v = (P.contact || {})[k];
       if (!v) { el.style.display = "none"; return; }
