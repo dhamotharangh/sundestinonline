@@ -67,9 +67,12 @@ window.SDO_SITE_ES = {
   },
 
   account: { kicker: "Huéspedes", title: "Tu cuenta", lead: "Regístrate una vez y tus datos quedan listos para cada consulta. Demo: se guarda solo en este navegador.",
-             consent: "Solo guardamos tu nombre y correo, y solo los ve el propietario. Puedes borrar tu cuenta aquí cuando quieras.",
+             consent: "Solo guardamos tu nombre y correo, y solo los ve el propietario. Para borrar tu cuenta, escribe al propietario desde tu página de cuenta.",
              signup_title: "Crear cuenta", signin_title: "Entrar", name: "Nombre", email: "Correo", password: "Contraseña", password_hint: "Al menos 8 caracteres",
-             signup_btn: "Crear cuenta", signin_btn: "Entrar", signout_btn: "Salir", delete_btn: "Borrar mi cuenta",
+             signup_btn: "Crear cuenta", signin_btn: "Entrar", signout_btn: "Salir",
+             delete_link: "Escribe al administrador para pedir que borre tu cuenta",
+             delete_subject: "Solicitud para borrar mi cuenta: {email}",
+             delete_body: "Hola,\n\nPor favor borra mi cuenta de SunDestin Online.\n\nNombre: {user}\nCorreo: {email}\n\nGracias",
              hello: "Hola, {user}", since: "Registrado el {date}", switch_in: "¿Ya tienes cuenta? Inicia sesión", switch_up: "¿Nuevo aquí? Abre para registrarte" },
 
   list: { kicker: "Propiedades", title: "Condominios en la playa de Destin, gestionados por sus propietarios", lead: "Cada uno se reserva directamente con su propietario. Elige un condominio para ver fotos, tarifas y mapa.", from: "desde", per_night: "/ noche" }

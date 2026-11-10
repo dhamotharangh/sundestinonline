@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex">
 <title>Your account · SunDestin Online</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/site_style.css?v=44">
+<link rel="stylesheet" href="css/site_style.css?v=45">
 <style>
   .account_grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:860px}
   .account_card{background:var(--sand);border-radius:var(--radius);padding:28px}
@@ -32,6 +32,9 @@
   .account_create form{padding:0 22px 22px}
   .account_create summary > span:first-child{white-space:nowrap}
   .account_create summary .account_small{text-align:right}
+  .account_delete{margin:14px 0 0;font-size:12px;color:var(--muted)}
+  .account_delete a{color:inherit;text-decoration:none;opacity:.75}
+  .account_delete a:hover,.account_delete a:focus{text-decoration:underline;opacity:1}
 </style>
 </head>
 <body>
@@ -82,9 +85,9 @@
       <div class="account_small" id="me_since"></div>
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="btn btn_ghost" id="me_signout" data-t="site.account.signout_btn"></button>
-        <button class="btn btn_ghost" id="me_delete" data-t="site.account.delete_btn"></button>
       </div>
       <div class="account_msg" id="me_msg"></div>
+      <p class="account_delete"><a id="me_delete" href="#" data-t="site.account.delete_link"></a></p>
     </div>
   </div>
 </section>
@@ -100,13 +103,13 @@
     <div class="footer_legal"><b data-t="site.footer.legal_lead"></b> <span data-t="site.footer.legal"></span> © <span id="footer_year"></span> <span data-t="site.footer.copyright"></span></div>
   </div>
 </footer>
-<script src="data/site_text.js?v=44"></script>
-<script src="data/site_text_es.js?v=44"></script>
-<script src="data/properties.js?v=44"></script>
-<script src="data/properties_es.js?v=44"></script>
-<script src="js/csv.js?v=44"></script>
-<script src="js/site_store.js?v=44"></script>
-<script src="js/site_app.js?v=44"></script>
+<script src="data/site_text.js?v=45"></script>
+<script src="data/site_text_es.js?v=45"></script>
+<script src="data/properties.js?v=45"></script>
+<script src="data/properties_es.js?v=45"></script>
+<script src="js/csv.js?v=45"></script>
+<script src="js/site_store.js?v=45"></script>
+<script src="js/site_app.js?v=45"></script>
 <script>
 (function () {
   var S = window.SDO_STORE, T = window.SDO_SITE.account;
@@ -118,6 +121,7 @@
     if (u) {
       $("#me_hello").textContent = fmt(T.hello, { user: u.name });
       $("#me_email").textContent = u.email;
+      deleteLink(u);
       $("#me_since").textContent = fmt(T.since, { date: new Date(u.created).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }) });
     }
   }
@@ -137,10 +141,12 @@
     home();
   });
   $("#me_signout").addEventListener("click", function () { S.signOut(); show(); });
-  $("#me_delete").addEventListener("click", function () {
-    if (!confirm("Delete your account? This cannot be undone.")) return;
-    S.deleteAccount(); show();
-  });
+  /* account deletion is a request to the owner by email, never a one-click action */
+  function deleteLink(u) {
+    var owner = (window.SDO_PROPERTIES && window.SDO_PROPERTIES[0] && window.SDO_PROPERTIES[0].contact.email) || "";
+    var v = { user: u.name, email: u.email };
+    $("#me_delete").href = "mailto:" + owner + "?subject=" + encodeURIComponent(fmt(T.delete_subject, v)) + "&body=" + encodeURIComponent(fmt(T.delete_body, v));
+  }
   show();
 })();
 </script>

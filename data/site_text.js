@@ -75,9 +75,12 @@ window.SDO_SITE = {
 
   /* register.html + admin.html (demo: browser storage only) */
   account: { kicker: "Guests", title: "Your account", lead: "Register once and your details are ready for every inquiry. Demo: stored in this browser only.",
-             consent: "We keep only your name and email, and only the owner sees them. Delete your account here at any time.",
+             consent: "We keep only your name and email, and only the owner sees them. To delete your account, email the owner from your account page.",
              signup_title: "Create Account", signin_title: "Login", name: "Name", email: "Email", password: "Password", password_hint: "At least 8 characters",
-             signup_btn: "Create account", signin_btn: "Login", signout_btn: "Sign out", delete_btn: "Delete my account",
+             signup_btn: "Create account", signin_btn: "Login", signout_btn: "Sign out",
+             delete_link: "Email to Admin with a request to delete your account",
+             delete_subject: "Account deletion request: {email}",
+             delete_body: "Hello,\n\nPlease delete my SunDestin Online account.\n\nName: {user}\nEmail: {email}\n\nThanks",
              hello: "Hello, {user}", since: "Registered {date}", switch_in: "Already registered? Sign in", switch_up: "New here? Open to register" },
   admin:   { demo_passcode: "sundestin", kicker: "Owner", title: "Edit the site", lead: "Change the text, upload rates and availability, and block days on the calendar. Demo: changes live in this browser only; use Export to publish them through GitHub.",
              gate_title: "Owner sign-in", gate_label: "Passcode", gate_btn: "Open", gate_error: "Wrong passcode.",
