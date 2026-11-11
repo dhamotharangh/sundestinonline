@@ -54,7 +54,7 @@ window.SDO_SITE = {
   reserve:   { name: "Name", email: "Email", phone: "Phone (optional)",
                agree: "I accept the", agree_link: "terms and cancellation policy",
                submit: "Hold these nights", cancel: "Cancel", holding: "Holding your nights…",
-               held: "Your nights are held until {time}.", held_note: "Pay by card, Apple Pay, Google Pay or bank through Stripe on the next page. Payment is being connected; nothing is charged yet.",
+               held: "Your nights are held until {time}.", held_note: "Pay by card, Apple Pay, Google Pay or bank through Stripe on the next page.",
                expired: "The hold ended. Pick your dates again." },
   inquiry:   { kicker: "Questions?", title: "Ask the owner",
                lead: "A late arrival, a pet, dates the calendar shows as taken: write and the owner answers, usually within a day.",

@@ -1,7 +1,9 @@
 # api/ — PHP endpoints only. Secrets and SQL are never served.
-<FilesMatch "^(\.env|schema\.sql|lib\.php|cli\.php)$">
+# Deny the library, CLI, schema and any dotfile (.env, .htpasswd ...).
+<FilesMatch "^(\..*|schema\.sql|lib\.php|cli\.php)$">
   Require all denied
 </FilesMatch>
+# stripe_webhook.php stays public: Stripe calls it, and it verifies Stripe's signature itself.
 Options -Indexes
 <IfModule mod_headers.c>
   Header always set Cache-Control "no-store"

@@ -47,7 +47,7 @@ window.SDO_SITE_ES = {
   reserve:   { name: "Nombre", email: "Correo", phone: "Teléfono (opcional)",
                agree: "Acepto los", agree_link: "términos y la política de cancelación",
                submit: "Reservar estas noches", cancel: "Cancelar", holding: "Reservando tus noches…",
-               held: "Tus noches quedan reservadas hasta las {time}.", held_note: "Paga con tarjeta, Apple Pay, Google Pay o banco a través de Stripe en la página siguiente. El pago se está conectando; aún no se cobra nada.",
+               held: "Tus noches quedan reservadas hasta las {time}.", held_note: "Paga con tarjeta, Apple Pay, Google Pay o banco a través de Stripe en la página siguiente.",
                expired: "La reserva temporal terminó. Elige tus fechas de nuevo." },
   inquiry:   { kicker: "¿Preguntas?", title: "Pregunta al propietario",
                lead: "Una llegada tarde, una mascota, fechas que el calendario muestra ocupadas: escribe y el propietario responde, normalmente en un día.",

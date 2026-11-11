@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Your booking · SunDestin Online</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site_style.css?v=45">
+<style>.booking_page{max-width:640px;padding:48px 0}.booking_page h2{margin:6px 0 14px}.booking_facts{list-style:none;padding:0;margin:18px 0;display:grid;gap:8px}.booking_facts li{display:flex;justify-content:space-between;gap:16px;border-bottom:1px solid rgba(0,0,0,.08);padding:8px 0}.booking_facts b{font-weight:600}.booking_page .muted{color:var(--ink_3)}</style>
+</head>
+<body>
+<header class="site_header">
+  <div class="wrap">
+    <a class="site_logo" href="index.html">SunDestin Online</a>
+    <a class="btn btn_primary" href="index.html#rates">Rates and availability</a>
+  </div>
+</header>
+
+<section id="booking">
+  <div class="wrap booking_page">
+    <div class="kicker">Your booking</div>
+    <div id="booking_status" aria-live="polite">
+      <h2>Confirming…</h2>
+      <p class="muted">Your payment went through Stripe. We are confirming your booking, which usually takes a few seconds. Please keep this page open.</p>
+    </div>
+  </div>
+</section>
+
+<script src="js/booking.js?v=45"></script>
+</body>
+</html>

@@ -248,3 +248,117 @@ function occupy_nights(string $propertyId, string $checkin, string $checkout, st
   $ins = db()->prepare("INSERT INTO nights (property_id, night, kind, ref, expires_at) VALUES (?,?,?,?,NULL)");
   foreach (nights_between($checkin, $checkout) as $night) $ins->execute([$propertyId, $night, $kind, $ref]);
 }
+
+/* ── Stripe: API calls, webhook signature, hold → reservation ── */
+
+/* Stripe wants form-encoded nested keys: line_items[0][price_data][currency]=usd */
+function stripe_flatten(array $params, string $prefix = ''): array {
+  $out = [];
+  foreach ($params as $k => $v) {
+    $key = $prefix === '' ? (string)$k : $prefix . '[' . $k . ']';
+    if (is_array($v)) $out += stripe_flatten($v, $key);
+    elseif (is_bool($v)) $out[$key] = $v ? 'true' : 'false';
+    elseif ($v !== null) $out[$key] = (string)$v;
+  }
+  return $out;
+}
+
+/* One Stripe API call with the secret key from api/.env. Throws RuntimeException on any failure. */
+function stripe_request(string $method, string $path, array $params = [], ?string $idempotencyKey = null): array {
+  $key = (string)env('STRIPE_SECRET_KEY', '');
+  if (!preg_match('/^(sk|rk)_(test|live)_[A-Za-z0-9]{10,}/', $key)) throw new RuntimeException('Stripe is not configured: set STRIPE_SECRET_KEY in api/.env.');
+  $url  = 'https://api.stripe.com/v1/' . ltrim($path, '/');
+  $body = http_build_query(stripe_flatten($params), '', '&');
+  if ($method === 'GET' && $body !== '') { $url .= '?' . $body; $body = ''; }
+  $headers = ['Authorization: Bearer ' . $key, 'Content-Type: application/x-www-form-urlencoded'];
+  if ($idempotencyKey) $headers[] = 'Idempotency-Key: ' . $idempotencyKey;
+  $ch = curl_init($url);
+  curl_setopt_array($ch, [CURLOPT_CUSTOMREQUEST => $method, CURLOPT_RETURNTRANSFER => true, CURLOPT_HTTPHEADER => $headers,
+                          CURLOPT_TIMEOUT => 20, CURLOPT_CONNECTTIMEOUT => 8]);
+  if ($method !== 'GET') curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+  $raw = curl_exec($ch);
+  $status = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE);
+  $err = curl_error($ch);
+  curl_close($ch);
+  if ($raw === false) throw new RuntimeException('Stripe network error: ' . $err);
+  $d = json_decode((string)$raw, true);
+  if (!is_array($d)) throw new RuntimeException('Stripe returned a non-JSON response (HTTP ' . $status . ').');
+  if ($status >= 400) throw new RuntimeException('Stripe error: ' . ($d['error']['message'] ?? ('HTTP ' . $status)));
+  return $d;
+}
+
+/* Stripe-Signature: t=<unix>,v1=<hex hmac>. HMAC-SHA256 of "<t>.<raw body>" with the webhook secret. */
+function stripe_verify_signature(string $payload, string $header, string $secret, int $tolerance = 300): bool {
+  if ($secret === '' || $header === '') return false;
+  $ts = 0; $sigs = [];
+  foreach (explode(',', $header) as $part) {
+    [$k, $v] = array_pad(explode('=', trim($part), 2), 2, '');
+    if ($k === 't') $ts = (int)$v; elseif ($k === 'v1') $sigs[] = $v;
+  }
+  if ($ts === 0 || !$sigs || abs(time() - $ts) > $tolerance) return false;
+  $expected = hash_hmac('sha256', $ts . '.' . $payload, $secret);
+  foreach ($sigs as $s) if (hash_equals($expected, $s)) return true;
+  return false;
+}
+
+/* Plain-text mail through the host's mailer. A failed email never blocks a booking. */
+function send_mail(string $to, string $subject, string $text): bool {
+  $from = (string)env('MAIL_FROM', '');
+  if ($from === '' || !filter_var($to, FILTER_VALIDATE_EMAIL) || !filter_var($from, FILTER_VALIDATE_EMAIL)) return false;
+  $reply = (string)env('OWNER_EMAIL', $from);
+  $headers = "From: SunDestin Online <$from>\r\nReply-To: $reply\r\nMIME-Version: 1.0\r\nContent-Type: text/plain; charset=utf-8";
+  try { return @mail($to, '=?UTF-8?B?' . base64_encode($subject) . '?=', $text, $headers); } catch (Throwable $e) { return false; }
+}
+
+/* A paid Checkout session becomes a reservation, in one transaction.
+   Idempotent: a second call for the same hold returns the reservation already made.
+   Throws PDOException (duplicate key) if the nights were taken after the hold lapsed. */
+function confirm_hold(array $session): array {
+  $holdId = (string)($session['metadata']['hold_id'] ?? $session['client_reference_id'] ?? '');
+  tx_begin();
+  try {
+    $h = one('SELECT * FROM holds WHERE id = ?', [$holdId]);
+    if (!$h) throw new RuntimeException('Unknown hold ' . $holdId);
+    $existing = one('SELECT * FROM reservations WHERE hold_id = ?', [$holdId]);
+    if ($existing) { tx_commit(); return ['reservation' => $existing, 'new' => false]; }
+    if ($h['stripe_session_id'] && $h['stripe_session_id'] !== (string)($session['id'] ?? '')) throw new RuntimeException('Session does not match hold ' . $holdId);
+    if ((int)($session['amount_total'] ?? -1) !== (int)$h['total_cents'] || strtolower((string)($session['currency'] ?? '')) !== strtolower($h['currency'])) {
+      throw new RuntimeException('Amount or currency does not match hold ' . $holdId);
+    }
+    $ref = new_ref();
+    $now = now_utc();
+    $held = (int)(one("SELECT COUNT(*) AS n FROM nights WHERE kind = 'hold' AND ref = ?", [$holdId])['n'] ?? 0);
+    if ($held === count(nights_between($h['checkin'], $h['checkout']))) {
+      q("UPDATE nights SET kind = 'booked', ref = ?, expires_at = NULL WHERE kind = 'hold' AND ref = ?", [$ref, $holdId]);
+    } else {
+      /* the hold lapsed (or was swept) before Stripe told us: take the nights again if still free */
+      q("DELETE FROM nights WHERE kind = 'hold' AND ref = ?", [$holdId]);
+      occupy_nights($h['property_id'], $h['checkin'], $h['checkout'], 'booked', $ref);
+    }
+    q('INSERT INTO reservations (ref, property_id, hold_id, checkin, checkout, guests, children, guest_name, guest_email, guest_phone, quote_json, total_cents, currency, status, created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+      [$ref, $h['property_id'], $holdId, $h['checkin'], $h['checkout'], (int)$h['guests'], (int)$h['children'], $h['guest_name'], $h['guest_email'], $h['guest_phone'], $h['quote_json'], (int)$h['total_cents'], $h['currency'], 'confirmed', $now]);
+    q('INSERT INTO payments (id, reservation_ref, stripe_payment_intent, stripe_session_id, amount_cents, refunded_cents, currency, status, created_at) VALUES (?,?,?,?,?,0,?,?,?)',
+      [new_id('pay_'), $ref, (string)($session['payment_intent'] ?? ''), (string)($session['id'] ?? ''), (int)$session['amount_total'], $h['currency'], 'succeeded', $now]);
+    q("UPDATE holds SET status = 'paid' WHERE id = ?", [$holdId]);
+    audit('stripe', 'reservation.confirm', $ref, null, ['hold' => $holdId, 'total_cents' => (int)$h['total_cents'], 'session' => $session['id'] ?? '']);
+    tx_commit();
+  } catch (Throwable $e) {
+    tx_rollback();
+    throw $e;
+  }
+  return ['reservation' => one('SELECT * FROM reservations WHERE ref = ?', [$ref]), 'new' => true];
+}
+
+/* Confirmation emails to the guest and the owner. */
+function reservation_emails(array $r): void {
+  $p = one('SELECT name FROM properties WHERE id = ?', [$r['property_id']]);
+  $lines = 'Booking reference: ' . $r['ref'] . "\n"
+         . 'Property: ' . ($p['name'] ?? $r['property_id']) . "\n"
+         . 'Check-in: ' . $r['checkin'] . "\nCheck-out: " . $r['checkout'] . "\n"
+         . 'Guests: ' . $r['guests'] . ' adults, ' . $r['children'] . " children\n"
+         . 'Total paid: ' . cents_to_money((int)$r['total_cents']) . ' ' . $r['currency'] . "\n";
+  send_mail($r['guest_email'], 'Your SunDestin stay is confirmed (' . $r['ref'] . ')',
+    'Hi ' . $r['guest_name'] . ",\n\nThank you, your stay is booked.\n\n" . $lines . "\nCheck-in details follow before your arrival. Reply to this email with any questions.\n\nSunDestin Online\n");
+  $owner = (string)env('OWNER_EMAIL', '');
+  if ($owner !== '') send_mail($owner, 'New booking ' . $r['ref'], "A booking was paid through Stripe.\n\n" . $lines . 'Guest: ' . $r['guest_name'] . ' <' . $r['guest_email'] . '> ' . $r['guest_phone'] . "\n");
+}
