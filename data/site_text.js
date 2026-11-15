@@ -12,7 +12,7 @@ window.SDO_SITE = {
   },
 
   /* Slim menu: three links. On phones they sit in a bottom bar. */
-  nav: [["Photos", "#gallery"], ["Rates", "#rates"], ["Contact", "#inquiry"]],
+  nav: [["Rates", "#rates"], ["Contact", "#inquiry"]],
   nav_cta: "Check dates",
   signin_link: "Login", account_link: "Hi, {user}",
   theme_label: "Theme",

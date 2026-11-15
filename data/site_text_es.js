@@ -1,7 +1,7 @@
 /* Owner Vacation Rentals — SPANISH site text. Same keys as data/site_text.js; anything missing here
    falls back to English. Edit freely, keep the keys. */
 window.SDO_SITE_ES = {
-  nav: [["Fotos", "#gallery"], ["Tarifas", "#rates"], ["Contacto", "#inquiry"]],
+  nav: [["Tarifas", "#rates"], ["Contacto", "#inquiry"]],
   nav_cta: "Ver fechas",
   signin_link: "Entrar", account_link: "Hola, {user}",
   theme_label: "Tema",
