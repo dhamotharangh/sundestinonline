@@ -1,3 +1,28 @@
+# Handoff 2026-11-14: the site is LIVE as a brochure
+
+**Live at https://sundestinonline.com/ on GitHub Pages** (repo `dhamotharangh/sundestinonline`, now PUBLIC, branch `main`, root folder; every push redeploys in about a minute). The `CNAME` file in the repo root holds the custom domain: do not delete it.
+
+**DNS** is at Squarespace Domains (nameservers `ns-cloud-c*.googledomains.com`): four A records `@` to 185.199.108-111.153, CNAME `www` to `dhamotharangh.github.io`. Email-forwarding MX/SPF (mailgun), the Google and Microsoft verification records and `smtp._domainkey` were left untouched. The old Squarespace website plan is expired and not needed.
+
+**What works on the live site (static, no PHP):** photos, rates and calendar from `data/*.csv`, map, EN/ES on every page including Terms and Privacy. Reserve and Pay opens a panel (first name, last name, phone, email); with no API the button reads "Email the owner" and opens a prefilled email to the owner. No hold, no payment.
+
+**What does not run on GitHub Pages:** everything in `api/` (calendar, quote, hold, Stripe Checkout, webhook, cron). The booking plan in `docs/BOOKING_PLAN.md` still needs a PHP + MySQL host (Hostinger Business); when that is bought, point the same domain there.
+
+**Done this session:** owner contact `sundestinonline@gmail.com` and phone in `data/properties.js`; account deletion is a quiet "email the admin" link; cancellation terms reworded (60+ days full refund, 30 to 59 days 50%, inside 30 days none); Spanish bodies for `terms.html` and `privacy.html` (`.only_en` / `.only_es` blocks, one CSS rule); Spanish short messages through `msgs` in `data/site_text_es.js` and `SDO_tr()`; asset version is `?v=48`.
+
+**Privacy state of the public repo:** no secrets in files or history. The owner's working docs were untracked on 2026-11-14 (commit 10eb9da) but remain in older commits, as does the owner's personal Gmail as author of the first 53 commits. Commits now use the GitHub no-reply address `50078545+dhamotharangh@users.noreply.github.com`. Working copies under `docs/` stay untracked.
+
+**Open items**
+- Confirm "Enforce HTTPS" is ticked in the repo's Pages settings (HTTPS already answers).
+- Real rates, cleaning fee, tax rate, reviews: still sample values, and now public.
+- Payment terms in `terms.html` are still a bracketed placeholder (EN and ES).
+- `booking.html` and `js/booking.js` are English only; they are reached only after a Stripe payment.
+- `/admin/` demo page is public with a readable demo passcode; browser-only, change before a real admin exists.
+- A relay service would let the form send email without opening the guest's mail app; not added, needs the owner's say-so.
+- Photos in `images/avari_20261111` are committed but not yet used by the gallery; `images/laketown_wharf` and `images/vacasa-1010902` are untracked.
+
+---
+
 # Where things stand (updated 2026-11-07, end of session)
 
 **Live on GitHub (dhamotharangh/sundestinonline, branch main), local preview `.\server.bat -start` → http://127.0.0.1:8765/**
