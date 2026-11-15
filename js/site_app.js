@@ -26,7 +26,7 @@
   var qs = new URLSearchParams(location.search);
   var P = props.filter(function (p) { return p.id === qs.get("p"); })[0] ||
           props.filter(function (p) { return p.featured; })[0] || props[0] || {};
-  if (qs.get("p") && P.name) document.title = P.name + " · " + P.complex;
+  if (P.name && /index\.html$|\/$/.test(location.pathname)) document.title = P.name + " · " + P.complex;
   /* owner edits saved from admin.html (demo: this browser) override the data file (English text) */
   var ov = ST && P.id ? ST.getText(P.id) : null;
   if (ov) P = Object.assign({}, P, ov);
@@ -39,7 +39,7 @@
   }
   /* a property may override site-level hero and location copy (data: site: { hero: {...}, location: {...} }) */
   if (P.site) { S = merge(S, P.site); window.SDO_TEXT = S; }
-  if (qs.get("p")) $$('a[href^="index.html#"]').forEach(function (a) { a.href = a.getAttribute("href").replace("index.html", "index.html?p=" + P.id); });
+  if (P.id) $$('a[href^="index.html#"]').forEach(function (a) { a.href = a.getAttribute("href").replace("index.html", "index.html?p=" + P.id); });
   var money = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };
   function get(path) {
@@ -77,7 +77,7 @@
   B.site_nav = function (el) {
     var pre = el.getAttribute("data-prefix") || "";
     el.innerHTML = (S.nav || []).map(function (n) {
-      var href = n[1].charAt(0) === "#" ? pre + (pre && !P.featured ? "?p=" + P.id : "") + n[1] : n[1];
+      var href = n[1].charAt(0) === "#" ? pre + (pre ? "?p=" + P.id : "") + n[1] : n[1];
       return '<a href="' + esc(href) + '">' + esc(n[0]) + "</a>";
     }).join("");
   };
@@ -89,7 +89,7 @@
     var pre = el.getAttribute("data-prefix") || "index.html";
     if (props.length < 2) { el.hidden = true; return; }
     el.innerHTML = props.map(function (p) {
-      return '<a href="' + esc(p.featured ? pre : pre + "?p=" + p.id) + '"' + (p.id === P.id ? ' class="on"' : "") + ">" + esc(p.place || p.name) + "</a>";
+      return '<a href="' + esc(pre + "?p=" + p.id) + '"' + (p.id === P.id && /index\.html$|\/$/.test(location.pathname) ? ' class="on"' : "") + ">" + esc(p.place || p.name) + "</a>";
     }).join("");
   };
   B.site_account = function (el) {
@@ -677,7 +677,7 @@
   if (cards) {
     cards.innerHTML = props.map(function (p) {
       var from = Math.min.apply(null, p.seasons.map(function (s) { return s.nightly; }));
-      return '<a class="property_card" href="' + (p.featured ? "index.html" : "index.html?p=" + esc(p.id)) + '"><img src="' + esc(p.hero) + '" alt="' + esc(p.name) + '" loading="lazy"><div class="body"><h3>' + esc(p.name) + "</h3>" +
+      return '<a class="property_card" href="' + "index.html?p=" + esc(p.id) + '"><img src="' + esc(p.hero) + '" alt="' + esc(p.name) + '" loading="lazy"><div class="body"><h3>' + esc(p.name) + "</h3>" +
         '<div class="meta">' + p.facts.bedrooms + " BR · " + p.facts.bathrooms + " BA · sleeps " + p.facts.sleeps + " · " + esc(p.facts.view) + '</div><span class="from">' + esc(LST.from) + " " + money(from) + " " + esc(LST.per_night) + "</span></div></a>";
     }).join("");
   }

@@ -70,7 +70,7 @@ section{padding:64px 0}
 .site_nav a:hover,.site_nav a.active{color:var(--ink);background:var(--sand)}
 .site_header .btn{padding:9px 16px;font-size:14px}
 .site_switches{display:flex;align-items:center;gap:10px;margin-left:auto}
-.site_nav + .site_switches{margin-left:0}
+.site_switches:has(.site_nav){margin-left:0;flex:1}
 .site_lang{display:inline-flex;border:1px solid var(--line);border-radius:var(--pill);overflow:hidden}
 .site_lang button,.site_lang a{text-decoration:none;font:inherit;font-size:12px;font-weight:700;letter-spacing:.04em;padding:6px 10px;border:0;background:transparent;color:var(--ink_2);cursor:pointer}
 .site_lang button.on,.site_lang a.on{background:var(--accent);color:var(--on_accent)}
