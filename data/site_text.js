@@ -89,7 +89,7 @@ window.SDO_SITE = {
              delete_subject: "Account deletion request: {email}",
              delete_body: "Hello,\n\nPlease delete my Owner Vacation Rentals account.\n\nName: {user}\nEmail: {email}\n\nThanks",
              hello: "Hello, {user}", since: "Registered {date}", switch_in: "Already registered? Sign in", switch_up: "New here? Open to register" },
-  admin:   { demo_passcode: "sundestin", kicker: "Owner", title: "Edit the site", lead: "Change the text, upload rates and availability, and block days on the calendar. Demo: changes live in this browser only; use Export to publish them through GitHub.",
+  admin:   { demo_passcode: "gulf-f8c645", kicker: "Owner", title: "Edit the site", lead: "Change the text, upload rates and availability, and block days on the calendar. Demo: changes live in this browser only; use Export to publish them through GitHub.",
              gate_title: "Owner sign-in", gate_label: "Passcode", gate_btn: "Open", gate_error: "Wrong passcode.",
              text_title: "Text", headline: "Condo headline", subhead: "Sub-line", description: "Description (one paragraph per line)",
              rates_title: "Rates CSV", availability_title: "Availability CSV", calendar_title: "Block or unblock days", calendar_hint: "Click a day to toggle it. Blocked days show hatched.",
