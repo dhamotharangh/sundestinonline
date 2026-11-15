@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="">
-<link rel="stylesheet" href="css/site_style.css?v=46">
+<link rel="stylesheet" href="css/site_style.css?v=47">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%230FA3A3'/%3E%3Cpath d='M6 20c3-2 5-2 8 0s5 2 8 0 3-2 4-1' stroke='%23fff' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='22' cy='10' r='3.5' fill='%23fff'/%3E%3C/svg%3E">
 <script type="application/ld+json">
 {
@@ -135,9 +135,10 @@
         <div class="quote_result" id="quote_result"></div>
         <button type="button" class="btn btn_primary quote_reserve" id="quote_reserve" data-t="site.rates.reserve_cta"></button>
         <form class="reserve_panel" id="reserve_panel" hidden novalidate>
-          <div><label for="reserve_name" data-t="site.reserve.name"></label><input id="reserve_name" name="name" autocomplete="name" required></div>
+          <div><label for="reserve_name" data-t="site.reserve.name"></label><input id="reserve_name" name="name" autocomplete="given-name" required></div>
+          <div><label for="reserve_last" data-t="site.reserve.last"></label><input id="reserve_last" name="last" autocomplete="family-name"></div>
+          <div><label for="reserve_phone" data-t="site.reserve.phone"></label><input id="reserve_phone" name="phone" type="tel" autocomplete="tel"></div>
           <div><label for="reserve_email" data-t="site.reserve.email"></label><input id="reserve_email" name="email" type="email" autocomplete="email" required></div>
-          <div class="full"><label for="reserve_phone" data-t="site.reserve.phone"></label><input id="reserve_phone" name="phone" type="tel" autocomplete="tel"></div>
           <label class="full reserve_agree"><input type="checkbox" name="agree" required> <span data-t="site.reserve.agree"></span> <a href="terms.html" target="_blank" rel="noopener" data-t="site.reserve.agree_link"></a></label>
           <div class="full reserve_actions"><button class="btn btn_primary" type="submit" data-t="site.reserve.submit"></button><button class="btn btn_ghost" type="button" id="reserve_cancel" data-t="site.reserve.cancel"></button></div>
           <div class="full reserve_msg" id="reserve_msg"></div>
@@ -231,12 +232,12 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin=""></script>
-<script src="data/site_text.js?v=46"></script>
-<script src="data/site_text_es.js?v=46"></script>
-<script src="data/properties.js?v=46"></script>
-<script src="data/properties_es.js?v=46"></script>
-<script src="js/csv.js?v=46"></script>
-<script src="js/site_store.js?v=46"></script>
-<script src="js/site_app.js?v=46"></script>
+<script src="data/site_text.js?v=47"></script>
+<script src="data/site_text_es.js?v=47"></script>
+<script src="data/properties.js?v=47"></script>
+<script src="data/properties_es.js?v=47"></script>
+<script src="js/csv.js?v=47"></script>
+<script src="js/site_store.js?v=47"></script>
+<script src="js/site_app.js?v=47"></script>
 </body>
 </html>

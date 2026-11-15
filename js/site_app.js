@@ -606,15 +606,16 @@
     rsBtn.addEventListener("click", function () {
       if (!qin.value || !qout.value || !(qres && qres.getAttribute("data-total-cents")) && apiMode) {
         if (qres && (!qin.value || !qout.value)) qres.innerHTML = '<span class="hint warn">' + esc(R.pick_first || "") + "</span>";
-        if (!apiMode && qin.value && qout.value) {
-          /* static hosting, no API: fall back to the email inquiry with the dates filled in */
-          var v = { "in": qin.value, out: qout.value, guests: ($("#quote_guests") || {}).value || 2, message: "", guest: "", guestEmail: "", email: P.contact.email, name: P.name };
-          window.location.href = "mailto:" + P.contact.email + "?subject=" + encodeURIComponent(fmt(S.inquiry.mail_subject, v)) + "&body=" + encodeURIComponent(fmt(S.inquiry.mail_body, v));
-        }
         return;
       }
       var u = ST ? ST.current() : null;
-      if (u) { if (!rsPanel.elements.name.value) rsPanel.elements.name.value = u.name || ""; if (!rsPanel.elements.email.value) rsPanel.elements.email.value = u.email || ""; }
+      if (u) {
+        var un = String(u.name || "").trim().split(/\s+/);
+        if (!rsPanel.elements.name.value && !rsPanel.elements.last.value) { rsPanel.elements.name.value = un[0] || ""; rsPanel.elements.last.value = un.slice(1).join(" "); }
+        if (!rsPanel.elements.email.value) rsPanel.elements.email.value = u.email || "";
+      }
+      /* static hosting, no API: the form emails the owner instead of holding nights */
+      if (!apiMode && RS.submit_mail) rsPanel.querySelector("[type=submit]").textContent = RS.submit_mail;
       rsDone.hidden = true; rsPanel.hidden = false; rsBtn.hidden = true; rsMsg("");
       rsPanel.elements.name.focus();
     });
@@ -622,11 +623,19 @@
     rsPanel.addEventListener("submit", function (e) {
       e.preventDefault();
       var f = rsPanel.elements;
-      if (!f.name.value.trim() || !f.email.value.trim() || !f.agree.checked) { rsMsg(RS.agree + " " + RS.agree_link + "."); return; }
-      rsMsg(RS.holding || ""); f.submit = null;
+      if (!f.name.value.trim() || !f.email.value.trim() || !f.email.validity.valid) { rsMsg(RS.need_email || ""); (f.name.value.trim() ? f.email : f.name).focus(); return; }
+      if (!f.agree.checked) { rsMsg(RS.agree + " " + RS.agree_link + "."); return; }
       var g = $("#quote_guests"), c = $("#quote_children");
+      var fullName = (f.name.value.trim() + " " + f.last.value.trim()).trim();
+      if (!apiMode) {
+        var mv = { "in": qin.value, out: qout.value, guests: g ? g.value : 2, name: P.name, guest: fullName, guestEmail: f.email.value.trim(),
+                   message: (f.phone.value.trim() ? RS.phone.replace(/\s*\(.*\)/, "") + ": " + f.phone.value.trim() + "\n" : "") + (qres ? qres.innerText.trim() : "") };
+        window.location.href = "mailto:" + P.contact.email + "?subject=" + encodeURIComponent(fmt(S.inquiry.mail_subject, mv)) + "&body=" + encodeURIComponent(fmt(S.inquiry.mail_body, mv));
+        rsMsg(RS.mail_opened || ""); return;
+      }
+      rsMsg(RS.holding || ""); f.submit = null;
       var body = { property: P.id, checkin: qin.value, checkout: qout.value, guests: g ? +g.value : 2, children: c ? +c.value : 0,
-                   name: f.name.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim(), agree: true,
+                   name: fullName, email: f.email.value.trim(), phone: f.phone.value.trim(), agree: true,
                    expected_total_cents: +(qres.getAttribute("data-total-cents") || 0) };
       fetch(apiBase + "hold.php", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
         .then(function (r) { return r.json(); })
