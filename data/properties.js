@@ -161,6 +161,6 @@ window.SDO_PROPERTIES = [
       ["Is there an elevator?", "Yes. The condo is on the 8th floor with elevators from the parking garage."],
       ["What is the cancellation policy?", "The owner's policy is quoted with every booking. Ask before you pay if you need flexibility."]
     ],
-    contact: { email: "sundestinonline@gmail.com", phone: "+1 (678) 793-9686", whatsapp: "" }
+    contact: { email: "laketown815@gmail.com", phone: "+1 (678) 793-9686", whatsapp: "" }
   }
 ];
