@@ -385,4 +385,5 @@ section{padding:64px 0}
   .site_header .btn{padding:7px 10px;font-size:12px}
   .site_switches{gap:5px}
 }
-
+/* legal pages carry both languages; show the one matching <html lang> */
+html[lang="es"] .only_en,html:not([lang="es"]) .only_es{display:none}

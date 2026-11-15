@@ -18,6 +18,9 @@
   function merge(a, b) { var o = Object.assign({}, a); Object.keys(b || {}).forEach(function (k) { o[k] = (b[k] && typeof b[k] === "object" && !Array.isArray(b[k]) && a && typeof a[k] === "object" && !Array.isArray(a[k])) ? merge(a[k], b[k]) : b[k]; }); return o; }
   var S = LANG === "es" ? merge(window.SDO_SITE, window.SDO_SITE_ES) : (window.SDO_SITE || {});
   var LOCALE = LANG === "es" ? "es-ES" : "en-US";
+  /* short messages written in English in code: Spanish comes from S.msgs, keyed by the English text */
+  function tr(s) { return (S.msgs || {})[s] || s; }
+  window.SDO_tr = tr; window.SDO_TEXT = S;
   document.documentElement.lang = LANG;
   var props = window.SDO_PROPERTIES || [];
   var qs = new URLSearchParams(location.search);
@@ -582,11 +585,11 @@
     rvForm.addEventListener("submit", function (e) {
       e.preventDefault();
       var r = ST.saveReview(P.id, rvForm.elements.stars.value, rvForm.elements.text.value, rvForm.elements.when.value);
-      var m = $("#review_msg"); m.textContent = r.ok ? RV.saved : r.error; m.className = "review_msg " + (r.ok ? "ok" : "err");
+      var m = $("#review_msg"); m.textContent = r.ok ? RV.saved : tr(r.error); m.className = "review_msg " + (r.ok ? "ok" : "err");
       if (r.ok) { rvForm.hidden = true; renderReviews(); }
     });
     $("#review_cancel").addEventListener("click", function () { rvForm.hidden = true; });
-    $("#review_delete").addEventListener("click", function () { if (confirm("Delete your review?")) { ST.deleteReview(P.id); rvForm.hidden = true; renderReviews(); } });
+    $("#review_delete").addEventListener("click", function () { if (confirm(tr("Delete your review?"))) { ST.deleteReview(P.id); rvForm.hidden = true; renderReviews(); } });
     $$("#review_nav button").forEach(function (b) {
       b.addEventListener("click", function () { rv.scrollBy({ left: (+b.getAttribute("data-d")) * (rv.clientWidth * 0.8), behavior: "smooth" }); });
     });
@@ -654,7 +657,7 @@
           fetchApi().then(function (x) { if (x) { applyApi(x); renderCal(); } });
           setTimeout(function () { rsDone.innerHTML = esc(RS.expired || ""); rsBtn.hidden = false; }, Math.max(1000, until - Date.now()));
         })
-        .catch(function () { rsMsg("Network error. Please try again."); });
+        .catch(function () { rsMsg(tr("Network error. Please try again.")); });
     });
   }
 

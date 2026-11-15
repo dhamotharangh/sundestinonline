@@ -77,5 +77,16 @@ window.SDO_SITE_ES = {
              delete_body: "Hola,\n\nPor favor borra mi cuenta de SunDestin Online.\n\nNombre: {user}\nCorreo: {email}\n\nGracias",
              hello: "Hola, {user}", since: "Registrado el {date}", switch_in: "¿Ya tienes cuenta? Inicia sesión", switch_up: "¿Nuevo aquí? Abre para registrarte" },
 
+  msgs: { "Fill in name, email and password.": "Escribe tu nombre, correo y contraseña.",
+          "That email does not look right.": "Ese correo no parece correcto.",
+          "Use at least 8 characters for the password.": "Usa al menos 8 caracteres para la contraseña.",
+          "That email is already registered. Sign in instead.": "Ese correo ya está registrado. Inicia sesión.",
+          "No account with that email.": "No hay ninguna cuenta con ese correo.",
+          "Wrong password.": "Contraseña incorrecta.",
+          "Sign in first.": "Inicia sesión primero.",
+          "Write at least a sentence.": "Escribe al menos una frase.",
+          "Delete your review?": "¿Borrar tu reseña?",
+          "Network error. Please try again.": "Error de red. Inténtalo de nuevo." },
+
   list: { kicker: "Propiedades", title: "Condominios en la playa de Destin, gestionados por sus propietarios", lead: "Cada uno se reserva directamente con su propietario. Elige un condominio para ver fotos, tarifas y mapa.", from: "desde", per_night: "/ noche" }
 };
