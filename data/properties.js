@@ -38,7 +38,7 @@ window.SDO_PROPERTIES = [
     ],
     description: [
       "Inside, the open floor plan flows from a fully equipped kitchen with stainless appliances and a counter-seating bar, through a bright dining area, into a coastal-blue living room with a flat-screen TV and a wall of glass framing the Gulf. The queen sleeper sofa and a charming built-in bunk nook let the condo comfortably sleep 6. Kids claim the bunks every time.",
-      "Step out onto the balcony and the best of Destin is at your feet: a beachfront pool deck, seasonal beach chair service on one of Florida's most celebrated beaches, and HarborWalk Village, Big Kahuna's and Destin Commons only minutes away. Being on the 2nd floor means no elevator waits. Door to the sand in under a minute."
+      "Step out onto the balcony and the best of Destin is at your feet: a beachfront pool deck, seasonal beach chair service on one of Florida's most celebrated beaches, and HarborWalk Village, Big Kahuna's and Destin Commons only minutes away. Being on the 2nd floor means no elevator waits. The sand starts at your door."
     ],
     /* three groups: [group title, icon, [items]] */
     amenity_groups: [
@@ -60,7 +60,7 @@ window.SDO_PROPERTIES = [
     rates_note: "Sample rates for layout only. The owner confirms live nightly rates, minimum stays and fees before launch.",
     /* nearby: [name, distance text, lat, lng]. Coordinates are approximate; adjust if a pin sits wrong. */
     nearby: [
-      ["Beach", "under a minute"],
+      ["Beach", "at your door"],
       ["Big Kahuna's Water & Adventure Park", "about 1 mi", 30.3936, -86.4546],
       ["Henderson Beach State Park", "about 2 mi", 30.3838, -86.4387],
       ["HarborWalk Village & Destin Harbor", "about 3 mi", 30.3935, -86.5085],

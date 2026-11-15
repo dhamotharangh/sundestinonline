@@ -12,7 +12,7 @@ window.SDO_SITE = {
   },
 
   /* Slim menu: three links. On phones they sit in a bottom bar. */
-  nav: [["Rates", "#rates"], ["Contact", "#inquiry"]],
+  nav: [["Contact", "#inquiry"]],
   nav_cta: "Check dates",
   signin_link: "Login", account_link: "Hi, {user}",
   theme_label: "Theme",
@@ -22,7 +22,7 @@ window.SDO_SITE = {
     title: "Breathtaking beachfront views",
     title2: "from your private balcony",
     sub: "Your balcony sits right over the pool and the sand, so you watch the kids from your chair. A 2nd-floor beachfront condo at Sun Destin Beach Resort, Destin FL. Sleeps 6.",
-    sub_strong: "Door to the sand in under a minute.",
+    sub_strong: "The sand starts at your door.",
     sub2: "Wake up to the emerald-green Gulf of Mexico in this beautifully kept 2nd-floor condo. From the balcony you are close enough to hear the waves and low enough to count the umbrellas on the sugar-white sand.",
     cta: "Check dates",
     /* one quiet line under the photo, instead of three tiles */
