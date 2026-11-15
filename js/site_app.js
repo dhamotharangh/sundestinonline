@@ -91,7 +91,10 @@
     var pre = el.getAttribute("data-prefix") || "index.html";
     if (props.length < 2) { el.hidden = true; return; }
     el.innerHTML = props.map(function (p) {
-      return '<a href="' + esc(pre + "?p=" + p.id) + '"' + (p.id === P.id && /index\.html$|\/$/.test(location.pathname) ? ' class="on"' : "") + ">" + esc(p.place || p.name) + "</a>";
+      // on a property domain, another condo opens on its own domain so the header keeps that condo's name
+      var own = Object.keys(S.hosts || {}).filter(function (h) { return S.hosts[h].property === p.id; })[0];
+      var href = HOST && own && own !== location.hostname.replace(/^www\./, "") ? "https://" + own + "/" : pre + "?p=" + p.id;
+      return '<a href="' + esc(href) + '"' + (p.id === P.id && /index\.html$|\/$/.test(location.pathname) ? ' class="on"' : "") + ">" + esc(p.place || p.name) + "</a>";
     }).join("");
   };
   B.site_account = function (el) {
