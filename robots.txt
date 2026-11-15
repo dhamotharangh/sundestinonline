@@ -4,4 +4,4 @@ Disallow: /rates_upload.html
 Disallow: /admin/
 Disallow: /register.html
 Disallow: /images/archive_photos/
-Sitemap: https://sundestinonline.com/sitemap.xml
+Sitemap: https://ownervacation.rentals/sitemap.xml

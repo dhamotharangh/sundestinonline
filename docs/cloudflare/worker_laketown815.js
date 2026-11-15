@@ -4,7 +4,7 @@
    Setup: Cloudflare dashboard > Workers & Pages > Create > paste this > Deploy,
    then Settings > Domains & Routes > add laketown815.com and www.laketown815.com.
    Free plan: 100,000 requests a day. */
-const ORIGIN = "sundestinonline.com"; // change to ownervacation.rentals once that domain is live on GitHub Pages
+const ORIGIN = "ownervacation.rentals";
 
 export default {
   async fetch(request) {

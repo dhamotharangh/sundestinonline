@@ -4,7 +4,7 @@
    site.location.*, site.reviews.*, site.inquiry.*, site.faq.*, site.footer.*
    {name} inside a string becomes the property's name. Property text lives in data/properties.js. */
 window.SDO_SITE = {
-  brand: { name: "Owner Vacation", accent: "Rentals", domain: "https://sundestinonline.com" },
+  brand: { name: "Owner Vacation", accent: "Rentals", domain: "https://ownervacation.rentals" },
   /* property domains: a bare visit opens that condo and the header carries its own name; any other host is the combined site */
   hosts: {
     "sundestinonline.com": { property: "sundestin_203", brand: { name: "SunDestin", accent: "Online" } },
