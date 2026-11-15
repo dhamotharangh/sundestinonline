@@ -1,15 +1,15 @@
 # Handoff 2026-11-15 (end of day)
 
-State: everything is committed and pushed to main (last commit e19d056). Live at https://ownervacation.rentals.
+State: everything is committed and pushed to main (last code commit 778fa1f, 13:18). Live at https://ownervacation.rentals.
 
-Done today, in order: Laketown Wharf #815 added (second property, `?p=laketown_815`); rebrand to Owner Vacation Rentals; combined home = two-card list; header order logo, Destin|PCB pill, EN|ES, menu, theme, Login, Check dates; domain switched to ownervacation.rentals; per-domain `hosts` map (dormant); Laketown copy says the beach is "just across the street" (owner: never "a short walk"); Laketown contact laketown815@gmail.com; header menu trimmed to Rates, Contact.
+Done today, in order: Laketown Wharf #815 added (second property, `?p=laketown_815`); rebrand to Owner Vacation Rentals; combined home = two-card list; header order logo, Destin|PCB pill, EN|ES, menu, theme, Login, Check dates; domain switched to ownervacation.rentals; per-domain `hosts` map (dormant); Laketown copy says the beach is "just across the street" (owner: never "a short walk"); Laketown contact laketown815@gmail.com; header menu trimmed to Contact only; Destin hero line is "The sand starts at your door."; pill and language toggle spaced apart on desktop; footer links fixed when opened from admin/ (Owner no longer points at admin/admin/); admin passcode changed to one the owner chose.
 
 Owner's open steps in Cloudflare (Claude cannot sign in there: Turnstile blocks the browser pane, Chrome extension never connects):
 1. sundestinonline.com zone (now on Cloudflare nameservers, currently GitHub 404): Rules > Redirect Rules > All incoming requests > static 301 to https://ownervacation.rentals/?p=sundestin_203.
 2. ownervacation.rentals zone: www row must be CNAME dhamotharangh.github.io (522 while the old A row remains).
 laketown815.com already 301s to https://ownervacation.rentals/?p=laketown_815.
 
-Still open on the site: Laketown rates/fees are SAMPLE values; admin passcode is still the demo one and admin is linked from the footer; booking API host not chosen (Namecheap Stellar vs Hostinger); Laketown photos uncompressed (~1 MB each); Worker (`docs/cloudflare/worker_laketown815.js`) deferred by owner choice.
+Still open on the site: Laketown rates/fees are SAMPLE values; the admin passcode is the owner's own now, but it sits in `data/site_text.js` in a PUBLIC repo, so anyone can read it (admin is browser-only, it changes nothing on the live site; real protection needs the PHP host); the owner's note `docs/_owner_passcode.txt` is untracked and must stay so; booking API host not chosen (Namecheap Stellar vs Hostinger); Laketown photos uncompressed (~1 MB each); Worker (`docs/cloudflare/worker_laketown815.js`) deferred by owner choice.
 
 # Domain switch 2026-11-15: GitHub Pages now serves ownervacation.rentals
 
