@@ -26,6 +26,7 @@
   var qs = new URLSearchParams(location.search);
   var P = props.filter(function (p) { return p.id === qs.get("p"); })[0] ||
           props.filter(function (p) { return p.featured; })[0] || props[0] || {};
+  if (qs.get("p") && P.name) document.title = P.name + " · " + P.complex;
   /* owner edits saved from admin.html (demo: this browser) override the data file (English text) */
   var ov = ST && P.id ? ST.getText(P.id) : null;
   if (ov) P = Object.assign({}, P, ov);
@@ -36,6 +37,9 @@
     if (E.photo_tags) P.photos = (P.photos || []).map(function (ph) { return Object.assign({}, ph, { tag: E.photo_tags[ph.tag] || ph.tag }); });
     if (E.nearby_dist) P.nearby = (P.nearby || []).map(function (n, i) { return [n[0], E.nearby_dist[i] || n[1], n[2], n[3]]; });
   }
+  /* a property may override site-level hero and location copy (data: site: { hero: {...}, location: {...} }) */
+  if (P.site) { S = merge(S, P.site); window.SDO_TEXT = S; }
+  if (qs.get("p")) $$('a[href^="index.html#"]').forEach(function (a) { a.href = a.getAttribute("href").replace("index.html", "index.html?p=" + P.id); });
   var money = function (n) { return "$" + Math.round(n).toLocaleString("en-US"); };
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };
   function get(path) {
@@ -73,13 +77,20 @@
   B.site_nav = function (el) {
     var pre = el.getAttribute("data-prefix") || "";
     el.innerHTML = (S.nav || []).map(function (n) {
-      var href = n[1].charAt(0) === "#" ? pre + n[1] : n[1];
+      var href = n[1].charAt(0) === "#" ? pre + (pre && !P.featured ? "?p=" + P.id : "") + n[1] : n[1];
       return '<a href="' + esc(href) + '">' + esc(n[0]) + "</a>";
     }).join("");
   };
   B.site_lang = function (el) {
     el.innerHTML = '<button type="button" data-lang="en"' + (LANG === "en" ? ' class="on"' : "") + '>EN</button><button type="button" data-lang="es"' + (LANG === "es" ? ' class="on"' : "") + ">ES</button>";
     $$("button", el).forEach(function (b) { b.addEventListener("click", function () { try { localStorage.setItem("sdo_lang", b.getAttribute("data-lang")); } catch (e) {} location.reload(); }); });
+  };
+  B.site_prop = function (el) {
+    var pre = el.getAttribute("data-prefix") || "index.html";
+    if (props.length < 2) { el.hidden = true; return; }
+    el.innerHTML = props.map(function (p) {
+      return '<a href="' + esc(p.featured ? pre : pre + "?p=" + p.id) + '"' + (p.id === P.id ? ' class="on"' : "") + ">" + esc(p.place || p.name) + "</a>";
+    }).join("");
   };
   B.site_account = function (el) {
     var pre = el.getAttribute("data-prefix") || "", u = ST ? ST.current() : null;

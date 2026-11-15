@@ -61,8 +61,8 @@ window.SDO_SITE_ES = {
   faq:       { kicker: "Preguntas", title: "Bueno saberlo" },
 
   footer: {
-    tagline: "Condominios frente al mar en Destin, Florida, gestionados por su propietario. Reserva directa, sin comisión.",
-    links: [["Fotos", "#gallery"], ["Tarifas", "#rates"], ["Mapa", "#location"], ["Preguntas", "#faq"], ["Todas las propiedades", "properties.html"], ["Tu cuenta", "register.html"], ["Términos", "terms.html"], ["Privacidad", "privacy.html"]],
+    tagline: "Condominios de playa en la costa del Golfo de Florida, gestionados por su propietario. Reserva directa, sin comisión.",
+    links: [["Fotos", "#gallery"], ["Tarifas", "#rates"], ["Mapa", "#location"], ["Preguntas", "#faq"], ["Todas las propiedades", "properties.html"], ["Tu cuenta", "register.html"], ["Términos", "terms.html"], ["Privacidad", "privacy.html"], ["Propietario", "admin/"]],
     legal_lead: "Reserva directa con el propietario. Sin comisión de plataforma:",
     legal: "cada reserva, pago, cancelación y reembolso es un acuerdo directo entre tú y el propietario. SunDestin Online es el sitio propio del propietario, no un mercado ni una agencia.",
     copyright: "SunDestin Online"
@@ -88,5 +88,5 @@ window.SDO_SITE_ES = {
           "Delete your review?": "¿Borrar tu reseña?",
           "Network error. Please try again.": "Error de red. Inténtalo de nuevo." },
 
-  list: { kicker: "Propiedades", title: "Condominios en la playa de Destin, gestionados por sus propietarios", lead: "Cada uno se reserva directamente con su propietario. Elige un condominio para ver fotos, tarifas y mapa.", from: "desde", per_night: "/ noche" }
+  list: { kicker: "Propiedades", title: "Condominios en la costa del Golfo, gestionados por sus propietarios", lead: "Cada uno se reserva directamente con su propietario. Elige un condominio para ver fotos, tarifas y mapa.", from: "desde", per_night: "/ noche" }
 };

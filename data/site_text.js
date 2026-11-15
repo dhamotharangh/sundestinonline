@@ -68,8 +68,8 @@ window.SDO_SITE = {
   faq:       { kicker: "FAQ", title: "Good to know" },
 
   footer: {
-    tagline: "Owner-run beachfront condos in Destin, Florida. Book direct, keep the fee.",
-    links: [["Photos", "#gallery"], ["Rates", "#rates"], ["Map", "#location"], ["FAQ", "#faq"], ["All properties", "properties.html"], ["Your account", "register.html"], ["Terms", "terms.html"], ["Privacy", "privacy.html"]],
+    tagline: "Owner-run beach condos on Florida's Gulf Coast. Book direct, keep the fee.",
+    links: [["Photos", "#gallery"], ["Rates", "#rates"], ["Map", "#location"], ["FAQ", "#faq"], ["All properties", "properties.html"], ["Your account", "register.html"], ["Terms", "terms.html"], ["Privacy", "privacy.html"], ["Owner", "admin/"]],
     legal_lead: "Book direct with Owner. No platform fee:",
     legal: "every reservation, payment, cancellation and refund is a direct agreement between you and the property owner. SunDestin Online is the owner's own website, not a marketplace or agent.",
     copyright: "SunDestin Online"
@@ -91,5 +91,5 @@ window.SDO_SITE = {
              save_btn: "Save", saved: "Saved. Open the site to see it.", export_btn: "Export files", reset_btn: "Discard changes", reset_done: "Changes discarded. The site shows the published files again.",
              signout_btn: "Close owner tools" },
   /* properties.html */
-  list: { kicker: "Properties", title: "Owner-run condos on the Destin beach", lead: "Each one is booked directly with its owner. Pick a condo to see photos, rates and the map.", from: "from", per_night: "/ night" }
+  list: { kicker: "Properties", title: "Owner-run condos on the Gulf Coast", lead: "Each one is booked directly with its owner. Pick a condo to see photos, rates and the map.", from: "from", per_night: "/ night" }
 };

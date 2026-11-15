@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Owner tools · SunDestin Online</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/site_style.css?v=48">
+<link rel="stylesheet" href="../css/site_style.css?v=49">
 <style>
   .admin_grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .admin_card{background:var(--sand);border-radius:var(--radius);padding:24px}
@@ -102,15 +102,16 @@
     <div class="footer_legal"><b data-t="site.footer.legal_lead"></b> <span data-t="site.footer.legal"></span> © <span id="footer_year"></span> <span data-t="site.footer.copyright"></span></div>
   </div>
 </footer>
-<script src="../data/site_text.js?v=48"></script>
-<script src="../data/properties.js?v=48"></script>
-<script src="../js/csv.js?v=48"></script>
-<script src="../js/site_store.js?v=48"></script>
-<script src="../js/site_app.js?v=48"></script>
+<script src="../data/site_text.js?v=49"></script>
+<script src="../data/properties.js?v=49"></script>
+<script src="../js/csv.js?v=49"></script>
+<script src="../js/site_store.js?v=49"></script>
+<script src="../js/site_app.js?v=49"></script>
 <script>
 (function () {
   var S = window.SDO_STORE, C = window.SDO_CSV, T = window.SDO_SITE.admin;
-  var P = window.SDO_PROPERTIES.filter(function (p) { return p.featured; })[0] || window.SDO_PROPERTIES[0];
+  var pid = new URLSearchParams(location.search).get("p");
+  var P = window.SDO_PROPERTIES.filter(function (p) { return p.id === pid; })[0] || window.SDO_PROPERTIES.filter(function (p) { return p.featured; })[0] || window.SDO_PROPERTIES[0];
   var $ = function (s) { return document.querySelector(s); }, $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var esc = function (s) { return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;"); };
   function msg(id, cls, text) { var m = $(id); m.className = m.className.replace(/ (ok|err)/g, "") + " " + cls; m.textContent = text; }

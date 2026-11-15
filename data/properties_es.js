@@ -27,5 +27,42 @@ window.SDO_PROPERTIES_ES = {
       ["¿Cuál es la política de cancelación?", "La política del propietario se indica con cada reserva. Pregunta antes de pagar si necesitas flexibilidad."]
     ],
     rates_note: "Tarifas de muestra solo para el diseño. El propietario confirma tarifas, estancias mínimas y cargos antes del lanzamiento."
+  },
+  laketown_815: {
+    complex: "Laketown Wharf Resort",
+    headline: "Vistas al Golfo desde el piso 8. Cinco piscinas abajo.",
+    subhead: "Condominio de 1 dormitorio y 2 baños en Laketown Wharf, con cama king, rincón de literas y la playa a un corto paseo cruzando la calle.",
+    facts: { floor: "8.º piso", view: "Vista al Golfo" },
+    site: {
+      hero: {
+        title: "Vistas al Golfo desde el piso 8,",
+        title2: "cinco piscinas abajo",
+        sub: "Condominio de 1 dormitorio y 2 baños en Laketown Wharf Resort, Panama City Beach FL, con cama king, rincón de literas y sofá cama queen. Capacidad para 6.",
+        sub_strong: "La playa está a un corto paseo cruzando la calle.",
+        sub2: "Laketown Wharf es un resort en sí mismo: cinco piscinas, zona de chapoteo, un paseo junto al lago con restaurantes, gimnasio y putting green, con Pier Park y el Golfo a minutos."
+      },
+      location: { title: "En pleno Panama City Beach" }
+    },
+    beds: ["Cama king en el dormitorio", "Sofá cama queen en la sala", "Litera individual doble en el rincón de literas"],
+    photo_tags: { Kitchen: "Cocina", Balcony: "Balcón", Living: "Sala", Pool: "Piscina", Bedroom: "Dormitorio", Bunks: "Literas", Bath: "Baño", Laundry: "Lavandería", Resort: "Resort" },
+    description: [
+      "Dentro, la planta abierta va de una cocina totalmente equipada con gabinetes de cerezo, encimeras de granito y barra de desayuno, pasando por el comedor, hasta una sala con dos sofás, televisor de pantalla plana y un ventanal al balcón. El dormitorio tiene cama king y baño completo propio; un segundo baño completo sirve al rincón de literas, y un sofá cama queen completa la capacidad de 6. Lavadora y secadora apiladas en el pasillo.",
+      "Sal al balcón del piso 8 para ver el Golfo sobre Thomas Drive. Abajo, Laketown Wharf tiene cinco piscinas, zona de chapoteo para niños, un paseo junto al lago con restaurantes y tiendas, gimnasio y putting green. La playa está a un corto paseo cruzando la calle, y Pier Park, Shipwreck Island y Ripley's a minutos."
+    ],
+    amenity_groups: [
+      ["Resort y playa", "beach", ["Cinco piscinas y zona de chapoteo", "Paseo junto al lago con restaurantes", "Gimnasio y putting green", "Acceso a la playa cruzando Thomas Drive", "Ascensores y estacionamiento cubierto"]],
+      ["Interior",       "kitchen", ["Cocina totalmente equipada", "Barra de desayuno con asientos", "Lavavajillas y microondas", "Cafetera", "Televisores de pantalla plana en sala y dormitorio", "Lavadora y secadora en la unidad"]],
+      ["Confort",        "wifi", ["Wi-Fi gratis", "Aire acondicionado central", "Sábanas y toallas incluidas", "Secador de pelo, plancha y tabla", "Dos baños completos", "No se admiten mascotas ni fumar"]]
+    ],
+    nearby_dist: ["unos 5 minutos a pie", "a 1 milla", "a 3 millas", "a 2 millas", "a 4 millas", "a 30 minutos"],
+    faq: [
+      ["¿Cómo reservo?", "Envía una consulta con tus fechas. El propietario responde en un día con un presupuesto y le pagas directamente. En este sitio no hay comisión de plataforma."],
+      ["¿Cómo son las camas?", "Una cama king en el dormitorio, un sofá cama queen en la sala y una litera individual doble en el rincón de literas. Capacidad para 6."],
+      ["¿A qué distancia está la playa?", "Laketown Wharf está frente a la playa cruzando Thomas Drive. Usa el paso de peatones en la entrada del resort; es un paseo corto."],
+      ["¿Incluye estacionamiento?", "El resort cobra una tarifa de estacionamiento y pulseras al registrarse, pagada al resort. Pregunta al propietario por el monto actual."],
+      ["¿Hay ascensor?", "Sí. El condominio está en el piso 8 con ascensores desde el estacionamiento."],
+      ["¿Cuál es la política de cancelación?", "La política del propietario se indica con cada reserva. Pregunta antes de pagar si necesitas flexibilidad."]
+    ],
+    rates_note: "Tarifas de muestra solo para el diseño. El propietario confirma tarifas, estancias mínimas, la tarifa de estacionamiento del resort y la limpieza antes del lanzamiento."
   }
 };

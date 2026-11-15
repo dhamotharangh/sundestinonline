@@ -1,3 +1,7 @@
+# Built 2026-11-15: Laketown Wharf #815 is on the site
+
+`index.html?p=laketown_815` renders the second property (data: `laketown_815` in `data/properties.js` and `data/properties_es.js`, 19 of the owner's 45 photos in `images/laketown_wharf/`, sample rate and availability rows in the CSVs). Header pill Destin | PCB (`B.site_prop`, same CSS as the EN | ES pill, `place` field per property). A property may override site-level copy through `site: { hero, location }`; anchor links from other pages keep `?p=`. Facts (1 BR, 2 BA, sleeps 6, king + twin bunks + queen sleeper, 8th floor, washer/dryer) come from the Sail Away Rentals listing of unit 0815; rates are SAMPLE values ($139/$199/$279/$319), the resort parking fee and cleaning fee are unconfirmed. Not done: rebrand to ownervacation.rentals, host choice, the 26 unused photos and the three zips stay untracked.
+
 # Decisions 2026-11-14 (evening): second property, one brand, one host
 
 **Second property: Laketown Wharf, Unit 815 (Panama City Beach)** joins THIS repo as a second object in `data/properties.js` (id `laketown_815`, plus `data/properties_es.js`, rows in `rates.csv` / `availability.csv`, photos in `images/laketown_wharf/`). No separate folder or repo: the site already renders any property via `index.html?p=<id>` and `properties.html` lists them all. Owner wants it "like laketown815.com"; the photo source is NOT yet named, and facts (beds, sleeps, floor, view, address) and rates are still needed.
