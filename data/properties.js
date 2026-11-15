@@ -144,7 +144,7 @@ window.SDO_PROPERTIES = [
     map_ring_miles: 3,
     rates_note: "Sample rates for layout only. The owner confirms live nightly rates, minimum stays, the resort parking fee and cleaning fee before launch.",
     nearby: [
-      ["Beach (across Thomas Drive)", "about 5 minutes on foot"],
+      ["Beach (across Thomas Drive)", "just across the street"],
       ["Shipwreck Island Waterpark", "about 1 mi", 30.1830, -85.8160],
       ["Pier Park (shopping, dining)", "about 3 mi", 30.2120, -85.8690],
       ["Ripley's Believe It or Not", "about 2 mi", 30.1976, -85.8373],

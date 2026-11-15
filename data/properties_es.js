@@ -54,7 +54,7 @@ window.SDO_PROPERTIES_ES = {
       ["Interior",       "kitchen", ["Cocina totalmente equipada", "Barra de desayuno con asientos", "Lavavajillas y microondas", "Cafetera", "Televisores de pantalla plana en sala y dormitorio", "Lavadora y secadora en la unidad"]],
       ["Confort",        "wifi", ["Wi-Fi gratis", "Aire acondicionado central", "Sábanas y toallas incluidas", "Secador de pelo, plancha y tabla", "Dos baños completos", "No se admiten mascotas ni fumar"]]
     ],
-    nearby_dist: ["unos 5 minutos a pie", "a 1 milla", "a 3 millas", "a 2 millas", "a 4 millas", "a 30 minutos"],
+    nearby_dist: ["justo cruzando la calle", "a 1 milla", "a 3 millas", "a 2 millas", "a 4 millas", "a 30 minutos"],
     faq: [
       ["¿Cómo reservo?", "Envía una consulta con tus fechas. El propietario responde en un día con un presupuesto y le pagas directamente. En este sitio no hay comisión de plataforma."],
       ["¿Cómo son las camas?", "Una cama king en el dormitorio, un sofá cama queen en la sala y una litera individual doble en el rincón de literas. Capacidad para 6."],
