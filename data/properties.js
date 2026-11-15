@@ -76,6 +76,6 @@ window.SDO_PROPERTIES = [
       ["Is there an elevator?", "The condo is on the 2nd floor, one flight up. Most guests find the stairs faster than waiting for an elevator with beach gear."],
       ["What is the cancellation policy?", "The owner's policy is quoted with every booking. Ask before you pay if you need flexibility."]
     ],
-    contact: { email: "list.damo@gmail.com", phone: "", whatsapp: "" }
+    contact: { email: "achaiyan@gmail.com", phone: "+1 (678) 793-9686", whatsapp: "" }
   }
 ];
