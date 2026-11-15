@@ -166,9 +166,9 @@
     el.innerHTML = (P.faq || []).map(function (q) { return "<details><summary>" + esc(q[0]) + "</summary><p>" + esc(q[1]) + "</p></details>"; }).join("");
   };
   B.footer_links = function (el) {
-    var pre = el.getAttribute("data-prefix") || "";
+    var pre = el.getAttribute("data-prefix") || "", dir = pre.replace(/[^\/]*$/, ""); // page links are relative to the site root, so admin/ needs "../"
     el.innerHTML = (S.footer.links || []).map(function (l) {
-      var href = l[1].charAt(0) === "#" ? pre + l[1] : l[1];
+      var href = l[1].charAt(0) === "#" ? pre + l[1] : dir + l[1];
       return '<a href="' + esc(href) + '">' + esc(l[0]) + "</a>";
     }).join("");
   };
