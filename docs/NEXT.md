@@ -1,3 +1,19 @@
+# Decisions 2026-11-14 (evening): second property, one brand, one host
+
+**Second property: Laketown Wharf, Unit 815 (Panama City Beach)** joins THIS repo as a second object in `data/properties.js` (id `laketown_815`, plus `data/properties_es.js`, rows in `rates.csv` / `availability.csv`, photos in `images/laketown_wharf/`). No separate folder or repo: the site already renders any property via `index.html?p=<id>` and `properties.html` lists them all. Owner wants it "like laketown815.com"; the photo source is NOT yet named, and facts (beds, sleeps, floor, view, address) and rates are still needed.
+
+**One brand: ownervacation.rentals** (being bought at Namecheap). Rebrand the ~35 literal "SunDestin Online" mentions (page titles, footers, Terms, Privacy, ES text) and `brand` in `data/site_text.js`. Bare URL lands on the two-property list.
+
+**Header pill "Destin | PCB"** flips between the two property pages: same component as the EN | ES toggle (`B.site_lang` in `js/site_app.js`, `.site_lang` CSS), one button per property linking to its `?p=` page, label from a new one-word `place` field per property. About 8 lines of JS, no new CSS.
+
+**Domains:** sundestinonline.com and laketown815.com stay independent names, same look and feel. Two ways, owner to pick with the host:
+- GitHub Pages (one custom domain per repo): CNAME becomes ownervacation.rentals; the two old domains 301-forward at the registrar to `/?p=sundestin_203` and `/?p=laketown_815` (address bar changes; HTTPS on the old names needs Cloudflare free or similar).
+- Namecheap Stellar shared hosting (free trial offered in the cart, then ~$5.88/mo; renewal price to check): PHP 8 + MySQL + cron + AutoSSL + cPanel Git deploy, 3 websites. All three domains point at the same folder, each keeps its own address bar, a hostname check picks the default property. ALSO runs the booking API in `api/` that GitHub Pages cannot, so it replaces the Hostinger Business plan above. Recommended; owner has not yet confirmed.
+
+**Order when switching host or domain:** new domain live and verified first, then CNAME/DNS change, then forwards, so sundestinonline.com is never dark. Google Search Console change-of-address after the 301s.
+
+---
+
 # Handoff 2026-11-14: the site is LIVE as a brochure
 
 **Live at https://sundestinonline.com/ on GitHub Pages** (repo `dhamotharangh/sundestinonline`, now PUBLIC, branch `main`, root folder; every push redeploys in about a minute). The `CNAME` file in the repo root holds the custom domain: do not delete it.
