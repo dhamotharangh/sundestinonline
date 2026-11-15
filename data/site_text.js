@@ -1,10 +1,10 @@
-/* SunDestin Online — SITE-LEVEL TEXT PLACEHOLDERS.
+/* Owner Vacation Rentals — SITE-LEVEL TEXT PLACEHOLDERS.
    Every word that is not about one specific property lives here. Edit text freely, keep the keys.
    Keys follow the page: site.hero.*, site.gallery.*, site.condo.*, site.amenities.*, site.rates.*,
    site.location.*, site.reviews.*, site.inquiry.*, site.faq.*, site.footer.*
    {name} inside a string becomes the property's name. Property text lives in data/properties.js. */
 window.SDO_SITE = {
-  brand: { name: "SunDestin", accent: "Online", domain: "https://sundestinonline.com" },
+  brand: { name: "Owner Vacation", accent: "Rentals", domain: "https://sundestinonline.com" },
 
   /* Slim menu: three links. On phones they sit in a bottom bar. */
   nav: [["Photos", "#gallery"], ["Rates", "#rates"], ["Contact", "#inquiry"]],
@@ -71,8 +71,8 @@ window.SDO_SITE = {
     tagline: "Owner-run beach condos on Florida's Gulf Coast. Book direct, keep the fee.",
     links: [["Photos", "#gallery"], ["Rates", "#rates"], ["Map", "#location"], ["FAQ", "#faq"], ["All properties", "properties.html"], ["Your account", "register.html"], ["Terms", "terms.html"], ["Privacy", "privacy.html"], ["Owner", "admin/"]],
     legal_lead: "Book direct with Owner. No platform fee:",
-    legal: "every reservation, payment, cancellation and refund is a direct agreement between you and the property owner. SunDestin Online is the owner's own website, not a marketplace or agent.",
-    copyright: "SunDestin Online"
+    legal: "every reservation, payment, cancellation and refund is a direct agreement between you and the property owner. Owner Vacation Rentals is the owner's own website, not a marketplace or agent.",
+    copyright: "Owner Vacation Rentals"
   },
 
   /* register.html + admin.html (demo: browser storage only) */
@@ -82,7 +82,7 @@ window.SDO_SITE = {
              signup_btn: "Create account", signin_btn: "Login", signout_btn: "Sign out",
              delete_link: "Email to Admin with a request to delete your account",
              delete_subject: "Account deletion request: {email}",
-             delete_body: "Hello,\n\nPlease delete my SunDestin Online account.\n\nName: {user}\nEmail: {email}\n\nThanks",
+             delete_body: "Hello,\n\nPlease delete my Owner Vacation Rentals account.\n\nName: {user}\nEmail: {email}\n\nThanks",
              hello: "Hello, {user}", since: "Registered {date}", switch_in: "Already registered? Sign in", switch_up: "New here? Open to register" },
   admin:   { demo_passcode: "sundestin", kicker: "Owner", title: "Edit the site", lead: "Change the text, upload rates and availability, and block days on the calendar. Demo: changes live in this browser only; use Export to publish them through GitHub.",
              gate_title: "Owner sign-in", gate_label: "Passcode", gate_btn: "Open", gate_error: "Wrong passcode.",

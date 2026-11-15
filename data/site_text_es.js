@@ -1,4 +1,4 @@
-/* SunDestin Online — SPANISH site text. Same keys as data/site_text.js; anything missing here
+/* Owner Vacation Rentals — SPANISH site text. Same keys as data/site_text.js; anything missing here
    falls back to English. Edit freely, keep the keys. */
 window.SDO_SITE_ES = {
   nav: [["Fotos", "#gallery"], ["Tarifas", "#rates"], ["Contacto", "#inquiry"]],
@@ -64,8 +64,8 @@ window.SDO_SITE_ES = {
     tagline: "Condominios de playa en la costa del Golfo de Florida, gestionados por su propietario. Reserva directa, sin comisión.",
     links: [["Fotos", "#gallery"], ["Tarifas", "#rates"], ["Mapa", "#location"], ["Preguntas", "#faq"], ["Todas las propiedades", "properties.html"], ["Tu cuenta", "register.html"], ["Términos", "terms.html"], ["Privacidad", "privacy.html"], ["Propietario", "admin/"]],
     legal_lead: "Reserva directa con el propietario. Sin comisión de plataforma:",
-    legal: "cada reserva, pago, cancelación y reembolso es un acuerdo directo entre tú y el propietario. SunDestin Online es el sitio propio del propietario, no un mercado ni una agencia.",
-    copyright: "SunDestin Online"
+    legal: "cada reserva, pago, cancelación y reembolso es un acuerdo directo entre tú y el propietario. Owner Vacation Rentals es el sitio propio del propietario, no un mercado ni una agencia.",
+    copyright: "Owner Vacation Rentals"
   },
 
   account: { kicker: "Huéspedes", title: "Tu cuenta", lead: "Regístrate una vez y tus datos quedan listos para cada consulta. Demo: se guarda solo en este navegador.",
@@ -74,7 +74,7 @@ window.SDO_SITE_ES = {
              signup_btn: "Crear cuenta", signin_btn: "Entrar", signout_btn: "Salir",
              delete_link: "Escribe al administrador para pedir que borre tu cuenta",
              delete_subject: "Solicitud para borrar mi cuenta: {email}",
-             delete_body: "Hola,\n\nPor favor borra mi cuenta de SunDestin Online.\n\nNombre: {user}\nCorreo: {email}\n\nGracias",
+             delete_body: "Hola,\n\nPor favor borra mi cuenta de Owner Vacation Rentals.\n\nNombre: {user}\nCorreo: {email}\n\nGracias",
              hello: "Hola, {user}", since: "Registrado el {date}", switch_in: "¿Ya tienes cuenta? Inicia sesión", switch_up: "¿Nuevo aquí? Abre para registrarte" },
 
   msgs: { "Fill in name, email and password.": "Escribe tu nombre, correo y contraseña.",

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Owner tools · SunDestin Online</title>
+<title>Owner tools · Owner Vacation Rentals</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/site_style.css?v=49">
+<link rel="stylesheet" href="../css/site_style.css?v=50">
 <style>
   .admin_grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   .admin_card{background:var(--sand);border-radius:var(--radius);padding:24px}
@@ -102,11 +102,11 @@
     <div class="footer_legal"><b data-t="site.footer.legal_lead"></b> <span data-t="site.footer.legal"></span> © <span id="footer_year"></span> <span data-t="site.footer.copyright"></span></div>
   </div>
 </footer>
-<script src="../data/site_text.js?v=49"></script>
-<script src="../data/properties.js?v=49"></script>
-<script src="../js/csv.js?v=49"></script>
-<script src="../js/site_store.js?v=49"></script>
-<script src="../js/site_app.js?v=49"></script>
+<script src="../data/site_text.js?v=50"></script>
+<script src="../data/properties.js?v=50"></script>
+<script src="../js/csv.js?v=50"></script>
+<script src="../js/site_store.js?v=50"></script>
+<script src="../js/site_app.js?v=50"></script>
 <script>
 (function () {
   var S = window.SDO_STORE, C = window.SDO_CSV, T = window.SDO_SITE.admin;
@@ -209,7 +209,7 @@
   $("#export_btn").addEventListener("click", function () {
     var t = textObj(), src = JSON.stringify(window.SDO_PROPERTIES, null, 2);
     var props = window.SDO_PROPERTIES.map(function (p) { return p.id === P.id ? Object.assign({}, p, t) : p; });
-    var js = "/* SunDestin Online — PROPERTY DATA (exported from admin.html " + new Date().toISOString().slice(0, 10) + ") */\nwindow.SDO_PROPERTIES = " + JSON.stringify(props, null, 2) + ";\n";
+    var js = "/* Owner Vacation Rentals — PROPERTY DATA (exported from admin.html " + new Date().toISOString().slice(0, 10) + ") */\nwindow.SDO_PROPERTIES = " + JSON.stringify(props, null, 2) + ";\n";
     download("properties.js", js, "text/javascript");
     if (ratesCsv) download("rates.csv", ratesCsv, "text/csv");
     download("availability.csv", availCsv(), "text/csv");

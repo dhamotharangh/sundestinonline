@@ -1,4 +1,4 @@
-/* SunDestin Online — PROPERTY DATA. One object per property; the "featured" one is the home page.
+/* Owner Vacation Rentals — PROPERTY DATA. One object per property; the "featured" one is the home page.
    Photos live in images/ with logical names (kitchen_wide.jpg). Rates and availability come from
    data/rates.csv and data/availability.csv (matched on id); "seasons" below gives each season key
    its colour and is the fallback if the CSV cannot be read. */

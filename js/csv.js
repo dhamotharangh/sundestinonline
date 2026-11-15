@@ -1,4 +1,4 @@
-/* SunDestin Online — CSV parsing and validation shared by the site and the upload page.
+/* Owner Vacation Rentals — CSV parsing and validation shared by the site and the upload page.
    Rates CSV columns:        property_id,start,end,season,label,nightly,min_nights   (start and end inclusive)
    Availability CSV columns: property_id,checkin,checkout,status,note               (checkout exclusive, like a booking) */
 (function () {

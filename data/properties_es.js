@@ -1,4 +1,4 @@
-/* SunDestin Online — SPANISH property text. Keyed by property id; only text fields, the rest
+/* Owner Vacation Rentals — SPANISH property text. Keyed by property id; only text fields, the rest
    (photos, rates, fees, coordinates) comes from data/properties.js. */
 window.SDO_PROPERTIES_ES = {
   sundestin_203: {

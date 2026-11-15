@@ -1,4 +1,4 @@
-/* SunDestin Online — one script for every page. Vanilla JS, no dependencies.
+/* Owner Vacation Rentals — one script for every page. Vanilla JS, no dependencies.
    Fills the HTML layout from the data files:
      data/site_text.js   → window.SDO_SITE        (site-wide text)
      data/properties.js  → window.SDO_PROPERTIES  (per-property content)

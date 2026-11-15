@@ -1,4 +1,4 @@
-# SunDestin Online
+# Owner Vacation Rentals (repo: sundestinonline)
 
 Owner-run promotional website for SunDestin #203 (Destin, FL), built to hold up to a few sister units. Static HTML, CSS and vanilla JavaScript. No framework, no build step.
 

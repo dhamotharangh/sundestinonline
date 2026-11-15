@@ -1,4 +1,4 @@
-/* SunDestin Online — storage module (DEMO: browser localStorage).
+/* Owner Vacation Rentals — storage module (DEMO: browser localStorage).
    Every page reads and writes through SDO_STORE, never localStorage directly, so the
    production backend (PHP + MySQL on Hostinger) replaces this one file with fetch() calls.
    Keys: text_<property_id>, rates_csv, availability_csv, users, session.
