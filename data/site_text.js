@@ -5,6 +5,11 @@
    {name} inside a string becomes the property's name. Property text lives in data/properties.js. */
 window.SDO_SITE = {
   brand: { name: "Owner Vacation", accent: "Rentals", domain: "https://sundestinonline.com" },
+  /* property domains: a bare visit opens that condo and the header carries its own name; any other host is the combined site */
+  hosts: {
+    "sundestinonline.com": { property: "sundestin_203", brand: { name: "SunDestin", accent: "Online" } },
+    "laketown815.com":     { property: "laketown_815",  brand: { name: "Laketown Wharf", accent: "815" } }
+  },
 
   /* Slim menu: three links. On phones they sit in a bottom bar. */
   nav: [["Photos", "#gallery"], ["Rates", "#rates"], ["Contact", "#inquiry"]],

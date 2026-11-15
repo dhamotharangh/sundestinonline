@@ -18,6 +18,8 @@
   function merge(a, b) { var o = Object.assign({}, a); Object.keys(b || {}).forEach(function (k) { o[k] = (b[k] && typeof b[k] === "object" && !Array.isArray(b[k]) && a && typeof a[k] === "object" && !Array.isArray(a[k])) ? merge(a[k], b[k]) : b[k]; }); return o; }
   var S = LANG === "es" ? merge(window.SDO_SITE, window.SDO_SITE_ES) : (window.SDO_SITE || {});
   var LOCALE = LANG === "es" ? "es-ES" : "en-US";
+  var HOST = (S.hosts || {})[location.hostname.replace(/^www\./, "")];
+  if (HOST && HOST.brand) S = merge(S, { brand: HOST.brand, footer: { copyright: HOST.brand.name + " " + HOST.brand.accent } });
   /* short messages written in English in code: Spanish comes from S.msgs, keyed by the English text */
   function tr(s) { return (S.msgs || {})[s] || s; }
   window.SDO_tr = tr; window.SDO_TEXT = S;
