@@ -87,14 +87,14 @@ window.SDO_PROPERTIES = [
     address: "9860 S Thomas Dr, #815, Panama City Beach, FL 32408",
     lat: 30.1773, lng: -85.8054,
     headline: "Gulf views from the 8th floor. Five pools below.",
-    subhead: "A 1-bedroom, 2-bath condo at Laketown Wharf with a king bed, a bunk nook and the beach a short walk across the street.",
+    subhead: "A 1-bedroom, 2-bath condo at Laketown Wharf with a king bed, a bunk nook and the beach just across the street.",
     facts: { bedrooms: 1, bathrooms: 2, sleeps: 6, floor: "8th floor", view: "Gulf view" },
     site: {
       hero: {
         title: "Gulf views from the 8th floor,",
         title2: "five pools below",
         sub: "A 1-bedroom, 2-bath condo at Laketown Wharf Resort, Panama City Beach FL, with a king bed, a bunk nook and a queen sleeper. Sleeps 6.",
-        sub_strong: "The beach is a short walk across the street.",
+        sub_strong: "The beach is just across the street.",
         sub2: "Laketown Wharf is a resort in itself: five pools, a splash pad, a lakefront boardwalk with restaurants, a fitness center and a putting green, with Pier Park and the Gulf minutes away."
       },
       location: { title: "In the middle of Panama City Beach" }
@@ -124,7 +124,7 @@ window.SDO_PROPERTIES = [
     ],
     description: [
       "Inside, an open floor plan runs from a fully equipped kitchen with cherry cabinets, granite counters and a breakfast bar, through the dining area, into a living room with two sofas, a flat-screen TV and a wall of glass onto the balcony. The bedroom has a king bed and its own full bathroom; a second full bath serves the twin bunk nook, and a queen sleeper sofa brings the count to 6. A stacked washer and dryer sits in the hall.",
-      "Step out onto the 8th-floor balcony for Gulf views over Thomas Drive. Downstairs, Laketown Wharf has five pools, a splash pad, a lakefront boardwalk with restaurants and shops, a fitness center and a putting green. The beach is a short walk across the street, and Pier Park, Shipwreck Island and Ripley's are minutes away."
+      "Step out onto the 8th-floor balcony for Gulf views over Thomas Drive. Downstairs, Laketown Wharf has five pools, a splash pad, a lakefront boardwalk with restaurants and shops, a fitness center and a putting green. The beach is just across the street, and Pier Park, Shipwreck Island and Ripley's are minutes away."
     ],
     amenity_groups: [
       ["Resort and beach", "beach", ["Five pools and a kids splash pad", "Lakefront boardwalk with dining", "Fitness center and putting green", "Beach access across Thomas Drive", "Elevators and covered parking garage"]],
@@ -156,7 +156,7 @@ window.SDO_PROPERTIES = [
     faq: [
       ["How do I book?", "Send an inquiry with your dates. The owner replies within a day with a quote, and you pay the owner directly. There is no platform service fee on this site."],
       ["What is the bed setup?", "A king bed in the bedroom, a queen sleeper sofa in the living room and a twin-over-twin bunk bed in the bunk area. The condo sleeps 6."],
-      ["How far is the beach?", "Laketown Wharf sits across Thomas Drive from the beach. Use the crosswalk at the resort entrance; it is a short walk."],
+      ["How far is the beach?", "Laketown Wharf sits across Thomas Drive from the beach. Use the crosswalk at the resort entrance and you are on the sand."],
       ["Is parking included?", "The resort charges a parking and wristband fee at check-in, paid to the resort. Ask the owner for the current amount."],
       ["Is there an elevator?", "Yes. The condo is on the 8th floor with elevators from the parking garage."],
       ["What is the cancellation policy?", "The owner's policy is quoted with every booking. Ask before you pay if you need flexibility."]
